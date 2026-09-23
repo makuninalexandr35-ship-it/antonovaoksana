@@ -1,0 +1,690 @@
+{
+  "assets/23 .JPG": {
+    "original_bytes": 66626,
+    "variants": [
+      {
+        "src": "assets/optimized/85089eed029c-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 27842
+      },
+      {
+        "src": "assets/optimized/85089eed029c-720.webp",
+        "width": 720,
+        "height": 1280,
+        "bytes": 71126
+      }
+    ]
+  },
+  "assets/81eff6ad-1b45-4eac-aeb0-b7ce3cb04592.png": {
+    "original_bytes": 2335959,
+    "variants": [
+      {
+        "src": "assets/optimized/cd528ac478c6-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 56402
+      },
+      {
+        "src": "assets/optimized/cd528ac478c6-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 172120
+      },
+      {
+        "src": "assets/optimized/cd528ac478c6-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 272512
+      }
+    ]
+  },
+  "assets/gift-set.jpg": {
+    "original_bytes": 114768,
+    "variants": [
+      {
+        "src": "assets/optimized/552db45188d0-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 55438
+      },
+      {
+        "src": "assets/optimized/552db45188d0-720.webp",
+        "width": 720,
+        "height": 1280,
+        "bytes": 137140
+      }
+    ]
+  },
+  "assets/hero-cake.jpg": {
+    "original_bytes": 119564,
+    "variants": [
+      {
+        "src": "assets/optimized/38a4229c5821-400.webp",
+        "width": 400,
+        "height": 533,
+        "bytes": 32542
+      },
+      {
+        "src": "assets/optimized/38a4229c5821-800.webp",
+        "width": 800,
+        "height": 1067,
+        "bytes": 107752
+      },
+      {
+        "src": "assets/optimized/38a4229c5821-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 148592
+      }
+    ]
+  },
+  "assets/logo-aov2.png": {
+    "original_bytes": 142033,
+    "variants": [
+      {
+        "src": "assets/optimized/1a6376d9cc69-360.webp",
+        "width": 360,
+        "height": 120,
+        "bytes": 5568
+      },
+      {
+        "src": "assets/optimized/1a6376d9cc69-720.webp",
+        "width": 720,
+        "height": 240,
+        "bytes": 14222
+      }
+    ]
+  },
+  "assets/personalized-sweets.jpg": {
+    "original_bytes": 157631,
+    "variants": [
+      {
+        "src": "assets/optimized/4127335644ff-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 80538
+      },
+      {
+        "src": "assets/optimized/4127335644ff-720.webp",
+        "width": 720,
+        "height": 1280,
+        "bytes": 202646
+      }
+    ]
+  },
+  "assets/zephyr.jpg": {
+    "original_bytes": 92865,
+    "variants": [
+      {
+        "src": "assets/optimized/a73d6dbb6d7f-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 46672
+      },
+      {
+        "src": "assets/optimized/a73d6dbb6d7f-720.webp",
+        "width": 720,
+        "height": 1280,
+        "bytes": 102166
+      }
+    ]
+  },
+  "assets/Ваниль клубника.png": {
+    "original_bytes": 2101785,
+    "variants": [
+      {
+        "src": "assets/optimized/a298af3bbaf0-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 42636
+      },
+      {
+        "src": "assets/optimized/a298af3bbaf0-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 126540
+      },
+      {
+        "src": "assets/optimized/a298af3bbaf0-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 203494
+      }
+    ]
+  },
+  "assets/Груша дор блю.png": {
+    "original_bytes": 2000924,
+    "variants": [
+      {
+        "src": "assets/optimized/7521e197859c-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 36758
+      },
+      {
+        "src": "assets/optimized/7521e197859c-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 104992
+      },
+      {
+        "src": "assets/optimized/7521e197859c-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 167598
+      }
+    ]
+  },
+  "assets/Елочка.jpg": {
+    "original_bytes": 591684,
+    "variants": [
+      {
+        "src": "assets/optimized/7cff2bb5e784-400.webp",
+        "width": 400,
+        "height": 533,
+        "bytes": 86874
+      },
+      {
+        "src": "assets/optimized/7cff2bb5e784-800.webp",
+        "width": 800,
+        "height": 1067,
+        "bytes": 231626
+      },
+      {
+        "src": "assets/optimized/7cff2bb5e784-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 289394
+      }
+    ]
+  },
+  "assets/Красный торт.JPG": {
+    "original_bytes": 616167,
+    "variants": [
+      {
+        "src": "assets/optimized/08727a6e38cd-400.webp",
+        "width": 400,
+        "height": 533,
+        "bytes": 29120
+      },
+      {
+        "src": "assets/optimized/08727a6e38cd-800.webp",
+        "width": 800,
+        "height": 1067,
+        "bytes": 111050
+      },
+      {
+        "src": "assets/optimized/08727a6e38cd-960.webp",
+        "width": 960,
+        "height": 1280,
+        "bytes": 164026
+      }
+    ]
+  },
+  "assets/Лебеди.jpg": {
+    "original_bytes": 98435,
+    "variants": [
+      {
+        "src": "assets/optimized/323e56724d61-400.webp",
+        "width": 400,
+        "height": 601,
+        "bytes": 19314
+      },
+      {
+        "src": "assets/optimized/323e56724d61-800.webp",
+        "width": 800,
+        "height": 1202,
+        "bytes": 55016
+      },
+      {
+        "src": "assets/optimized/323e56724d61-852.webp",
+        "width": 852,
+        "height": 1280,
+        "bytes": 63008
+      }
+    ]
+  },
+  "assets/Марс.png": {
+    "original_bytes": 2382267,
+    "variants": [
+      {
+        "src": "assets/optimized/0b67946f94f7-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 58802
+      },
+      {
+        "src": "assets/optimized/0b67946f94f7-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 181332
+      },
+      {
+        "src": "assets/optimized/0b67946f94f7-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 294984
+      }
+    ]
+  },
+  "assets/Наполеон.png": {
+    "original_bytes": 2204234,
+    "variants": [
+      {
+        "src": "assets/optimized/e79c5604082f-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 47388
+      },
+      {
+        "src": "assets/optimized/e79c5604082f-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 136612
+      },
+      {
+        "src": "assets/optimized/e79c5604082f-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 219560
+      }
+    ]
+  },
+  "assets/Оксана Антонова.jpg": {
+    "original_bytes": 111443,
+    "variants": [
+      {
+        "src": "assets/optimized/5a7eacef9035-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 51546
+      },
+      {
+        "src": "assets/optimized/5a7eacef9035-720.webp",
+        "width": 720,
+        "height": 1280,
+        "bytes": 126884
+      }
+    ]
+  },
+  "assets/Орешки.jpg": {
+    "original_bytes": 2188644,
+    "variants": [
+      {
+        "src": "assets/optimized/f015a856bc41-400.webp",
+        "width": 400,
+        "height": 533,
+        "bytes": 81528
+      },
+      {
+        "src": "assets/optimized/f015a856bc41-800.webp",
+        "width": 800,
+        "height": 1067,
+        "bytes": 249310
+      },
+      {
+        "src": "assets/optimized/f015a856bc41-1600.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 671804
+      }
+    ]
+  },
+  "assets/С-днем-рождения.jpg": {
+    "original_bytes": 2090636,
+    "variants": [
+      {
+        "src": "assets/optimized/060af1414a76-400.webp",
+        "width": 400,
+        "height": 533,
+        "bytes": 48420
+      },
+      {
+        "src": "assets/optimized/060af1414a76-800.webp",
+        "width": 800,
+        "height": 1067,
+        "bytes": 170148
+      },
+      {
+        "src": "assets/optimized/060af1414a76-1600.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 475010
+      }
+    ]
+  },
+  "assets/Теннис.jpg": {
+    "original_bytes": 2315077,
+    "variants": [
+      {
+        "src": "assets/optimized/e0a556f500ee-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 59156
+      },
+      {
+        "src": "assets/optimized/e0a556f500ee-800.webp",
+        "width": 800,
+        "height": 1422,
+        "bytes": 217064
+      },
+      {
+        "src": "assets/optimized/e0a556f500ee-1600.webp",
+        "width": 1600,
+        "height": 2844,
+        "bytes": 800680
+      }
+    ]
+  },
+  "assets/Топор.jpg": {
+    "original_bytes": 2597056,
+    "variants": [
+      {
+        "src": "assets/optimized/a799d1b9b18f-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 95164
+      },
+      {
+        "src": "assets/optimized/a799d1b9b18f-800.webp",
+        "width": 800,
+        "height": 1422,
+        "bytes": 362434
+      },
+      {
+        "src": "assets/optimized/a799d1b9b18f-1600.webp",
+        "width": 1600,
+        "height": 2844,
+        "bytes": 1068650
+      }
+    ]
+  },
+  "assets/Торт 123.JPG": {
+    "original_bytes": 119981,
+    "variants": [
+      {
+        "src": "assets/optimized/cae76f854bbf-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 55714
+      },
+      {
+        "src": "assets/optimized/cae76f854bbf-720.webp",
+        "width": 720,
+        "height": 1280,
+        "bytes": 153318
+      }
+    ]
+  },
+  "assets/Торт люблю.png": {
+    "original_bytes": 2023860,
+    "variants": [
+      {
+        "src": "assets/optimized/02e90c97cd4e-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 37592
+      },
+      {
+        "src": "assets/optimized/02e90c97cd4e-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 93350
+      },
+      {
+        "src": "assets/optimized/02e90c97cd4e-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 149854
+      }
+    ]
+  },
+  "assets/Торт-заставка.jpg": {
+    "original_bytes": 1768985,
+    "variants": [
+      {
+        "src": "assets/optimized/c6097e4cd88b-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 33398
+      },
+      {
+        "src": "assets/optimized/c6097e4cd88b-800.webp",
+        "width": 800,
+        "height": 1422,
+        "bytes": 116880
+      },
+      {
+        "src": "assets/optimized/c6097e4cd88b-2268.webp",
+        "width": 2268,
+        "height": 4032,
+        "bytes": 758622
+      }
+    ]
+  },
+  "assets/Фрукты в шоколаде.png": {
+    "original_bytes": 2244719,
+    "variants": [
+      {
+        "src": "assets/optimized/981461dca556-400.webp",
+        "width": 400,
+        "height": 449,
+        "bytes": 56392
+      },
+      {
+        "src": "assets/optimized/981461dca556-800.webp",
+        "width": 800,
+        "height": 899,
+        "bytes": 141490
+      },
+      {
+        "src": "assets/optimized/981461dca556-1183.webp",
+        "width": 1183,
+        "height": 1329,
+        "bytes": 220076
+      }
+    ]
+  },
+  "assets/Черничный-50-лет.jpg": {
+    "original_bytes": 2083743,
+    "variants": [
+      {
+        "src": "assets/optimized/ab91fc3a0fa7-400.webp",
+        "width": 400,
+        "height": 533,
+        "bytes": 36706
+      },
+      {
+        "src": "assets/optimized/ab91fc3a0fa7-800.webp",
+        "width": 800,
+        "height": 1067,
+        "bytes": 121042
+      },
+      {
+        "src": "assets/optimized/ab91fc3a0fa7-1600.webp",
+        "width": 1600,
+        "height": 2133,
+        "bytes": 383272
+      }
+    ]
+  },
+  "assets/Шоколадный с вишневым конфи.png": {
+    "original_bytes": 2306943,
+    "variants": [
+      {
+        "src": "assets/optimized/dd43c1d61dc7-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 52790
+      },
+      {
+        "src": "assets/optimized/dd43c1d61dc7-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 161468
+      },
+      {
+        "src": "assets/optimized/dd43c1d61dc7-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 257296
+      }
+    ]
+  },
+  "assets/Шоколадный с дубайской начинкой.png": {
+    "original_bytes": 2394886,
+    "variants": [
+      {
+        "src": "assets/optimized/4c3df46db0ec-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 56670
+      },
+      {
+        "src": "assets/optimized/4c3df46db0ec-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 177924
+      },
+      {
+        "src": "assets/optimized/4c3df46db0ec-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 294754
+      }
+    ]
+  },
+  "assets/Шпинатный с лимонным курдом.png": {
+    "original_bytes": 2212883,
+    "variants": [
+      {
+        "src": "assets/optimized/54fccadc43c4-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 51332
+      },
+      {
+        "src": "assets/optimized/54fccadc43c4-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 148940
+      },
+      {
+        "src": "assets/optimized/54fccadc43c4-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 232744
+      }
+    ]
+  },
+  "assets/дед мороз.jpg": {
+    "original_bytes": 155580,
+    "variants": [
+      {
+        "src": "assets/optimized/b972278f5f09-400.webp",
+        "width": 400,
+        "height": 711,
+        "bytes": 89962
+      },
+      {
+        "src": "assets/optimized/b972278f5f09-720.webp",
+        "width": 720,
+        "height": 1280,
+        "bytes": 184704
+      }
+    ]
+  },
+  "assets/кексы.png": {
+    "original_bytes": 2114247,
+    "variants": [
+      {
+        "src": "assets/optimized/cfb0d97d17f2-400.webp",
+        "width": 400,
+        "height": 533,
+        "bytes": 39630
+      },
+      {
+        "src": "assets/optimized/cfb0d97d17f2-800.webp",
+        "width": 800,
+        "height": 1067,
+        "bytes": 113558
+      },
+      {
+        "src": "assets/optimized/cfb0d97d17f2-1086.webp",
+        "width": 1086,
+        "height": 1448,
+        "bytes": 173060
+      }
+    ]
+  },
+  "assets/медовик авторский.png": {
+    "original_bytes": 2013964,
+    "variants": [
+      {
+        "src": "assets/optimized/0196b7589d20-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 41236
+      },
+      {
+        "src": "assets/optimized/0196b7589d20-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 119432
+      },
+      {
+        "src": "assets/optimized/0196b7589d20-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 189536
+      }
+    ]
+  },
+  "assets/пироженые.png": {
+    "original_bytes": 2006026,
+    "variants": [
+      {
+        "src": "assets/optimized/f96267f0396d-400.webp",
+        "width": 400,
+        "height": 533,
+        "bytes": 39274
+      },
+      {
+        "src": "assets/optimized/f96267f0396d-800.webp",
+        "width": 800,
+        "height": 1067,
+        "bytes": 102514
+      },
+      {
+        "src": "assets/optimized/f96267f0396d-1086.webp",
+        "width": 1086,
+        "height": 1448,
+        "bytes": 152324
+      }
+    ]
+  },
+  "assets/рафаэлло.png": {
+    "original_bytes": 1928980,
+    "variants": [
+      {
+        "src": "assets/optimized/473c6a3b3d19-400.webp",
+        "width": 400,
+        "height": 500,
+        "bytes": 36962
+      },
+      {
+        "src": "assets/optimized/473c6a3b3d19-800.webp",
+        "width": 800,
+        "height": 1000,
+        "bytes": 99220
+      },
+      {
+        "src": "assets/optimized/473c6a3b3d19-1122.webp",
+        "width": 1122,
+        "height": 1402,
+        "bytes": 151174
+      }
+    ]
+  }
+}
