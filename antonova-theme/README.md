@@ -1,12 +1,70 @@
-# Antonova Oksana — WordPress theme
+# Тема сайта Oksana Antonova
 
-This branch is a safe WordPress migration build. The live `main` branch is not changed.
+Рабочий сайт: https://antonovaoksana.ru/
 
-## Current migration stage
-- Existing HTML/CSS/JS is preserved.
-- The complete `assets` folder is included inside the WordPress theme.
-- Images are loaded locally from the theme on Beget, not from GitHub Pages.
-- WordPress hooks are added for theme compatibility.
+## Где что хранится
 
-## Install
-Use the `antonova-theme` folder as the WordPress theme.
+### WordPress на Beget
+
+В базе WordPress хранятся данные, которые владелец сайта меняет через раздел
+`Antonova` в административной панели:
+
+- основные тексты и заголовки;
+- цены;
+- телефон;
+- ссылки Telegram, WhatsApp, Instagram, VK и Threads;
+- карточки продукции и начинок;
+- галерея работ;
+- вопросы и ответы FAQ.
+
+Загруженные через медиатеку изображения находятся в `wp-content/uploads` на
+Beget. База данных и папка `uploads` не синхронизируются через GitHub.
+
+### GitHub
+
+В GitHub хранятся код и дизайн темы:
+
+- PHP-шаблоны;
+- CSS и JavaScript;
+- изображения и другие ресурсы, входящие в саму тему;
+- сценарий автоматического развёртывания.
+
+Изменения ветки `main` внутри `antonova-theme` автоматически отправляются на
+Beget сценарием `.github/workflows/deploy-beget.yml`.
+
+## Как менять содержимое сайта
+
+1. Открыть `https://antonovaoksana.ru/wp-admin/`.
+2. В меню WordPress выбрать `Antonova`.
+3. Изменить необходимые поля или фотографии.
+4. Нажать `Сохранить изменения`.
+5. Проверить главную страницу сайта.
+
+Для изменения содержимого не требуется редактировать файлы или выполнять
+команды Git.
+
+## Как менять код или дизайн
+
+1. Изменить файлы в папке `antonova-theme` локального репозитория.
+2. Проверить изменения.
+3. Создать коммит и отправить его в ветку `main` на GitHub.
+4. Убедиться, что workflow `Deploy WordPress theme to Beget` завершился успешно.
+5. Проверить сайт.
+
+Не следует редактировать файлы темы непосредственно в панели Beget: следующая
+автоматическая публикация из GitHub может заменить такие изменения.
+
+## Резервные копии
+
+Beget хранит автоматические резервные копии файлов и баз данных. Дополнительно
+создан backup по требованию, содержащий файлы сайта и базу WordPress.
+
+Перед крупными изменениями содержимого рекомендуется обновить backup по
+требованию. При полном восстановлении файлы и базу данных следует выбирать за
+одну и ту же дату.
+
+## Важное правило
+
+- Контент меняется в WordPress.
+- Код и дизайн меняются через GitHub.
+- Резервные копии базы данных и загруженных изображений выполняются на Beget.
