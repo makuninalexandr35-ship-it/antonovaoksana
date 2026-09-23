@@ -10,6 +10,18 @@ function antonova_theme_setup() {
 }
 add_action('after_setup_theme', 'antonova_theme_setup');
 
+function antonova_send_security_headers() {
+    if (is_admin()) {
+        return;
+    }
+
+    header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: SAMEORIGIN');
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+    header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
+}
+add_action('send_headers', 'antonova_send_security_headers');
+
 function antonova_theme_assets() {
     wp_enqueue_style(
         'antonova-google-fonts',
