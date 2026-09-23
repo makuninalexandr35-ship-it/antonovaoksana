@@ -1,0 +1,74 @@
+name: Deploy WordPress theme to Beget
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "antonova-theme/**"
+      - ".github/workflows/deploy-beget.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: antonova-beget-production
+  cancel-in-progress: false
+
+jobs:
+  check-deployment:
+    name: Check deployment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Validate PHP files
+        shell: bash
+        run: |
+          find antonova-theme -type f -name "*.php" -print0 |
+          xargs -0 -n1 php -l
+
+      - name: Configure SSH
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.BEGET_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.BEGET_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Check destination
+        shell: bash
+        env:
+          BEGET_HOST: ${{ secrets.BEGET_HOST }}
+          BEGET_USER: ${{ secrets.BEGET_USER }}
+          BEGET_PORT: ${{ secrets.BEGET_PORT }}
+          BEGET_THEME_PATH: ${{ vars.BEGET_THEME_PATH }}
+        run: |
+          ssh -i ~/.ssh/id_ed25519 \
+            -o IdentitiesOnly=yes \
+            -p "$BEGET_PORT" \
+            "$BEGET_USER@$BEGET_HOST" \
+            "test -d '$BEGET_THEME_PATH' && test -f '$BEGET_THEME_PATH/style.css'"
+
+      - name: Preview changes without uploading
+        shell: bash
+        env:
+          BEGET_HOST: ${{ secrets.BEGET_HOST }}
+          BEGET_USER: ${{ secrets.BEGET_USER }}
+          BEGET_PORT: ${{ secrets.BEGET_PORT }}
+          BEGET_THEME_PATH: ${{ vars.BEGET_THEME_PATH }}
+        run: |
+          rsync -azcn \
+            --delete-delay \
+            --delay-updates \
+            --itemize-changes \
+            -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -p $BEGET_PORT" \
+            antonova-theme/ \
+            "$BEGET_USER@$BEGET_HOST:$BEGET_THEME_PATH/"
