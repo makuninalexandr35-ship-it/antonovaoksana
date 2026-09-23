@@ -17,13 +17,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  check-deployment:
-    name: Check deployment
+  deploy:
+    name: Deploy theme
     runs-on: ubuntu-latest
 
     steps:
       - name: Download repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Validate PHP files
         shell: bash
@@ -57,7 +57,7 @@ jobs:
             "$BEGET_USER@$BEGET_HOST" \
             "test -d '$BEGET_THEME_PATH' && test -f '$BEGET_THEME_PATH/style.css'"
 
-      - name: Preview changes without uploading
+      - name: Deploy theme to Beget
         shell: bash
         env:
           BEGET_HOST: ${{ secrets.BEGET_HOST }}
@@ -65,8 +65,7 @@ jobs:
           BEGET_PORT: ${{ secrets.BEGET_PORT }}
           BEGET_THEME_PATH: ${{ vars.BEGET_THEME_PATH }}
         run: |
-          rsync -azcn \
-            --delete-delay \
+          rsync -azc \
             --delay-updates \
             --itemize-changes \
             -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -p $BEGET_PORT" \
