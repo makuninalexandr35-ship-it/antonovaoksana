@@ -32,7 +32,7 @@
   "url": "https://antonovaoksana.ru/",
   "logo": "<?php echo esc_url(get_template_directory_uri()); ?>/assets/logo-aov2.png",
   "description": "Торты и авторские десерты на заказ в Москве — индивидуальный дизайн, 10 начинок и доставка.",
-  "telephone": "+79647281844",
+  "telephone": <?php echo wp_json_encode(antonova_content('antonova_phone_tel', '+79647281844')); ?>,
   "location": {
     "@type": "City",
     "name": "Москва"
@@ -42,18 +42,18 @@
     "name": "Москва"
   },
   "sameAs": [
-    "https://t.me/antonovaov",
-    "<?php echo esc_url(antonova_content('antonova_instagram_url', 'https://www.instagram.com/_____antonova_____')); ?>",
-    "<?php echo esc_url(antonova_content('antonova_vk_candy_url', 'https://vk.ru/candy_chef_aov')); ?>",
-    "<?php echo esc_url(antonova_content('antonova_vk_oksana_url', 'https://vk.com/aov_antonovaoksana')); ?>",
-    "<?php echo esc_url(antonova_content('antonova_threads_url', 'https://www.threads.com/@_antonova_')); ?>"
+    <?php echo wp_json_encode(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>,
+    <?php echo wp_json_encode(antonova_content('antonova_instagram_url', 'https://www.instagram.com/_____antonova_____')); ?>,
+    <?php echo wp_json_encode(antonova_content('antonova_vk_candy_url', 'https://vk.ru/candy_chef_aov')); ?>,
+    <?php echo wp_json_encode(antonova_content('antonova_vk_oksana_url', 'https://vk.com/aov_antonovaoksana')); ?>,
+    <?php echo wp_json_encode(antonova_content('antonova_threads_url', 'https://www.threads.com/@_antonova_')); ?>
   ],
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+79647281844",
+    "telephone": <?php echo wp_json_encode(antonova_content('antonova_phone_tel', '+79647281844')); ?>,
     "contactType": "Заказы",
     "availableLanguage": "ru",
-    "url": "https://wa.me/79647281844"
+    "url": <?php echo wp_json_encode(antonova_content('antonova_whatsapp_url', 'https://wa.me/79647281844')); ?>
   }
 }
   </script>
