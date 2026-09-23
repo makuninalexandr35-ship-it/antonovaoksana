@@ -208,8 +208,3 @@
 <?php wp_footer(); ?>
 </body>
 </html>
-add_action('wp_head', function () {
-    echo '<link rel="icon" href="' .
-        esc_url(get_template_directory_uri() . '/favicon.ico') .
-        '" sizes="any">' . "\n";
-});
