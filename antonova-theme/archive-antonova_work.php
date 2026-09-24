@@ -35,4 +35,13 @@
   <?php endif; ?>
 </main>
 
+<div class="work-lightbox" data-work-lightbox-dialog hidden role="dialog" aria-modal="true" aria-label="Увеличенное фото работы">
+  <button class="work-lightbox-backdrop" type="button" data-work-lightbox-close aria-label="Закрыть увеличенное фото"></button>
+  <div class="work-lightbox-content" role="document">
+    <button class="work-lightbox-close" type="button" data-work-lightbox-close aria-label="Закрыть">×</button>
+    <img src="" alt="" data-work-lightbox-image>
+    <p data-work-lightbox-title></p>
+  </div>
+</div>
+
 <?php get_footer(); ?>

@@ -47,23 +47,6 @@ function antonova_theme_assets() {
 }
 add_action('wp_enqueue_scripts', 'antonova_theme_assets', 20);
 
-function antonova_work_lightbox() {
-    if (!is_front_page() && !is_post_type_archive('antonova_work')) {
-        return;
-    }
-    ?>
-    <div class="work-lightbox" data-work-lightbox-dialog hidden role="dialog" aria-modal="true" aria-label="Увеличенное фото работы">
-        <button class="work-lightbox-backdrop" type="button" data-work-lightbox-close aria-label="Закрыть увеличенное фото"></button>
-        <div class="work-lightbox-content" role="document">
-            <button class="work-lightbox-close" type="button" data-work-lightbox-close aria-label="Закрыть">×</button>
-            <img src="" alt="" data-work-lightbox-image>
-            <p data-work-lightbox-title></p>
-        </div>
-    </div>
-    <?php
-}
-add_action('wp_footer', 'antonova_work_lightbox', 30);
-
 /**
  * Catalogue of finished works. Content is managed in WordPress, while the
  * catalogue interface stays in the theme and is deployed through GitHub.
