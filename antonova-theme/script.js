@@ -85,7 +85,8 @@ if (workLightbox) {
   };
 
   document.querySelectorAll('[data-work-lightbox]').forEach((button) => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
       trigger = button;
       image.src = button.dataset.workImage;
       image.alt = button.dataset.workTitle;

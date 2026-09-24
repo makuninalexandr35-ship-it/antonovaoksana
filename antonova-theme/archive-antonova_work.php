@@ -20,15 +20,16 @@
         <?php $work_image = antonova_work_image_url(get_the_ID()); ?>
         <?php if ($work_image) : ?>
           <article class="work-card" data-work-card data-categories="<?php echo esc_attr(implode(' ', antonova_work_categories(get_the_ID()))); ?>">
-            <button type="button" data-work-lightbox data-work-image="<?php echo esc_url($work_image); ?>" data-work-title="<?php echo esc_attr(get_the_title()); ?>" aria-label="Увеличить: <?php echo esc_attr(get_the_title()); ?>">
+            <a href="<?php echo esc_url($work_image); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work_image); ?>" data-work-title="<?php echo esc_attr(get_the_title()); ?>" aria-label="Увеличить: <?php echo esc_attr(get_the_title()); ?>">
               <img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
               <span class="work-card-caption"><b><?php the_title(); ?></b><span>Увеличить фото →</span></span>
-            </button>
+            </a>
           </article>
         <?php endif; ?>
       <?php endwhile; ?>
     </div>
     <button class="works-more" type="button" data-works-more hidden>Показать ещё работы <span aria-hidden="true">↻</span></button>
+    <p class="works-exit-order"><a class="button" href="<?php echo esc_url(antonova_content('antonova_whatsapp_url', 'https://wa.me/79647281844')); ?>" target="_blank" rel="noopener">Выйти и заказать</a></p>
     <?php wp_reset_postdata(); ?>
   <?php else : ?>
     <p class="works-empty">Работы скоро появятся в каталоге.</p>
