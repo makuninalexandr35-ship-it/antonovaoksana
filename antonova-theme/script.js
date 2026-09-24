@@ -70,3 +70,37 @@ document.querySelectorAll('[data-work-grid]').forEach((grid) => {
 
   refreshWorks();
 });
+
+const workLightbox = document.querySelector('[data-work-lightbox-dialog]');
+
+if (workLightbox) {
+  const image = workLightbox.querySelector('[data-work-lightbox-image]');
+  const title = workLightbox.querySelector('[data-work-lightbox-title]');
+  let trigger = null;
+
+  const closeLightbox = () => {
+    workLightbox.hidden = true;
+    document.body.classList.remove('work-lightbox-open');
+    if (trigger) trigger.focus();
+  };
+
+  document.querySelectorAll('[data-work-lightbox]').forEach((button) => {
+    button.addEventListener('click', () => {
+      trigger = button;
+      image.src = button.dataset.workImage;
+      image.alt = button.dataset.workTitle;
+      title.textContent = button.dataset.workTitle;
+      workLightbox.hidden = false;
+      document.body.classList.add('work-lightbox-open');
+      workLightbox.querySelector('.work-lightbox-close').focus();
+    });
+  });
+
+  workLightbox.querySelectorAll('[data-work-lightbox-close]').forEach((button) => {
+    button.addEventListener('click', closeLightbox);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !workLightbox.hidden) closeLightbox();
+  });
+}

@@ -20,10 +20,10 @@
         <?php $work_image = antonova_work_image_url(get_the_ID()); ?>
         <?php if ($work_image) : ?>
           <article class="work-card" data-work-card data-categories="<?php echo esc_attr(implode(' ', antonova_work_categories(get_the_ID()))); ?>">
-            <a href="<?php the_permalink(); ?>">
+            <button type="button" data-work-lightbox data-work-image="<?php echo esc_url($work_image); ?>" data-work-title="<?php echo esc_attr(get_the_title()); ?>" aria-label="Увеличить: <?php echo esc_attr(get_the_title()); ?>">
               <img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
-              <span class="work-card-caption"><b><?php the_title(); ?></b><span>Смотреть работу →</span></span>
-            </a>
+              <span class="work-card-caption"><b><?php the_title(); ?></b><span>Увеличить фото →</span></span>
+            </button>
           </article>
         <?php endif; ?>
       <?php endwhile; ?>
