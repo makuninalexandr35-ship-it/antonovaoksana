@@ -78,3 +78,8 @@ html,body{max-width:100%;overflow-x:hidden}
   .hero-facts li{max-width:100%}
 
 }
+
+/* Shared layout for regular WordPress pages, archives and the 404 page. */
+.site-header-inner{position:relative;background:var(--wine)}
+.page-layout{max-width:900px;margin:0 auto;padding:60px 24px}
+.page-back-link{margin:0 0 30px}

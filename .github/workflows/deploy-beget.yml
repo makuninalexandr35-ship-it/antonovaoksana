@@ -23,13 +23,46 @@ jobs:
 
     steps:
       - name: Download repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
 
       - name: Validate PHP files
         shell: bash
         run: |
           find antonova-theme -type f -name "*.php" -print0 |
           xargs -0 -n1 php -l
+
+      - name: Build deployable theme package
+        shell: bash
+        run: |
+          set -euo pipefail
+          bundle_dir="$RUNNER_TEMP/antonova-theme-deploy"
+          rm -rf "$bundle_dir"
+          mkdir -p "$bundle_dir/assets/optimized" "$bundle_dir/assets/fonts"
+
+          install -m 644 \
+            antonova-theme/404.php \
+            antonova-theme/footer.php \
+            antonova-theme/front-page.php \
+            antonova-theme/functions.php \
+            antonova-theme/header.php \
+            antonova-theme/index.php \
+            antonova-theme/page.php \
+            antonova-theme/script.js \
+            antonova-theme/style.css \
+            antonova-theme/favicon.ico \
+            "$bundle_dir/"
+          install -m 644 \
+            antonova-theme/assets/apple-touch-icon.png \
+            antonova-theme/assets/favicon-48.png \
+            antonova-theme/assets/Sertifikat.jpg \
+            "$bundle_dir/assets/"
+          install -m 644 antonova-theme/assets/optimized/*.webp "$bundle_dir/assets/optimized/"
+          install -m 644 antonova-theme/assets/fonts/* "$bundle_dir/assets/fonts/"
+
+          test "$(find "$bundle_dir" -type f | wc -l)" -gt 10
+          printf 'DEPLOY_BUNDLE=%s\n' "$bundle_dir" >> "$GITHUB_ENV"
 
       - name: Configure SSH
         shell: bash
@@ -43,7 +76,7 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/known_hosts
 
-      - name: Check destination
+      - name: Validate deployment destination
         shell: bash
         env:
           BEGET_HOST: ${{ secrets.BEGET_HOST }}
@@ -51,11 +84,47 @@ jobs:
           BEGET_PORT: ${{ secrets.BEGET_PORT }}
           BEGET_THEME_PATH: ${{ vars.BEGET_THEME_PATH }}
         run: |
+          set -euo pipefail
+          if [[ ! "$BEGET_THEME_PATH" =~ ^/[A-Za-z0-9._/-]+$ ]] || \
+             [[ "$BEGET_THEME_PATH" == *..* ]] || \
+             [[ "$BEGET_THEME_PATH" == *//* ]] || \
+             [[ "$BEGET_THEME_PATH" == */ ]]; then
+            echo 'BEGET_THEME_PATH must be an absolute, normalized server path.' >&2
+            exit 1
+          fi
+
+          printf 'cd %s\nls style.css\n' "$BEGET_THEME_PATH" | sftp -b - \
+            -i ~/.ssh/id_ed25519 \
+            -o IdentitiesOnly=yes \
+            -P "$BEGET_PORT" \
+            "$BEGET_USER@$BEGET_HOST"
+
+      - name: Create rollback snapshot
+        shell: bash
+        env:
+          BEGET_HOST: ${{ secrets.BEGET_HOST }}
+          BEGET_USER: ${{ secrets.BEGET_USER }}
+          BEGET_PORT: ${{ secrets.BEGET_PORT }}
+          BEGET_THEME_PATH: ${{ vars.BEGET_THEME_PATH }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$BEGET_THEME_PATH" =~ ^/[A-Za-z0-9._/-]+$ ]] || \
+             [[ "$BEGET_THEME_PATH" == *..* ]] || \
+             [[ "$BEGET_THEME_PATH" == *//* ]] || \
+             [[ "$BEGET_THEME_PATH" == */ ]]; then
+            echo 'BEGET_THEME_PATH must be an absolute, normalized server path.' >&2
+            exit 1
+          fi
+          theme_parent="${BEGET_THEME_PATH%/*}"
+          theme_name="${BEGET_THEME_PATH##*/}"
+          backup_path="$theme_parent/.antonova-theme-backups"
+          archive_name="antonova-theme-${GITHUB_SHA}-${GITHUB_RUN_ID}.tar.gz"
+
           ssh -i ~/.ssh/id_ed25519 \
             -o IdentitiesOnly=yes \
             -p "$BEGET_PORT" \
             "$BEGET_USER@$BEGET_HOST" \
-            "test -d '$BEGET_THEME_PATH' && test -f '$BEGET_THEME_PATH/style.css'"
+            "set -eu; mkdir -p '$backup_path'; tar -C '$theme_parent' -czf '$backup_path/$archive_name' '$theme_name'"
 
       - name: Deploy theme to Beget
         shell: bash
@@ -65,9 +134,43 @@ jobs:
           BEGET_PORT: ${{ secrets.BEGET_PORT }}
           BEGET_THEME_PATH: ${{ vars.BEGET_THEME_PATH }}
         run: |
+          set -euo pipefail
+          if [[ ! "$BEGET_THEME_PATH" =~ ^/[A-Za-z0-9._/-]+$ ]] || \
+             [[ "$BEGET_THEME_PATH" == *..* ]] || \
+             [[ "$BEGET_THEME_PATH" == *//* ]] || \
+             [[ "$BEGET_THEME_PATH" == */ ]]; then
+            echo 'BEGET_THEME_PATH must be an absolute, normalized server path.' >&2
+            exit 1
+          fi
           rsync -azc \
+            --delete-delay \
             --delay-updates \
             --itemize-changes \
             -e "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -p $BEGET_PORT" \
-            antonova-theme/ \
+            "$DEPLOY_BUNDLE/" \
             "$BEGET_USER@$BEGET_HOST:$BEGET_THEME_PATH/"
+
+      - name: Keep five rollback snapshots
+        shell: bash
+        env:
+          BEGET_HOST: ${{ secrets.BEGET_HOST }}
+          BEGET_USER: ${{ secrets.BEGET_USER }}
+          BEGET_PORT: ${{ secrets.BEGET_PORT }}
+          BEGET_THEME_PATH: ${{ vars.BEGET_THEME_PATH }}
+        run: |
+          set -euo pipefail
+          if [[ ! "$BEGET_THEME_PATH" =~ ^/[A-Za-z0-9._/-]+$ ]] || \
+             [[ "$BEGET_THEME_PATH" == *..* ]] || \
+             [[ "$BEGET_THEME_PATH" == *//* ]] || \
+             [[ "$BEGET_THEME_PATH" == */ ]]; then
+            echo 'BEGET_THEME_PATH must be an absolute, normalized server path.' >&2
+            exit 1
+          fi
+          theme_parent="${BEGET_THEME_PATH%/*}"
+          backup_path="$theme_parent/.antonova-theme-backups"
+
+          ssh -i ~/.ssh/id_ed25519 \
+            -o IdentitiesOnly=yes \
+            -p "$BEGET_PORT" \
+            "$BEGET_USER@$BEGET_HOST" \
+            "find '$backup_path' -maxdepth 1 -type f -name 'antonova-theme-*.tar.gz' -printf '%T@ %p\\n' | sort -nr | tail -n +6 | cut -d' ' -f2- | xargs -r rm -f"

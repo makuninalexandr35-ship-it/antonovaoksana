@@ -1,9 +1,11 @@
 const header = document.querySelector('.site-header');
 const revealItems = document.querySelectorAll('.reveal');
 
-const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 120);
-window.addEventListener('scroll', updateHeader, { passive: true });
-updateHeader();
+if (header) {
+  const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 120);
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+}
 
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {

@@ -3,20 +3,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 ?>
-<!doctype html>
-<html <?php language_attributes(); ?>>
-<head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php wp_head(); ?>
-</head>
+<?php get_header(); ?>
 
-<body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
-
-<main style="max-width:900px;margin:0 auto;padding:60px 24px;">
-
-    <p style="margin-bottom:30px;">
+<main class="page-layout">
+    <p class="page-back-link">
         <a href="<?php echo esc_url(home_url('/')); ?>">
             ← Вернуться на главную
         </a>
@@ -39,6 +29,4 @@ if (!defined('ABSPATH')) {
 
 </main>
 
-<?php wp_footer(); ?>
-</body>
-</html>
+<?php get_footer(); ?>

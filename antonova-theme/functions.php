@@ -24,16 +24,16 @@ add_action('send_headers', 'antonova_send_security_headers');
 
 function antonova_theme_assets() {
     wp_enqueue_style(
-        'antonova-google-fonts',
-        'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Prata&display=swap',
+        'antonova-local-fonts',
+        get_template_directory_uri() . '/assets/fonts/fonts.css',
         array(),
-        null
+        wp_get_theme()->get('Version')
     );
 
     wp_enqueue_style(
         'antonova-style',
         get_stylesheet_uri(),
-        array('antonova-google-fonts'),
+        array('antonova-local-fonts'),
         wp_get_theme()->get('Version')
     );
 
@@ -46,6 +46,31 @@ function antonova_theme_assets() {
     );
 }
 add_action('wp_enqueue_scripts', 'antonova_theme_assets', 20);
+
+/**
+ * Keep SEO output in one place: Yoast. The templates do not print metadata.
+ */
+function antonova_yoast_title($title) {
+    if (is_front_page()) {
+        return 'Торты на заказ в Москве — авторские десерты | Oksana Antonova';
+    }
+
+    if (is_page()) {
+        return single_post_title('', false) . ' | Oksana Antonova';
+    }
+
+    return $title;
+}
+add_filter('wpseo_title', 'antonova_yoast_title');
+
+function antonova_yoast_front_page_description($description) {
+    if (is_front_page()) {
+        return 'Авторские торты и десерты на заказ в Москве. Свадебные, праздничные и тематические торты от Oksana Antonova.';
+    }
+
+    return $description;
+}
+add_filter('wpseo_metadesc', 'antonova_yoast_front_page_description');
 
 function antonova_remove_unused_core_styles() {
     wp_dequeue_style('wp-block-library');
