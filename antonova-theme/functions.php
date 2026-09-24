@@ -48,6 +48,180 @@ function antonova_theme_assets() {
 add_action('wp_enqueue_scripts', 'antonova_theme_assets', 20);
 
 /**
+ * Catalogue of finished works. Content is managed in WordPress, while the
+ * catalogue interface stays in the theme and is deployed through GitHub.
+ */
+function antonova_register_work_catalogue() {
+    register_post_type('antonova_work', array(
+        'labels' => array(
+            'name' => 'Работы',
+            'singular_name' => 'Работа',
+            'add_new' => 'Добавить работу',
+            'add_new_item' => 'Добавить работу',
+            'edit_item' => 'Редактировать работу',
+            'new_item' => 'Новая работа',
+            'view_item' => 'Посмотреть работу',
+            'search_items' => 'Найти работы',
+            'not_found' => 'Работ пока нет',
+            'menu_name' => 'Работы',
+        ),
+        'public' => true,
+        'has_archive' => 'works',
+        'rewrite' => array('slug' => 'works'),
+        'menu_icon' => 'dashicons-format-gallery',
+        'menu_position' => 5,
+        'supports' => array('title', 'editor', 'excerpt', 'thumbnail'),
+        'show_in_rest' => true,
+    ));
+
+    register_taxonomy('antonova_work_category', array('antonova_work'), array(
+        'labels' => array(
+            'name' => 'Категории работ',
+            'singular_name' => 'Категория работы',
+            'search_items' => 'Найти категории',
+            'all_items' => 'Все категории',
+            'edit_item' => 'Редактировать категорию',
+            'add_new_item' => 'Добавить категорию',
+            'menu_name' => 'Категории',
+        ),
+        'public' => true,
+        'hierarchical' => true,
+        'rewrite' => array('slug' => 'work-category'),
+        'show_in_rest' => true,
+    ));
+}
+add_action('init', 'antonova_register_work_catalogue');
+
+function antonova_work_catalogue_default_categories() {
+    return array(
+        'cakes' => 'Торты',
+        'kids' => 'Детские',
+        'chocolate' => 'Шоколад',
+        'candy' => 'Конфеты',
+        'pastries' => 'Пирожные',
+        'nuts' => 'Орешки',
+        'other-desserts' => 'Другие десерты',
+    );
+}
+
+function antonova_ensure_work_categories() {
+    foreach (antonova_work_catalogue_default_categories() as $slug => $name) {
+        if (!term_exists($slug, 'antonova_work_category')) {
+            wp_insert_term($name, 'antonova_work_category', array('slug' => $slug));
+        }
+    }
+}
+add_action('init', 'antonova_ensure_work_categories', 20);
+
+function antonova_work_catalogue_rewrite_rules() {
+    if (get_option('antonova_work_catalogue_rewrite_version') !== '1') {
+        flush_rewrite_rules(false);
+        update_option('antonova_work_catalogue_rewrite_version', '1');
+    }
+}
+add_action('init', 'antonova_work_catalogue_rewrite_rules', 99);
+
+function antonova_work_price_meta_box() {
+    add_meta_box(
+        'antonova-work-price',
+        'Цена',
+        'antonova_render_work_price_meta_box',
+        'antonova_work',
+        'side'
+    );
+}
+add_action('add_meta_boxes_antonova_work', 'antonova_work_price_meta_box');
+
+function antonova_render_work_price_meta_box($post) {
+    wp_nonce_field('antonova_save_work_price', 'antonova_work_price_nonce');
+    $price = get_post_meta($post->ID, '_antonova_work_price', true);
+    ?>
+    <p><label for="antonova-work-price">Например: от 3 000 ₽/кг</label></p>
+    <input class="widefat" id="antonova-work-price" name="antonova_work_price" type="text" value="<?php echo esc_attr($price); ?>">
+    <p class="description">Поле необязательное. Укажите ориентир, если он нужен.</p>
+    <?php
+}
+
+function antonova_save_work_price($post_id) {
+    if (!isset($_POST['antonova_work_price_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['antonova_work_price_nonce'])), 'antonova_save_work_price')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    $price = isset($_POST['antonova_work_price']) ? sanitize_text_field(wp_unslash($_POST['antonova_work_price'])) : '';
+    if ($price === '') {
+        delete_post_meta($post_id, '_antonova_work_price');
+        return;
+    }
+    update_post_meta($post_id, '_antonova_work_price', $price);
+}
+add_action('save_post_antonova_work', 'antonova_save_work_price');
+
+function antonova_work_image_url($work_id, $size = 'large') {
+    $thumbnail = get_the_post_thumbnail_url($work_id, $size);
+    if ($thumbnail) {
+        return $thumbnail;
+    }
+
+    return get_post_meta($work_id, '_antonova_work_legacy_image', true);
+}
+
+function antonova_work_categories($work_id) {
+    return wp_get_post_terms($work_id, 'antonova_work_category', array('fields' => 'slugs'));
+}
+
+function antonova_migrate_legacy_gallery_to_works() {
+    if (get_option('antonova_work_catalogue_seeded')) {
+        return;
+    }
+
+    $gallery = antonova_get_gallery();
+    if (empty($gallery)) {
+        return;
+    }
+
+    $category_map = array('cakes', 'cakes', 'cakes', 'kids', 'other-desserts', 'other-desserts', 'cakes', 'pastries', 'cakes', 'cakes', 'cakes', 'cakes');
+    $created = 0;
+
+    foreach ($gallery as $index => $work) {
+        $title = !empty($work['alt']) ? $work['alt'] : 'Работа ' . ($index + 1);
+        $work_id = wp_insert_post(array(
+            'post_type' => 'antonova_work',
+            'post_status' => 'publish',
+            'post_title' => $title,
+        ));
+
+        if (is_wp_error($work_id) || !$work_id) {
+            continue;
+        }
+
+        update_post_meta($work_id, '_antonova_work_legacy_image', esc_url_raw($work['image']));
+        wp_set_object_terms($work_id, $category_map[$index] ?? 'other-desserts', 'antonova_work_category');
+        $created++;
+    }
+
+    if ($created > 0) {
+        update_option('antonova_work_catalogue_seeded', '1');
+    }
+}
+add_action('admin_init', 'antonova_migrate_legacy_gallery_to_works');
+
+function antonova_get_catalogue_works($limit = -1) {
+    return new WP_Query(array(
+        'post_type' => 'antonova_work',
+        'post_status' => 'publish',
+        'posts_per_page' => $limit,
+        'orderby' => 'date',
+        'order' => 'DESC',
+    ));
+}
+
+/**
  * Keep SEO output in one place: Yoast. The templates do not print metadata.
  */
 function antonova_yoast_title($title) {

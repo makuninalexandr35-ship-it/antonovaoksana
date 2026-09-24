@@ -22,7 +22,7 @@
     <section id="products" class="section products reveal">
       <div class="section-heading split-heading">
         <div><p class="eyebrow">Что можно заказать</p><h2><?php echo esc_html(antonova_content('antonova_products_heading', 'Десерты для праздника, подарка или просто особенного дня')); ?></h2><p>Выберите готовое направление или расскажите свою идею —<br>оформление и детали обсудим индивидуально.</p></div>
-        <a class="text-link" href="#works">Смотреть все работы <span>→</span></a>
+        <a class="text-link" href="<?php echo esc_url(get_post_type_archive_link('antonova_work')); ?>">Смотреть все работы <span>→</span></a>
       </div>
       <div class="product-grid">
         <?php foreach (antonova_get_products() as $product) : ?>
@@ -74,11 +74,37 @@
 
     <section id="works" class="section works reveal">
       <div class="section-heading split-heading"><div><p class="eyebrow">Наши работы</p><h2><?php echo esc_html(antonova_content('antonova_works_heading', 'Сладкие шедевры для ваших торжеств')); ?></h2></div><p class="works-intro">Каждый заказ — отдельная история,<br>созданная вручную.</p></div>
-      <div class="gallery">
-        <?php foreach (antonova_get_gallery() as $work) : ?>
-          <figure><img src="<?php echo esc_url($work['image']); ?>" alt="<?php echo esc_attr($work['alt']); ?>" loading="lazy"></figure>
-        <?php endforeach; ?>
-      </div>
+      <?php $catalogue_works = antonova_get_catalogue_works(); ?>
+      <?php if ($catalogue_works->have_posts()) : ?>
+        <div class="work-filters" aria-label="Категории работ">
+          <button class="work-filter is-active" type="button" data-work-filter="all">Все</button>
+          <?php foreach (get_terms(array('taxonomy' => 'antonova_work_category', 'hide_empty' => false)) as $category) : ?>
+            <button class="work-filter" type="button" data-work-filter="<?php echo esc_attr($category->slug); ?>"><?php echo esc_html($category->name); ?></button>
+          <?php endforeach; ?>
+        </div>
+        <div class="work-grid" data-work-grid>
+          <?php while ($catalogue_works->have_posts()) : $catalogue_works->the_post(); ?>
+            <?php $work_image = antonova_work_image_url(get_the_ID()); ?>
+            <?php if ($work_image) : ?>
+              <article class="work-card" data-work-card data-categories="<?php echo esc_attr(implode(' ', antonova_work_categories(get_the_ID()))); ?>">
+                <a href="<?php the_permalink(); ?>">
+                  <img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
+                  <span class="work-card-caption"><b><?php the_title(); ?></b><span>Смотреть работу →</span></span>
+                </a>
+              </article>
+            <?php endif; ?>
+          <?php endwhile; ?>
+        </div>
+        <button class="works-more" type="button" data-works-more hidden>Показать ещё работы <span aria-hidden="true">↻</span></button>
+        <p class="works-catalogue-link"><a href="<?php echo esc_url(get_post_type_archive_link('antonova_work')); ?>">Открыть весь каталог →</a></p>
+        <?php wp_reset_postdata(); ?>
+      <?php else : ?>
+        <div class="gallery">
+          <?php foreach (antonova_get_gallery() as $work) : ?>
+            <figure><img src="<?php echo esc_url($work['image']); ?>" alt="<?php echo esc_attr($work['alt']); ?>" loading="lazy"></figure>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
     </section>
 
     <section id="price" class="price-section reveal">

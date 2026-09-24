@@ -43,6 +43,7 @@ jobs:
 
           install -m 644 \
             antonova-theme/404.php \
+            antonova-theme/archive-antonova_work.php \
             antonova-theme/footer.php \
             antonova-theme/front-page.php \
             antonova-theme/functions.php \
@@ -50,6 +51,7 @@ jobs:
             antonova-theme/index.php \
             antonova-theme/page.php \
             antonova-theme/script.js \
+            antonova-theme/single-antonova_work.php \
             antonova-theme/style.css \
             antonova-theme/favicon.ico \
             "$bundle_dir/"

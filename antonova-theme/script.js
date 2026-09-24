@@ -30,3 +30,43 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     }
   });
 });
+
+document.querySelectorAll('[data-work-grid]').forEach((grid) => {
+  const scope = grid.closest('.works, .works-catalogue-page') || document;
+  const cards = Array.from(grid.querySelectorAll('[data-work-card]'));
+  const filters = Array.from(scope.querySelectorAll('[data-work-filter]'));
+  const moreButton = scope.querySelector('[data-works-more]');
+  const pageSize = 8;
+  let activeFilter = 'all';
+  let visibleCount = pageSize;
+
+  const refreshWorks = () => {
+    const matchingCards = cards.filter((card) => activeFilter === 'all' || card.dataset.categories.split(' ').includes(activeFilter));
+
+    cards.forEach((card) => {
+      card.hidden = !matchingCards.includes(card) || matchingCards.indexOf(card) >= visibleCount;
+    });
+
+    if (moreButton) {
+      moreButton.hidden = matchingCards.length <= visibleCount;
+    }
+  };
+
+  filters.forEach((filter) => {
+    filter.addEventListener('click', () => {
+      activeFilter = filter.dataset.workFilter;
+      visibleCount = pageSize;
+      filters.forEach((item) => item.classList.toggle('is-active', item === filter));
+      refreshWorks();
+    });
+  });
+
+  if (moreButton) {
+    moreButton.addEventListener('click', () => {
+      visibleCount += pageSize;
+      refreshWorks();
+    });
+  }
+
+  refreshWorks();
+});
