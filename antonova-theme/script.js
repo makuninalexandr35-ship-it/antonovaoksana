@@ -36,6 +36,7 @@ document.querySelectorAll('[data-work-grid]').forEach((grid) => {
   const cards = Array.from(grid.querySelectorAll('[data-work-card]'));
   const filters = Array.from(scope.querySelectorAll('[data-work-filter]'));
   const moreButton = scope.querySelector('[data-works-more]');
+  const isHomeWorks = scope.classList.contains('works');
   const pageSize = 12;
   let activeFilter = 'all';
   let visibleCount = pageSize;
@@ -49,6 +50,10 @@ document.querySelectorAll('[data-work-grid]').forEach((grid) => {
 
     if (moreButton) {
       moreButton.hidden = matchingCards.length <= visibleCount;
+    }
+
+    if (isHomeWorks) {
+      document.body.classList.toggle('works-expanded', visibleCount > pageSize);
     }
   };
 

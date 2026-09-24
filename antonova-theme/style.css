@@ -3,7 +3,7 @@ Theme Name: Antonova Oksana
 Theme URI: https://antonovaoksana.ru/
 Author: Alexander Makunin
 Description: Custom WordPress theme preserving the existing Antonova Oksana site design.
-Version: 1.0.7
+Version: 1.0.8
 Text Domain: antonova-oksana
 */
 
@@ -85,8 +85,8 @@ html,body{max-width:100%;overflow-x:hidden}
 .page-back-link{margin:0 0 30px}
 
 /* Works catalogue */
-.work-filters{display:flex;flex-wrap:wrap;gap:9px;margin:30px 0 22px}
-.work-filter{min-height:36px;padding:0 16px;border:1px solid var(--line);border-radius:100px;background:#fff;color:var(--ink);font:600 11px var(--sans);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.work-filters{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:9px;margin:30px 0 22px}
+.work-filter{width:100%;min-height:36px;padding:0 8px;border:1px solid var(--line);border-radius:100px;background:#fff;color:var(--ink);font:600 11px var(--sans);cursor:pointer;transition:background .2s,color .2s,border-color .2s;white-space:nowrap}
 .work-filter:hover,.work-filter.is-active{background:var(--wine);border-color:var(--wine);color:#fff}
 .work-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .work-card{position:relative;min-width:0;overflow:hidden;border-radius:8px;background:var(--cream)}
@@ -108,8 +108,8 @@ html,body{max-width:100%;overflow-x:hidden}
 .works-empty{padding:40px 0;color:var(--muted)}
 .work-single-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:7vw;align-items:start}.work-single-image{border-radius:10px;overflow:hidden;background:var(--cream)}.work-single-image img{width:100%;height:auto}.work-single-copy{padding-top:16px}.work-single-price{margin:20px 0;font:28px var(--serif);color:var(--wine)}.work-single-description{margin:0 0 28px;color:var(--muted)}.work-single-description p:first-child{margin-top:0}.work-single-description .wp-block-gallery{margin:24px 0}
 @media(max-width:900px){.work-grid,.work-grid-catalogue{grid-template-columns:repeat(4,1fr)}.work-single-layout{grid-template-columns:1fr;gap:34px}}
-@media(max-width:700px){.work-filters{gap:7px;margin-top:24px}.work-filter{min-height:34px;padding:0 13px;font-size:10px}.work-grid,.work-grid-catalogue{grid-template-columns:repeat(2,1fr);gap:9px}.work-card-caption{opacity:1;transform:none;padding:10px}.work-card :is(button,a):after{opacity:1;background:linear-gradient(0deg,rgba(31,7,15,.68),transparent 62%)}.work-card-caption b{font-size:14px}.works-catalogue-page,.work-single{padding:42px 18px}.works-catalogue-hero h1,.work-single h1{font-size:42px}}
+@media(max-width:700px){.work-filters{display:flex;flex-wrap:wrap;gap:7px;margin-top:24px}.work-filter{width:auto;min-height:34px;padding:0 13px;font-size:10px}.work-grid,.work-grid-catalogue{grid-template-columns:repeat(2,1fr);gap:9px}.work-card-caption{opacity:1;transform:none;padding:10px}.work-card :is(button,a):after{opacity:1;background:linear-gradient(0deg,rgba(31,7,15,.68),transparent 62%)}.work-card-caption b{font-size:14px}.works-catalogue-page,.work-single{padding:42px 18px}.works-catalogue-hero h1,.work-single h1{font-size:42px}}
 
 .work-lightbox[hidden]{display:none}.work-lightbox{position:fixed;z-index:1000;inset:0;display:grid;place-items:center;padding:24px}.work-lightbox-backdrop{position:absolute;inset:0;border:0;background:rgba(20,8,12,.86);cursor:zoom-out}.work-lightbox-content{position:relative;z-index:1;max-width:min(920px,100%);max-height:100%;display:grid;justify-items:center;gap:12px;color:#fff}.work-lightbox-content img{max-width:100%;max-height:calc(100vh - 100px);width:auto;height:auto;object-fit:contain;border-radius:8px;box-shadow:0 24px 70px rgba(0,0,0,.42)}.work-lightbox-content p{margin:0;font:16px var(--serif);text-align:center}.work-lightbox-close{position:absolute;top:10px;right:10px;width:40px;height:40px;border:0;border-radius:50%;background:#fff;color:var(--wine);font:32px/1 var(--sans);cursor:pointer}.work-lightbox-open{overflow:hidden}
 .works-exit-order{display:flex;justify-content:center;margin:28px 0 0}.works-exit-order .button{min-width:210px}@media(max-width:700px){.footer-socials{justify-content:center;text-align:center}.works-exit-order{margin-top:22px}.work-lightbox{padding:16px}.work-lightbox-content img{max-height:calc(100vh - 80px)}}
-@media(min-width:701px) and (max-width:1280px){body.post-type-archive-antonova_work .site-header{padding-left:24px;padding-right:24px;gap:20px}body.post-type-archive-antonova_work .site-header nav{gap:18px;font-size:11px}body.post-type-archive-antonova_work .button-header{min-height:40px;padding:0 16px;font-size:12px}body.post-type-archive-antonova_work footer{padding:45px 24px;justify-content:center;align-items:center;flex-wrap:wrap}body.post-type-archive-antonova_work .footer-identity{align-items:center;text-align:center}body.post-type-archive-antonova_work .footer-socials{justify-content:center}body.post-type-archive-antonova_work .footer-privacy{text-align:center}}
+@media(min-width:701px) and (max-width:1280px){body.works-expanded .site-header{padding-left:24px;padding-right:24px;gap:20px}body.works-expanded .site-header nav{gap:18px;font-size:11px}body.works-expanded .button-header{min-height:40px;padding:0 16px;font-size:12px}body.works-expanded footer{padding:45px 24px;justify-content:center;align-items:center;flex-wrap:wrap}body.works-expanded .footer-identity{align-items:center;text-align:center}body.works-expanded .footer-socials{justify-content:center}body.works-expanded .footer-privacy{text-align:center}}
