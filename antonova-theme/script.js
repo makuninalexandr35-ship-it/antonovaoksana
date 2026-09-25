@@ -5,6 +5,32 @@ if (header) {
   const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 120);
   window.addEventListener('scroll', updateHeader, { passive: true });
   updateHeader();
+
+  const menuToggle = header.querySelector('.menu-toggle');
+  const navigation = header.querySelector('.site-navigation');
+
+  if (menuToggle && navigation) {
+    const closeMenu = () => {
+      document.body.classList.remove('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Открыть меню');
+    };
+
+    menuToggle.addEventListener('click', () => {
+      const willOpen = !document.body.classList.contains('menu-open');
+      document.body.classList.toggle('menu-open', willOpen);
+      menuToggle.setAttribute('aria-expanded', String(willOpen));
+      menuToggle.setAttribute('aria-label', willOpen ? 'Закрыть меню' : 'Открыть меню');
+    });
+
+    navigation.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1100) closeMenu();
+    });
+  }
 }
 
 if ('IntersectionObserver' in window) {

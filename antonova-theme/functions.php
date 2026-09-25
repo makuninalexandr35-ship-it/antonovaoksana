@@ -395,13 +395,13 @@ function antonova_get_product_price_cards() {
 }
 function antonova_product_price_icon($index) {
     $icons = array(
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 27h40v25H12zM17 27c0-9 6-15 15-15s15 6 15 15M10 39h44M22 47h20"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="m16 13 32 18-16 28L8 41zM24 18l16 28M12 34l32 18M29 21l-16 28"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 36c0-13 9-22 20-22s20 9 20 22c0 10-9 16-20 16S12 46 12 36ZM20 34c4-8 9 8 14-1s8 3 12-3"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 52h28l-4-26H22zM21 26c0-8 5-13 11-13s11 5 11 13M14 52h36M23 39h18"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c15 7 22 18 22 29 0 12-9 19-22 19S10 49 10 37C10 26 17 15 32 8ZM32 14v36M18 29l28 17M16 42l32-18"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 17c11 0 19 8 19 20 0 10-8 18-19 18S13 47 13 37c0-12 8-20 19-20ZM32 17V8M25 8h14M20 35c4-4 7-6 12-6s8 2 12 6M25 44h.1M39 44h.1"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c15 7 22 18 22 29 0 12-9 19-22 19S10 49 10 37C10 26 17 15 32 8ZM32 14v36M18 29l28 17M16 42l32-18"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M13 31h38v21H13zM13 40h38M18 31c0-7 6-12 14-12s14 5 14 12M27 19c0-5 3-9 8-11M34 9c3 0 5 2 5 5M10 53h44"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="m20 8 34 20-22 37L-2 45zM20 8l12 7-22 37M32 15l11 7-22 37M10 26l34 20M15 17l34 20"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="20"/><path d="M17 26c5-4 8 14 13 10s4-17 10-13 2 16 9 15M21 46c7 4 15 5 23 0"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 34h28l-4 21H22zM21 41h22M25 55l-2-21M39 55l2-21M20 34c-2-5 1-9 6-10-2-5 2-10 8-9 2-5 9-5 11 0 5 1 7 6 4 10 4 2 5 6 2 9z"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M33 7C18 15 10 27 11 40c1 11 10 18 21 18 13 0 22-8 22-20C54 26 46 15 33 7zM33 13c-1 17-7 30-17 38M36 14c4 14 8 26 15 34M30 24c6 3 12 8 18 15M22 28c4 4 9 8 16 12"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 20c12 0 20 8 20 20 0 10-8 18-20 18S12 50 12 40c0-12 8-20 20-20zM32 20c-1-8 3-13 10-15M33 15c-5-5-10-6-15-3M17 35c7 0 7 9 14 9 8 0 7-10 16-10M22 48h.1M43 45h.1"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 7c7 7 7 13 1 18 10-2 16 3 14 10 8 2 10 9 6 15-5 8-37 8-42 0-4-6-2-13 6-15-2-7 4-12 14-10-6-5-6-11 1-18zM17 35c7 6 23 6 30 0M12 47c10 6 30 6 40 0"/></svg>',
     );
 
     return $icons[$index] ?? '';
