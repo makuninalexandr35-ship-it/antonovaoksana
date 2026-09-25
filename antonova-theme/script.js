@@ -84,7 +84,7 @@ if (workLightbox) {
   const touchPoints = new Map();
   const zoomFactor = 3;
   let trigger = null;
-  let touchScale = 2.5;
+  let touchScale = 1;
   let pinchDistance = 0;
   let pinchScale = touchScale;
 
@@ -96,7 +96,7 @@ if (workLightbox) {
     image.style.transform = '';
     image.style.transformOrigin = '';
     touchPoints.clear();
-    touchScale = 2.5;
+    touchScale = 1;
     pinchDistance = 0;
   };
 
@@ -131,18 +131,17 @@ if (workLightbox) {
   source.addEventListener('pointermove', (event) => {
     if (event.pointerType === 'touch') {
       if (!touchPoints.has(event.pointerId)) return;
-      event.preventDefault();
       touchPoints.set(event.pointerId, { x: event.clientX, y: event.clientY });
       const points = Array.from(touchPoints.values());
+      if (points.length < 2) return;
+      event.preventDefault();
       let focusX = points[0].x;
       let focusY = points[0].y;
 
-      if (points.length > 1) {
-        const distance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
-        if (pinchDistance) touchScale = Math.max(1.5, Math.min(5, pinchScale * distance / pinchDistance));
-        focusX = (points[0].x + points[1].x) / 2;
-        focusY = (points[0].y + points[1].y) / 2;
-      }
+      const distance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+      if (pinchDistance) touchScale = Math.max(1, Math.min(5, pinchScale * distance / pinchDistance));
+      focusX = (points[0].x + points[1].x) / 2;
+      focusY = (points[0].y + points[1].y) / 2;
 
       const imageRect = image.getBoundingClientRect();
       const originX = Math.max(0, Math.min(100, (focusX - imageRect.left) / imageRect.width * 100));
@@ -164,27 +163,26 @@ if (workLightbox) {
 
   source.addEventListener('pointerdown', (event) => {
     if (event.pointerType !== 'touch') return;
-    event.preventDefault();
     source.setPointerCapture(event.pointerId);
     touchPoints.set(event.pointerId, { x: event.clientX, y: event.clientY });
-    viewer.classList.add('is-touch-zooming');
     if (touchPoints.size === 2) {
+      event.preventDefault();
       const points = Array.from(touchPoints.values());
       pinchDistance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
       pinchScale = touchScale;
+      viewer.classList.add('is-touch-zooming');
     }
-    image.style.transform = `scale(${touchScale})`;
   });
 
   const endTouchZoom = (event) => {
     if (event.pointerType !== 'touch') return;
     touchPoints.delete(event.pointerId);
-    if (touchPoints.size < 2) pinchDistance = 0;
-    if (!touchPoints.size) {
+    if (touchPoints.size < 2) {
+      pinchDistance = 0;
       viewer.classList.remove('is-touch-zooming');
       image.style.transform = '';
       image.style.transformOrigin = '';
-      touchScale = 2.5;
+      touchScale = 1;
     }
   };
 
