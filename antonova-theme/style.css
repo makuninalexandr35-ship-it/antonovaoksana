@@ -140,3 +140,6 @@ html,body{max-width:100%;overflow-x:hidden}
 
 /* Product labels and first-screen spacing. */
 .product-grid article>div{min-height:56px;padding:8px 12px;display:flex;align-items:center;justify-content:center;text-align:center}.product-grid h3{text-align:center}@media(min-width:769px){.hero>.hero-content>.eyebrow{position:relative;top:18px}.hero-facts{transform:translateY(-30px)}}
+
+/* Desktop alignment refinements. */
+@media(min-width:701px){.hero>.hero-content>.eyebrow{top:8px}.footer-identity{justify-items:center;align-items:center;text-align:center}.faq>.eyebrow{width:100%;text-align:center}.about-photo img{height:auto;aspect-ratio:auto;object-fit:contain}}
