@@ -275,6 +275,18 @@ function antonova_default_products() {
     );
 }
 
+function antonova_default_product_prices() {
+    return array(
+        array('price' => 'от 3000 ₽/кг'),
+        array('price' => 'от 2000 ₽/г'),
+        array('price' => 'от 150 ₽/г'),
+        array('price' => 'от 200 ₽/г'),
+        array('price' => 'от 100 ₽/г'),
+        array('price' => 'от 1500 ₽/г'),
+        array('price' => 'от 150 ₽/г'),
+    );
+}
+
 function antonova_default_flavors() {
     return array(
         array('name' => "Медовик\nклассический", 'subtitle' => '', 'price' => '', 'image' => antonova_theme_asset('assets/optimized/cd528ac478c6-1122.webp')),
@@ -346,6 +358,47 @@ function antonova_merge_rows($saved, $defaults) {
 function antonova_get_products() {
     return antonova_merge_rows(get_option('antonova_products', array()), antonova_default_products());
 }
+function antonova_get_product_prices() {
+    $defaults = antonova_default_product_prices();
+    $saved = get_option('antonova_product_prices', array());
+    $legacy_products = get_option('antonova_products', array());
+    $prices = array();
+
+    foreach ($defaults as $index => $default) {
+        $saved_price = isset($saved[$index]['price']) ? sanitize_text_field($saved[$index]['price']) : '';
+        $legacy_price = isset($legacy_products[$index]['price']) ? sanitize_text_field($legacy_products[$index]['price']) : '';
+        $prices[] = array('price' => $saved_price !== '' ? $saved_price : ($legacy_price !== '' ? $legacy_price : $default['price']));
+    }
+
+    return $prices;
+}
+function antonova_get_product_price_cards() {
+    $products = antonova_get_products();
+    $prices = antonova_get_product_prices();
+    $cards = array();
+
+    foreach ($prices as $index => $price) {
+        $cards[] = array(
+            'name' => $products[$index]['name'] ?? '',
+            'price' => $price['price'],
+        );
+    }
+
+    return $cards;
+}
+function antonova_product_price_icon($index) {
+    $icons = array(
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 27h40v25H12zM17 27c0-9 6-15 15-15s15 6 15 15M10 39h44M22 47h20"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="m16 13 32 18-16 28L8 41zM24 18l16 28M12 34l32 18M29 21l-16 28"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 36c0-13 9-22 20-22s20 9 20 22c0 10-9 16-20 16S12 46 12 36ZM20 34c4-8 9 8 14-1s8 3 12-3"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 52h28l-4-26H22zM21 26c0-8 5-13 11-13s11 5 11 13M14 52h36M23 39h18"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c15 7 22 18 22 29 0 12-9 19-22 19S10 49 10 37C10 26 17 15 32 8ZM32 14v36M18 29l28 17M16 42l32-18"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 17c11 0 19 8 19 20 0 10-8 18-19 18S13 47 13 37c0-12 8-20 19-20ZM32 17V8M25 8h14M20 35c4-4 7-6 12-6s8 2 12 6M25 44h.1M39 44h.1"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 8c15 7 22 18 22 29 0 12-9 19-22 19S10 49 10 37C10 26 17 15 32 8ZM32 14v36M18 29l28 17M16 42l32-18"/></svg>',
+    );
+
+    return $icons[$index] ?? '';
+}
 function antonova_get_flavors() {
     return antonova_merge_rows(get_option('antonova_flavors', array()), antonova_default_flavors());
 }
@@ -364,9 +417,15 @@ function antonova_sanitize_products($rows) {
     foreach ((array) $rows as $row) {
         $clean[] = array(
             'name' => sanitize_textarea_field($row['name'] ?? ''),
-            'price' => sanitize_text_field($row['price'] ?? ''),
             'image' => esc_url_raw($row['image'] ?? ''),
         );
+    }
+    return $clean;
+}
+function antonova_sanitize_product_prices($rows) {
+    $clean = array();
+    foreach ((array) $rows as $row) {
+        $clean[] = array('price' => sanitize_text_field($row['price'] ?? ''));
     }
     return $clean;
 }
@@ -418,7 +477,6 @@ function antonova_register_content_settings() {
         'antonova_city',
         'antonova_h1',
         'antonova_lead',
-        'antonova_cake_price',
         'antonova_telegram_url',
         'antonova_whatsapp_url',
         'antonova_phone_display',
@@ -430,7 +488,6 @@ function antonova_register_content_settings() {
         'antonova_products_heading',
         'antonova_flavors_heading',
         'antonova_works_heading',
-        'antonova_price_description',
         'antonova_faq_heading',
     );
 
@@ -447,6 +504,7 @@ function antonova_register_content_settings() {
     }
 
     register_setting('antonova_content_group', 'antonova_products', array('type' => 'array', 'sanitize_callback' => 'antonova_sanitize_products', 'default' => array()));
+    register_setting('antonova_content_group', 'antonova_product_prices', array('type' => 'array', 'sanitize_callback' => 'antonova_sanitize_product_prices', 'default' => array()));
     register_setting('antonova_content_group', 'antonova_flavors', array('type' => 'array', 'sanitize_callback' => 'antonova_sanitize_flavors', 'default' => array()));
     register_setting('antonova_content_group', 'antonova_gallery', array('type' => 'array', 'sanitize_callback' => 'antonova_sanitize_gallery', 'default' => array()));
     register_setting('antonova_content_group', 'antonova_price_points', array('type' => 'array', 'sanitize_callback' => 'antonova_sanitize_price_points', 'default' => array()));
@@ -496,7 +554,6 @@ function antonova_render_content_page() {
         'antonova_city' => array('Город / строка над заголовком', 'Домашняя кондитерская · Москва', 'text'),
         'antonova_h1' => array('Главный заголовок', 'Торты и авторские десерты на заказ в Москве', 'text'),
         'antonova_lead' => array('Подзаголовок', 'Индивидуальные вкусы, оформление и внимание к каждой детали. От идеи и референса — до десерта, который станет частью вашего праздника.', 'text'),
-        'antonova_cake_price' => array('Главная цена торта', '3000 ₽/кг', 'text'),
         'antonova_telegram_url' => array('Ссылка Telegram', 'https://t.me/antonovaov', 'url'),
         'antonova_whatsapp_url' => array('Ссылка WhatsApp', 'https://wa.me/79647281844', 'url'),
         'antonova_phone_display' => array('Телефон — как показывать', '+7 964 728-18-44', 'text'),
@@ -511,14 +568,13 @@ function antonova_render_content_page() {
         'antonova_products_heading' => array('Заголовок блока «Продукция»', 'Десерты для праздника, подарка или просто особенного дня'),
         'antonova_flavors_heading' => array('Заголовок блока «Начинки»', 'Какой будет ваш торт?'),
         'antonova_works_heading' => array('Заголовок блока «Работы»', 'Сладкие шедевры для ваших торжеств'),
-        'antonova_price_description' => array('Описание в блоке «Цены»', 'Базовая стоимость торта. Декор рассчитывается отдельно в зависимости от сложности оформления.'),
         'antonova_faq_heading' => array('Заголовок блока FAQ', 'Возможно, вы хотели спросить'),
     );
 
     $products = antonova_get_products();
+    $product_prices = antonova_get_product_prices();
     $flavors = antonova_get_flavors();
     $gallery = antonova_get_gallery();
-    $price_points = antonova_get_price_points();
     $faq = antonova_get_faq();
     ?>
     <div class="wrap antonova-admin">
@@ -561,11 +617,22 @@ function antonova_render_content_page() {
                             <label>Название
                                 <textarea name="antonova_products[<?php echo esc_attr($i); ?>][name]" rows="2"><?php echo esc_textarea($item['name']); ?></textarea>
                             </label>
-                            <label>Цена
-                                <input type="text" name="antonova_products[<?php echo esc_attr($i); ?>][price]" value="<?php echo esc_attr($item['price']); ?>">
-                            </label>
                             <label>Фото</label>
                             <?php antonova_render_media_field('antonova_products[' . $i . '][image]', $item['image'], $item['name']); ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </details>
+
+            <details>
+                <summary>Стоимость продукции</summary>
+                <div class="antonova-section antonova-grid">
+                    <?php foreach ($product_prices as $i => $item) : ?>
+                        <div class="antonova-card">
+                            <h3><?php echo nl2br(esc_html($products[$i]['name'] ?? 'Продукция')); ?></h3>
+                            <label>Цена
+                                <input type="text" name="antonova_product_prices[<?php echo esc_attr($i); ?>][price]" value="<?php echo esc_attr($item['price']); ?>" placeholder="Например: от 3000 ₽/кг">
+                            </label>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -604,23 +671,6 @@ function antonova_render_content_page() {
                             </label>
                             <label>Фото</label>
                             <?php antonova_render_media_field('antonova_gallery[' . $i . '][image]', $item['image'], $item['alt']); ?>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </details>
-
-            <details>
-                <summary>Цены</summary>
-                <div class="antonova-section antonova-grid">
-                    <?php foreach ($price_points as $i => $item) : ?>
-                        <div class="antonova-card">
-                            <h3>Пункт <?php echo esc_html($i + 1); ?></h3>
-                            <label>Заголовок
-                                <input type="text" name="antonova_price_points[<?php echo esc_attr($i); ?>][title]" value="<?php echo esc_attr($item['title']); ?>">
-                            </label>
-                            <label>Описание
-                                <textarea name="antonova_price_points[<?php echo esc_attr($i); ?>][text]" rows="3"><?php echo esc_textarea($item['text']); ?></textarea>
-                            </label>
                         </div>
                     <?php endforeach; ?>
                 </div>

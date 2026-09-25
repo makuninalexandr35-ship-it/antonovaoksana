@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+<?php $price_cards = antonova_get_product_price_cards(); ?>
 
   <main id="top">
     <section class="hero">
@@ -12,7 +13,7 @@
           <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener"><span class="telegram-icon">➤</span> Заказать в Telegram</a>
         </div>
         <ul class="hero-facts" aria-label="Краткая информация">
-          <li><span class="fact-icon">♨</span><span><b>Торты</b>от <?php echo esc_html(antonova_content('antonova_cake_price', '3000 ₽/кг')); ?></span></li>
+          <li><span class="fact-icon">♨</span><span><b>Торты</b><?php echo esc_html($price_cards[0]['price'] ?? 'от 3000 ₽/кг'); ?></span></li>
           <li><span class="fact-icon">◇</span><span><b>10 вариантов</b>начинок</span></li>
           <li><span class="fact-icon">□</span><span><b>Оптимальный заказ</b>за 2 недели</span></li>
         </ul>
@@ -30,7 +31,6 @@
             <img src="<?php echo esc_url($product['image']); ?>" alt="<?php echo esc_attr(str_replace("\n", " ", $product['name'])); ?>" loading="lazy">
             <div>
               <h3><?php echo nl2br(esc_html($product['name'])); ?></h3>
-              <p><?php echo esc_html($product['price']); ?></p>
             </div>
           </article>
         <?php endforeach; ?>
@@ -123,17 +123,28 @@
     </div>
 
     <section id="price" class="price-section reveal">
-      <div>
-        <p class="eyebrow">Стоимость торта</p>
-        <h2><?php echo esc_html(str_replace('/кг', '', antonova_content('antonova_cake_price', '3000 ₽/кг'))); ?> <small>/ кг</small></h2>
-        <p><?php echo esc_html(antonova_content('antonova_price_description', 'Базовая стоимость торта. Декор рассчитывается отдельно в зависимости от сложности оформления.')); ?></p>
-        <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener">Рассчитать заказ</a>
-      </div>
-      <ul>
-        <?php foreach (antonova_get_price_points() as $i => $point) : ?>
-          <li><span><?php echo esc_html(str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT)); ?></span><p><b><?php echo esc_html($point['title']); ?></b><?php echo esc_html($point['text']); ?></p></li>
+      <p class="eyebrow">Стоимость продукции</p>
+      <div class="product-price-grid">
+        <?php foreach ($price_cards as $i => $card) : ?>
+          <?php $price = $card['price']; $price_parts = array(); $has_price_parts = preg_match('/^(от\s*)?([\d\s]+)(.*)$/u', $price, $price_parts); ?>
+          <article class="product-price-card">
+            <div class="product-price-card-title">
+              <span class="product-price-icon"><?php echo antonova_product_price_icon($i); ?></span>
+              <h3><?php echo nl2br(esc_html($card['name'])); ?></h3>
+            </div>
+            <p class="product-price-value">
+              <?php if ($has_price_parts) : ?>
+                <span class="product-price-prefix"><?php echo esc_html(trim($price_parts[1] ?? '')); ?></span>
+                <strong><?php echo esc_html(trim($price_parts[2])); ?></strong>
+                <span class="product-price-unit"><?php echo esc_html(trim($price_parts[3])); ?></span>
+              <?php else : ?>
+                <strong><?php echo esc_html($price); ?></strong>
+              <?php endif; ?>
+            </p>
+          </article>
         <?php endforeach; ?>
-      </ul>
+      </div>
+      <a class="button button-light price-order-button" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener">Рассчитать заказ</a>
     </section>
 
     <section id="order" class="section order reveal">
