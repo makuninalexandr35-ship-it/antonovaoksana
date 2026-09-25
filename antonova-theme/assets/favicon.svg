@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Oksana Antonova — Art of Desserts">
+  <rect width="512" height="512" rx="104" fill="#3b101d"/>
+  <circle cx="256" cy="256" r="213" fill="none" stroke="#e5c2ad" stroke-width="8"/>
+  <text x="256" y="300" text-anchor="middle" fill="#fff" font-family="Georgia, Times New Roman, serif" font-size="178" font-weight="700" letter-spacing="-19">AOV</text>
+  <path d="M133 348h246" stroke="#e5c2ad" stroke-width="7" stroke-linecap="round"/>
+</svg>

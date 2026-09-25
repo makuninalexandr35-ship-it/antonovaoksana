@@ -56,6 +56,7 @@ jobs:
             antonova-theme/favicon.ico \
             "$bundle_dir/"
           install -m 644 \
+            antonova-theme/assets/favicon.svg \
             antonova-theme/assets/apple-touch-icon.png \
             antonova-theme/assets/favicon-48.png \
             antonova-theme/assets/Sertifikat.jpg \

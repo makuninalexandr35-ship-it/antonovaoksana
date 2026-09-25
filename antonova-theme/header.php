@@ -15,6 +15,7 @@ $antonova_section = static function ($fragment) use ($antonova_is_front_page, $a
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="theme-color" content="#3b101d">
+  <link rel="icon" type="image/svg+xml" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/favicon.svg">
   <link rel="icon" href="<?php echo esc_url(get_template_directory_uri()); ?>/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="icon" type="image/png" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/favicon-48.png" sizes="48x48">
   <link rel="apple-touch-icon" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/apple-touch-icon.png" sizes="180x180">
