@@ -137,3 +137,6 @@ html,body{max-width:100%;overflow-x:hidden}
 
 /* Reviews invitation */
 .review-section{display:flex;align-items:center;justify-content:center;gap:28px;padding:42px max(4.7vw,24px);background:#f8f3eb;text-align:center}.review-section p{margin:0;color:var(--wine);font:clamp(23px,2.4vw,34px)/1.25 var(--serif)}.review-yandex-link{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 22px;border:1px solid rgba(89,20,44,.42);border-radius:100px;color:var(--wine);font-size:13px;font-weight:600;white-space:nowrap}.review-yandex-link span{font-size:17px}.review-yandex-link[aria-disabled="true"]{cursor:default}@media(max-width:700px){.review-section{flex-direction:column;gap:18px;padding:38px 18px}.review-section p{max-width:330px;font-size:26px}.review-yandex-link{min-height:46px;padding:0 19px;font-size:12px}}
+
+/* Product labels and first-screen spacing. */
+.product-grid article>div{min-height:56px;padding:8px 12px;display:flex;align-items:center;justify-content:center;text-align:center}.product-grid h3{text-align:center}@media(min-width:769px){.hero>.hero-content>.eyebrow{position:relative;top:18px}.hero-facts{transform:translateY(-30px)}}
