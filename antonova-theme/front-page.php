@@ -111,7 +111,13 @@
       <button class="work-lightbox-backdrop" type="button" data-work-lightbox-close aria-label="Закрыть увеличенное фото"></button>
       <div class="work-lightbox-content" role="document">
         <button class="work-lightbox-close" type="button" data-work-lightbox-close aria-label="Закрыть">×</button>
-        <img src="" alt="" data-work-lightbox-image>
+        <div class="work-lightbox-viewer" data-work-lightbox-viewer>
+          <div class="work-lightbox-source" data-work-lightbox-source>
+            <img src="" alt="" data-work-lightbox-image>
+            <span class="work-lightbox-lens" data-work-lightbox-lens hidden aria-hidden="true"></span>
+          </div>
+          <div class="work-lightbox-zoom" data-work-lightbox-zoom hidden aria-hidden="true"></div>
+        </div>
         <p data-work-lightbox-title></p>
       </div>
     </div>

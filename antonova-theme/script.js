@@ -77,9 +77,122 @@ const workLightbox = document.querySelector('[data-work-lightbox-dialog]');
 if (workLightbox) {
   const image = workLightbox.querySelector('[data-work-lightbox-image]');
   const title = workLightbox.querySelector('[data-work-lightbox-title]');
+  const viewer = workLightbox.querySelector('[data-work-lightbox-viewer]');
+  const source = workLightbox.querySelector('[data-work-lightbox-source]');
+  const lens = workLightbox.querySelector('[data-work-lightbox-lens]');
+  const zoom = workLightbox.querySelector('[data-work-lightbox-zoom]');
+  const touchPoints = new Map();
+  const zoomFactor = 3;
   let trigger = null;
+  let touchScale = 2.5;
+  let pinchDistance = 0;
+  let pinchScale = touchScale;
+
+  const resetZoom = () => {
+    viewer.classList.remove('is-desktop-zooming', 'is-touch-zooming');
+    lens.hidden = true;
+    zoom.hidden = true;
+    zoom.style.backgroundImage = '';
+    image.style.transform = '';
+    image.style.transformOrigin = '';
+    touchPoints.clear();
+    touchScale = 2.5;
+    pinchDistance = 0;
+  };
+
+  const updateDesktopZoom = (event) => {
+    const imageRect = image.getBoundingClientRect();
+    const sourceRect = source.getBoundingClientRect();
+    const zoomRect = zoom.getBoundingClientRect();
+    if (!imageRect.width || !imageRect.height || !zoomRect.width || !zoomRect.height) return;
+
+    const lensWidth = Math.min(imageRect.width, zoomRect.width / zoomFactor);
+    const lensHeight = Math.min(imageRect.height, zoomRect.height / zoomFactor);
+    const x = Math.max(lensWidth / 2, Math.min(event.clientX - imageRect.left, imageRect.width - lensWidth / 2));
+    const y = Math.max(lensHeight / 2, Math.min(event.clientY - imageRect.top, imageRect.height - lensHeight / 2));
+
+    lens.style.width = `${lensWidth}px`;
+    lens.style.height = `${lensHeight}px`;
+    lens.style.left = `${imageRect.left - sourceRect.left + x}px`;
+    lens.style.top = `${imageRect.top - sourceRect.top + y}px`;
+    zoom.style.backgroundSize = `${imageRect.width * zoomFactor}px ${imageRect.height * zoomFactor}px`;
+    zoom.style.backgroundPosition = `${zoomRect.width / 2 - x * zoomFactor}px ${zoomRect.height / 2 - y * zoomFactor}px`;
+  };
+
+  source.addEventListener('pointerenter', (event) => {
+    if (event.pointerType === 'touch' || !window.matchMedia('(hover: hover)').matches) return;
+    viewer.classList.add('is-desktop-zooming');
+    lens.hidden = false;
+    zoom.hidden = false;
+    zoom.style.backgroundImage = `url("${image.currentSrc || image.src}")`;
+    requestAnimationFrame(() => updateDesktopZoom(event));
+  });
+
+  source.addEventListener('pointermove', (event) => {
+    if (event.pointerType === 'touch') {
+      if (!touchPoints.has(event.pointerId)) return;
+      event.preventDefault();
+      touchPoints.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      const points = Array.from(touchPoints.values());
+      let focusX = points[0].x;
+      let focusY = points[0].y;
+
+      if (points.length > 1) {
+        const distance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+        if (pinchDistance) touchScale = Math.max(1.5, Math.min(5, pinchScale * distance / pinchDistance));
+        focusX = (points[0].x + points[1].x) / 2;
+        focusY = (points[0].y + points[1].y) / 2;
+      }
+
+      const imageRect = image.getBoundingClientRect();
+      const originX = Math.max(0, Math.min(100, (focusX - imageRect.left) / imageRect.width * 100));
+      const originY = Math.max(0, Math.min(100, (focusY - imageRect.top) / imageRect.height * 100));
+      image.style.transformOrigin = `${originX}% ${originY}%`;
+      image.style.transform = `scale(${touchScale})`;
+      return;
+    }
+
+    if (viewer.classList.contains('is-desktop-zooming')) updateDesktopZoom(event);
+  });
+
+  source.addEventListener('pointerleave', (event) => {
+    if (event.pointerType === 'touch') return;
+    viewer.classList.remove('is-desktop-zooming');
+    lens.hidden = true;
+    zoom.hidden = true;
+  });
+
+  source.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'touch') return;
+    event.preventDefault();
+    source.setPointerCapture(event.pointerId);
+    touchPoints.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    viewer.classList.add('is-touch-zooming');
+    if (touchPoints.size === 2) {
+      const points = Array.from(touchPoints.values());
+      pinchDistance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+      pinchScale = touchScale;
+    }
+    image.style.transform = `scale(${touchScale})`;
+  });
+
+  const endTouchZoom = (event) => {
+    if (event.pointerType !== 'touch') return;
+    touchPoints.delete(event.pointerId);
+    if (touchPoints.size < 2) pinchDistance = 0;
+    if (!touchPoints.size) {
+      viewer.classList.remove('is-touch-zooming');
+      image.style.transform = '';
+      image.style.transformOrigin = '';
+      touchScale = 2.5;
+    }
+  };
+
+  source.addEventListener('pointerup', endTouchZoom);
+  source.addEventListener('pointercancel', endTouchZoom);
 
   const closeLightbox = () => {
+    resetZoom();
     workLightbox.hidden = true;
     document.body.classList.remove('work-lightbox-open');
     if (trigger) trigger.focus();
@@ -92,6 +205,7 @@ if (workLightbox) {
       image.src = button.dataset.workImage;
       image.alt = button.dataset.workTitle;
       title.textContent = button.dataset.workTitle;
+      resetZoom();
       workLightbox.hidden = false;
       document.body.classList.add('work-lightbox-open');
       workLightbox.querySelector('.work-lightbox-close').focus();
