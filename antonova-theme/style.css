@@ -3,7 +3,7 @@ Theme Name: Antonova Oksana
 Theme URI: https://antonovaoksana.ru/
 Author: Alexander Makunin
 Description: Custom WordPress theme preserving the existing Antonova Oksana site design.
-Version: 1.0.19
+Version: 1.0.20
 Text Domain: antonova-oksana
 */
 
@@ -143,3 +143,6 @@ html,body{max-width:100%;overflow-x:hidden}
 
 /* Desktop alignment refinements. */
 @media(min-width:701px){.hero>.hero-content>.eyebrow{top:8px}.footer-identity{justify-items:center;align-items:center;text-align:center}.faq>.eyebrow{width:100%;text-align:center}.about-photo img{height:auto;aspect-ratio:auto;object-fit:contain}}
+
+/* Mobile-only layout refinements. */
+@media(max-width:700px){.hero-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:30px;flex-wrap:nowrap}.hero-facts li{min-width:0;gap:5px;align-items:flex-start;font-size:9px;line-height:1.3}.hero-facts li>span:last-child{min-width:0;overflow-wrap:anywhere}.hero-facts b{font-size:10px}.fact-icon{flex:0 0 18px;font-size:18px}.product-grid article>div{height:54px;min-height:54px;padding:7px 8px;display:flex;align-items:center;justify-content:center;text-align:center}.product-grid h3{text-align:center}.about-section.has-about-image .about-copy :is(.eyebrow,h2){display:none}.about-photo img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain;object-position:center}}
