@@ -168,7 +168,12 @@ function antonova_work_image_url($work_id, $size = 'large') {
         return $thumbnail;
     }
 
-    return get_post_meta($work_id, '_antonova_work_legacy_image', true);
+    $legacy_image = get_post_meta($work_id, '_antonova_work_legacy_image', true);
+    if (strpos($legacy_image, '08727a6e38cd-960.webp') !== false) {
+        return antonova_theme_asset('assets/red-cake.jpg');
+    }
+
+    return $legacy_image;
 }
 
 function antonova_work_categories($work_id) {
@@ -390,7 +395,7 @@ function antonova_product_price_icon($index) {
         '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M13 31h38v21H13zM13 40h38M18 31c0-7 6-12 14-12s14 5 14 12M27 19c0-5 3-9 8-11M34 9c3 0 5 2 5 5M10 53h44"/></svg>',
         '<svg viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(29 32 32)"><rect x="17" y="7" width="30" height="50" rx="2"/><path d="M27 7v50M37 7v50M17 23h30M17 40h30"/></g></svg>',
         '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M21 24 9 18l3 12-6 7 15 4M43 24l12-6-3 12 6 7-15 4M21 24c5-5 17-5 22 0v17c-5 5-17 5-22 0zM25 28c4 3 10 3 14 0M25 37c4 3 10 3 14 0"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 39c8 13 35 18 45 0-8 3-15 2-21-2-5-4-8-10-9-17-8 3-14 10-15 19zM20 39c4-3 6-8 6-14M31 43c4-5 5-12 3-20M42 39c-3-4-4-10-3-15M14 31c4 2 8 3 12 2M38 29c5 4 10 5 15 3"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M19 31h26l-3 23H22zM21 40h22M17 29c-3-7 2-13 9-12-1-7 8-10 12-4 6-2 11 3 9 9 5 3 5 10-2 11-7 2-19 2-27 0-5-2-5-8-1-11zM25 24c3 2 10 2 14 0M31 18c2 3 3 7 2 11"/></svg>',
         '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M9 42c1-12 9-24 21-31 8 10 11 22 7 31-5 12-18 17-26 9-2-2-3-5-2-9zM17 46c6-9 10-18 13-29M16 33l12 5M22 23l9 5M37 26c7-5 14-6 20-3 0 9-2 17-8 22-4 4-9 5-13 3M42 42c2-6 6-11 11-15"/></svg>',
         '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 18c-9 0-15 5-15 14 0 13 7 23 15 29 8-6 15-16 15-29 0-9-6-14-15-14zM32 18c-5-6-10-7-15-4M32 18c4-7 10-8 15-4M26 14l-3-6M37 14l4-6M18 39c5 3 9 4 14 4s10-1 14-4M25 27h.01M33 25h.01M40 29h.01"/><path style="fill:currentColor;stroke:none" d="M19 40c4 2 8 3 13 3s10-1 13-3c-2 8-7 15-13 20-6-5-11-12-13-20z"/></svg>',
         '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 7c7 7 7 13 1 18 10-2 16 3 14 10 8 2 10 9 6 15-5 8-37 8-42 0-4-6-2-13 6-15-2-7 4-12 14-10-6-5-6-11 1-18zM17 35c7 6 23 6 30 0M12 47c10 6 30 6 40 0"/></svg>',
