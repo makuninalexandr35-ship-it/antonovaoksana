@@ -367,7 +367,14 @@ function antonova_get_product_prices() {
     foreach ($defaults as $index => $default) {
         $saved_price = isset($saved[$index]['price']) ? sanitize_text_field($saved[$index]['price']) : '';
         $legacy_price = isset($legacy_products[$index]['price']) ? sanitize_text_field($legacy_products[$index]['price']) : '';
-        $prices[] = array('price' => $saved_price !== '' ? $saved_price : ($legacy_price !== '' ? $legacy_price : $default['price']));
+        $price = $saved_price !== '' ? $saved_price : ($legacy_price !== '' ? $legacy_price : $default['price']);
+
+        // Сохраняем единицу измерения для прежних цен, перенесённых из старого блока.
+        if ($saved_price === '' && $legacy_price !== '' && strpos($price, '/') === false) {
+            $price .= strrchr($default['price'], '/');
+        }
+
+        $prices[] = array('price' => $price);
     }
 
     return $prices;
