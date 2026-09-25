@@ -278,14 +278,24 @@ function antonova_default_products() {
 function antonova_default_product_prices() {
     return array(
         array('price' => 'от 3000 ₽/кг'),
-        array('price' => 'от 2000 ₽/г'),
-        array('price' => 'от 150 ₽/г'),
-        array('price' => 'от 200 ₽/г'),
-        array('price' => 'от 100 ₽/г'),
-        array('price' => 'от 1500 ₽/г'),
-        array('price' => 'от 150 ₽/г'),
+        array('price' => 'от 950 ₽/шт'),
+        array('price' => 'от 150 ₽/шт'),
+        array('price' => 'от 200 ₽/шт'),
+        array('price' => 'от 100 ₽/шт'),
+        array('price' => 'от 150 ₽/набор'),
+        array('price' => 'от 150 ₽/шт'),
     );
 }
+
+function antonova_migrate_product_prices_v2() {
+    if (get_option('antonova_product_prices_version') === '2') {
+        return;
+    }
+
+    update_option('antonova_product_prices', antonova_default_product_prices());
+    update_option('antonova_product_prices_version', '2');
+}
+add_action('init', 'antonova_migrate_product_prices_v2');
 
 function antonova_default_flavors() {
     return array(
@@ -359,25 +369,7 @@ function antonova_get_products() {
     return antonova_merge_rows(get_option('antonova_products', array()), antonova_default_products());
 }
 function antonova_get_product_prices() {
-    $defaults = antonova_default_product_prices();
-    $saved = get_option('antonova_product_prices', array());
-    $legacy_products = get_option('antonova_products', array());
-    $prices = array();
-
-    foreach ($defaults as $index => $default) {
-        $saved_price = isset($saved[$index]['price']) ? sanitize_text_field($saved[$index]['price']) : '';
-        $legacy_price = isset($legacy_products[$index]['price']) ? sanitize_text_field($legacy_products[$index]['price']) : '';
-        $price = $saved_price !== '' ? $saved_price : ($legacy_price !== '' ? $legacy_price : $default['price']);
-
-        // Сохраняем единицу измерения для прежних цен, перенесённых из старого блока.
-        if ($saved_price === '' && $legacy_price !== '' && strpos($price, '/') === false) {
-            $price .= strrchr($default['price'], '/');
-        }
-
-        $prices[] = array('price' => $price);
-    }
-
-    return $prices;
+    return antonova_merge_rows(get_option('antonova_product_prices', array()), antonova_default_product_prices());
 }
 function antonova_get_product_price_cards() {
     $products = antonova_get_products();
@@ -396,11 +388,11 @@ function antonova_get_product_price_cards() {
 function antonova_product_price_icon($index) {
     $icons = array(
         '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M13 31h38v21H13zM13 40h38M18 31c0-7 6-12 14-12s14 5 14 12M27 19c0-5 3-9 8-11M34 9c3 0 5 2 5 5M10 53h44"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="m20 8 34 20-22 37L-2 45zM20 8l12 7-22 37M32 15l11 7-22 37M10 26l34 20M15 17l34 20"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="20"/><path d="M17 26c5-4 8 14 13 10s4-17 10-13 2 16 9 15M21 46c7 4 15 5 23 0"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 34h28l-4 21H22zM21 41h22M25 55l-2-21M39 55l2-21M20 34c-2-5 1-9 6-10-2-5 2-10 8-9 2-5 9-5 11 0 5 1 7 6 4 10 4 2 5 6 2 9z"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M33 7C18 15 10 27 11 40c1 11 10 18 21 18 13 0 22-8 22-20C54 26 46 15 33 7zM33 13c-1 17-7 30-17 38M36 14c4 14 8 26 15 34M30 24c6 3 12 8 18 15M22 28c4 4 9 8 16 12"/></svg>',
-        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 20c12 0 20 8 20 20 0 10-8 18-20 18S12 50 12 40c0-12 8-20 20-20zM32 20c-1-8 3-13 10-15M33 15c-5-5-10-6-15-3M17 35c7 0 7 9 14 9 8 0 7-10 16-10M22 48h.1M43 45h.1"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(29 32 32)"><rect x="17" y="7" width="30" height="50" rx="2"/><path d="M27 7v50M37 7v50M17 23h30M17 40h30"/></g></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M21 24 9 18l3 12-6 7 15 4M43 24l12-6-3 12 6 7-15 4M21 24c5-5 17-5 22 0v17c-5 5-17 5-22 0zM25 28c4 3 10 3 14 0M25 37c4 3 10 3 14 0"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M19 32h26l-4 24H23zM22 40h20M27 56l-2-24M37 56l2-24M20 32c-2-4 1-8 6-9-1-5 3-9 8-8 2-4 8-4 10 0 5 1 8 6 5 10 4 2 5 6 2 9"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M9 42c1-12 9-24 21-31 8 10 11 22 7 31-5 12-18 17-26 9-2-2-3-5-2-9zM17 46c6-9 10-18 13-29M16 33l12 5M22 23l9 5M37 26c7-5 14-6 20-3 0 9-2 17-8 22-4 4-9 5-13 3M42 42c2-6 6-11 11-15"/></svg>',
+        '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 17c11-8 21 0 18 13-3 13-11 26-18 29-7-3-15-16-18-29-3-13 7-21 18-13zM32 17c-5-5-10-6-15-4M32 17c4-6 9-8 15-7M24 14l2-7M40 12l3-6M16 35c6-3 10 5 16 5s10-8 16-5M19 42c3 1 5 4 6 9M45 42c-3 1-5 4-6 9"/></svg>',
         '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 7c7 7 7 13 1 18 10-2 16 3 14 10 8 2 10 9 6 15-5 8-37 8-42 0-4-6-2-13 6-15-2-7 4-12 14-10-6-5-6-11 1-18zM17 35c7 6 23 6 30 0M12 47c10 6 30 6 40 0"/></svg>',
     );
 
