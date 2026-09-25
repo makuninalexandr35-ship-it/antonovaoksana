@@ -488,6 +488,7 @@ function antonova_register_content_settings() {
         'antonova_flavors_heading',
         'antonova_works_heading',
         'antonova_faq_heading',
+        'antonova_about_image',
     );
 
     foreach ($text_fields as $field) {
@@ -496,7 +497,7 @@ function antonova_register_content_settings() {
             $field,
             array(
                 'type' => 'string',
-                'sanitize_callback' => in_array($field, array('antonova_telegram_url', 'antonova_whatsapp_url', 'antonova_instagram_url', 'antonova_vk_candy_url', 'antonova_vk_oksana_url', 'antonova_threads_url'), true) ? 'esc_url_raw' : 'sanitize_text_field',
+                'sanitize_callback' => in_array($field, array('antonova_telegram_url', 'antonova_whatsapp_url', 'antonova_instagram_url', 'antonova_vk_candy_url', 'antonova_vk_oksana_url', 'antonova_threads_url', 'antonova_about_image'), true) ? 'esc_url_raw' : 'sanitize_text_field',
                 'default' => '',
             )
         );
@@ -570,6 +571,8 @@ function antonova_render_content_page() {
         'antonova_faq_heading' => array('Заголовок блока FAQ', 'Возможно, вы хотели спросить'),
     );
 
+    $about_image = antonova_content('antonova_about_image', '');
+
     $products = antonova_get_products();
     $product_prices = antonova_get_product_prices();
     $flavors = antonova_get_flavors();
@@ -604,6 +607,15 @@ function antonova_render_content_page() {
                             </tr>
                         <?php endforeach; ?>
                     </table>
+                </div>
+            </details>
+
+            <details>
+                <summary>О себе</summary>
+                <div class="antonova-section">
+                    <p>Загрузите портрет или фотографию для блока «О себе». Если поле оставить пустым, на сайте останется только текст блока.</p>
+                    <label>Фотография Оксаны</label>
+                    <?php antonova_render_media_field('antonova_about_image', $about_image, 'Оксана Антонова'); ?>
                 </div>
             </details>
 
