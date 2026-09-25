@@ -3,7 +3,7 @@ Theme Name: Antonova Oksana
 Theme URI: https://antonovaoksana.ru/
 Author: Alexander Makunin
 Description: Custom WordPress theme preserving the existing Antonova Oksana site design.
-Version: 1.0.9
+Version: 1.0.10
 Text Domain: antonova-oksana
 */
 
@@ -112,4 +112,4 @@ html,body{max-width:100%;overflow-x:hidden}
 
 .work-lightbox[hidden]{display:none}.work-lightbox{position:fixed;z-index:1000;inset:0;display:grid;place-items:center;padding:24px}.work-lightbox-backdrop{position:absolute;inset:0;border:0;background:rgba(20,8,12,.86);cursor:zoom-out}.work-lightbox-content{position:relative;z-index:1;max-width:min(920px,100%);max-height:100%;display:grid;justify-items:center;gap:12px;color:#fff}.work-lightbox-content img{max-width:100%;max-height:calc(100vh - 100px);width:auto;height:auto;object-fit:contain;border-radius:8px;box-shadow:0 24px 70px rgba(0,0,0,.42)}.work-lightbox-content p{margin:0;font:16px var(--serif);text-align:center}.work-lightbox-close{position:absolute;top:10px;right:10px;width:40px;height:40px;border:0;border-radius:50%;background:#fff;color:var(--wine);font:32px/1 var(--sans);cursor:pointer}.work-lightbox-open{overflow:hidden}
 .works-exit-order{display:flex;justify-content:center;margin:28px 0 0}.works-exit-order .button{min-width:210px}@media(max-width:700px){.footer-socials{justify-content:center;text-align:center}.works-exit-order{margin-top:22px}.work-lightbox{padding:16px}.work-lightbox-content img{max-height:calc(100vh - 80px)}}
-@media(min-width:701px){body.post-type-archive-antonova_work .site-header{padding-left:24px;padding-right:24px;gap:20px}body.post-type-archive-antonova_work .site-header nav{gap:18px;font-size:11px}body.post-type-archive-antonova_work .button-header{min-height:40px;padding:0 16px;font-size:12px}body.post-type-archive-antonova_work footer{padding:45px 24px;justify-content:center;align-items:center;flex-wrap:wrap}body.post-type-archive-antonova_work .footer-identity{align-items:center;text-align:center}body.post-type-archive-antonova_work .footer-socials{justify-content:center}body.post-type-archive-antonova_work .footer-privacy{text-align:center}}
+@media(min-width:701px){body.post-type-archive-antonova_work .site-header{padding-left:max(24px,calc((100vw - 1180px)/2));padding-right:max(24px,calc((100vw - 1180px)/2));gap:20px}body.post-type-archive-antonova_work .site-header nav{gap:18px;font-size:11px}body.post-type-archive-antonova_work .button-header{min-height:40px;padding:0 16px;font-size:12px}body.post-type-archive-antonova_work footer{padding:45px 24px;justify-content:center;align-items:center;flex-wrap:wrap}body.post-type-archive-antonova_work .footer-identity{align-items:center;text-align:center}body.post-type-archive-antonova_work .footer-socials{justify-content:center}body.post-type-archive-antonova_work .footer-privacy{text-align:center}}
