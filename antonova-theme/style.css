@@ -132,5 +132,8 @@ html,body{max-width:100%;overflow-x:hidden}
 /* Keep the supplied portrait fully visible inside its frame. */
 .about-photo img{object-fit:contain}
 
+/* Mobile-only order and full-height portrait for the about section. */
+.about-mobile-heading{display:none}@media(max-width:700px){.about-mobile-heading{display:block;order:-2;width:100%}.about-mobile-heading .eyebrow{margin:0 0 14px}.about-mobile-heading h2{margin:0;font:40px/1.08 var(--serif);letter-spacing:-.035em}.about-section.has-about-image .about-photo{order:-1}.about-section.has-about-image .about-copy :is(.eyebrow,h2){display:none}.about-photo img{height:auto;aspect-ratio:auto;object-fit:contain}}
+
 /* Reviews invitation */
 .review-section{display:flex;align-items:center;justify-content:center;gap:28px;padding:42px max(4.7vw,24px);background:#f8f3eb;text-align:center}.review-section p{margin:0;color:var(--wine);font:clamp(23px,2.4vw,34px)/1.25 var(--serif)}.review-yandex-link{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 22px;border:1px solid rgba(89,20,44,.42);border-radius:100px;color:var(--wine);font-size:13px;font-weight:600;white-space:nowrap}.review-yandex-link span{font-size:17px}.review-yandex-link[aria-disabled="true"]{cursor:default}@media(max-width:700px){.review-section{flex-direction:column;gap:18px;padding:38px 18px}.review-section p{max-width:330px;font-size:26px}.review-yandex-link{min-height:46px;padding:0 19px;font-size:12px}}

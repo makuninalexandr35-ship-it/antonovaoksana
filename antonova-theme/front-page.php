@@ -154,6 +154,10 @@
 
     <?php $about_image = antonova_content('antonova_about_image', ''); ?>
     <section id="about" class="section about-section reveal<?php echo $about_image ? ' has-about-image' : ''; ?>">
+      <div class="about-mobile-heading">
+        <p class="eyebrow">Кондитер — по любви</p>
+        <h2>Оксана Антонова</h2>
+      </div>
       <div class="about-copy">
         <p class="eyebrow">Кондитер — по любви</p>
         <h2>Оксана Антонова</h2>
