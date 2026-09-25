@@ -60,6 +60,7 @@ jobs:
             antonova-theme/assets/apple-touch-icon.png \
             antonova-theme/assets/favicon-48.png \
             antonova-theme/assets/Sertifikat.jpg \
+            antonova-theme/assets/red-cake.jpg \
             "$bundle_dir/assets/"
           install -m 644 antonova-theme/assets/optimized/*.webp "$bundle_dir/assets/optimized/"
           install -m 644 antonova-theme/assets/fonts/* "$bundle_dir/assets/fonts/"
