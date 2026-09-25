@@ -171,6 +171,11 @@
       <?php endif; ?>
     </section>
 
+    <section class="review-section reveal" aria-label="Отзывы">
+      <p>Ваш отзыв — лучшая благодарность за мою работу</p>
+      <span class="review-yandex-link" aria-disabled="true">Оставить отзыв на Яндекс Картах <span aria-hidden="true">↗</span></span>
+    </section>
+
     <section class="telegram-cta reveal">
       <p class="eyebrow">Готовы оформить заказ?</p><h2>Расскажите, какой<br>десерт вы хотите</h2><p>Напишите напрямую в Telegram. Чтобы быстрее рассчитать заказ, укажите дату, количество гостей, желаемый вес и начинку. Если есть идея оформления — прикрепите фотографию.</p><a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener"><span class="telegram-icon">➤</span> Заказать в Telegram</a><a class="phone" href="tel:<?php echo esc_attr(antonova_content('antonova_phone_tel', '+79647281844')); ?>"><?php echo esc_html(antonova_content('antonova_phone_display', '+7 964 728-18-44')); ?></a>
     </section>
