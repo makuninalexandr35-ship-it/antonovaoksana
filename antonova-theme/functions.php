@@ -344,6 +344,12 @@ function antonova_add_sitemap_to_robots($output, $public) {
         return $output;
     }
 
+    // Yoast publishes sitemap_index.xml itself; do not add a second, unused
+    // WordPress core sitemap URL when that plugin is active.
+    if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION')) {
+        return $output;
+    }
+
     $sitemap_line = 'Sitemap: ' . esc_url_raw(home_url('/wp-sitemap.xml'));
     if (strpos($output, 'Sitemap:') === false) {
         $output = rtrim($output) . "\n\n" . $sitemap_line . "\n";
