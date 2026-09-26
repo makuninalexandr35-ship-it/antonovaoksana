@@ -312,6 +312,26 @@ function antonova_yoast_description($description) {
 }
 add_filter('wpseo_metadesc', 'antonova_yoast_description');
 
+function antonova_yoast_opengraph_title($title) {
+    return antonova_seo_context()['title'];
+}
+add_filter('wpseo_opengraph_title', 'antonova_yoast_opengraph_title');
+
+function antonova_yoast_opengraph_description($description) {
+    return antonova_seo_context()['description'];
+}
+add_filter('wpseo_opengraph_desc', 'antonova_yoast_opengraph_description');
+
+function antonova_yoast_opengraph_image($image) {
+    return antonova_theme_asset('assets/og-cake.jpg');
+}
+add_filter('wpseo_opengraph_image', 'antonova_yoast_opengraph_image');
+
+function antonova_yoast_opengraph_type($type) {
+    return antonova_seo_context()['type'];
+}
+add_filter('wpseo_opengraph_type', 'antonova_yoast_opengraph_type');
+
 function antonova_render_seo_meta() {
     // Yoast already renders these tags when active; avoid duplicate metadata.
     if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION')) {
