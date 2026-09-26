@@ -7,7 +7,7 @@
     <p class="page-back-link"><a href="<?php echo esc_url(get_post_type_archive_link('antonova_work')); ?>">← Все работы</a></p>
     <article class="work-single-layout">
       <?php if ($work_image) : ?>
-        <div class="work-single-image"><img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>"></div>
+        <div class="work-single-image"><img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr(get_the_title() ?: 'Авторская работа'); ?>"></div>
       <?php endif; ?>
       <div class="work-single-copy">
         <?php $categories = get_the_terms(get_the_ID(), 'antonova_work_category'); ?>

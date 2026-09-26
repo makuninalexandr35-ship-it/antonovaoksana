@@ -88,7 +88,7 @@
             <?php if ($work_image) : ?>
               <article class="work-card" data-work-card data-categories="<?php echo esc_attr(implode(' ', antonova_work_categories(get_the_ID()))); ?>">
                 <a href="<?php echo esc_url($work_image); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work_image); ?>" data-work-title="<?php echo esc_attr(get_the_title()); ?>" aria-label="Увеличить: <?php echo esc_attr(get_the_title()); ?>">
-                  <img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy">
+                  <img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr(get_the_title() ?: 'Авторская работа'); ?>" loading="lazy">
                   <span class="work-card-caption"><b><?php the_title(); ?></b><span>Увеличить фото →</span></span>
                 </a>
               </article>
@@ -113,7 +113,7 @@
         <button class="work-lightbox-close" type="button" data-work-lightbox-close aria-label="Закрыть">×</button>
         <div class="work-lightbox-viewer" data-work-lightbox-viewer>
           <div class="work-lightbox-source" data-work-lightbox-source>
-            <img src="" alt="" data-work-lightbox-image>
+            <img src="" alt="Увеличенное фото работы" data-work-lightbox-image>
             <span class="work-lightbox-lens" data-work-lightbox-lens hidden aria-hidden="true"></span>
           </div>
           <div class="work-lightbox-zoom" data-work-lightbox-zoom hidden aria-hidden="true"></div>

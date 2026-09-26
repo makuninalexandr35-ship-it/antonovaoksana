@@ -227,29 +227,130 @@ function antonova_get_catalogue_works($limit = -1) {
 }
 
 /**
- * Keep SEO output in one place: Yoast. The templates do not print metadata.
+ * Technical SEO defaults. The site is WordPress (not Astro), so the
+ * equivalent functionality is provided by the theme and WordPress core.
  */
-function antonova_yoast_title($title) {
+function antonova_seo_limit($value, $limit) {
+    $value = trim(wp_strip_all_tags((string) $value));
+    if (function_exists('mb_substr')) {
+        return mb_substr($value, 0, $limit);
+    }
+    return substr($value, 0, $limit);
+}
+
+function antonova_seo_context() {
+    $context = array(
+        'title' => 'Торты на заказ в Москве | Oksana Antonova',
+        'description' => 'Авторские торты и десерты на заказ в Москве: свадебные, праздничные и тематические десерты от Оксаны Антоновой.',
+        'url' => home_url('/'),
+        'type' => 'website',
+    );
+
     if (is_front_page()) {
-        return 'Торты на заказ в Москве — авторские десерты | Oksana Antonova';
+        return $context;
+    }
+
+    if (is_post_type_archive('antonova_work')) {
+        $context['title'] = 'Каталог работ: торты и десерты | Oksana Antonova';
+        $context['description'] = 'Каталог авторских тортов и десертов Оксаны Антоновой: примеры оформления, идеи для праздника и готовые работы.';
+        $context['url'] = get_post_type_archive_link('antonova_work');
+        return $context;
+    }
+
+    if (is_singular('antonova_work')) {
+        $work_title = get_the_title();
+        $context['title'] = antonova_seo_limit($work_title . ' | Oksana Antonova', 60);
+        $context['description'] = 'Авторская работа «' . $work_title . '» — торт или десерт ручной работы от Оксаны Антоновой в Москве.';
+        $context['url'] = get_permalink();
+        $context['type'] = 'article';
+        return $context;
     }
 
     if (is_page()) {
-        return single_post_title('', false) . ' | Oksana Antonova';
+        $page_title = get_the_title();
+        $context['title'] = antonova_seo_limit($page_title . ' | Oksana Antonova', 60);
+        $context['description'] = antonova_seo_limit('Страница «' . $page_title . '» сайта домашней кондитерской Оксаны Антоновой: торты и авторские десерты на заказ в Москве.', 160);
+        $context['url'] = get_permalink();
+        return $context;
     }
 
-    return $title;
+    if (is_404()) {
+        $context['title'] = 'Страница не найдена | Oksana Antonova';
+        $context['description'] = 'Запрошенная страница не найдена. Перейдите на главную и выберите авторские торты и десерты на заказ.';
+        return $context;
+    }
+
+    if (is_search()) {
+        $context['title'] = 'Результаты поиска | Oksana Antonova';
+        $context['description'] = 'Результаты поиска по сайту домашней кондитерской Оксаны Антоновой.';
+        return $context;
+    }
+
+    if (is_singular()) {
+        $singular_title = get_the_title();
+        $context['title'] = antonova_seo_limit($singular_title . ' | Oksana Antonova', 60);
+        $context['description'] = antonova_seo_limit(wp_trim_words(get_the_excerpt(), 28, '…'), 160);
+        $context['url'] = get_permalink();
+    }
+
+    return $context;
+}
+
+function antonova_document_title($title) {
+    $context = antonova_seo_context();
+    return $context['title'];
+}
+add_filter('pre_get_document_title', 'antonova_document_title', 20);
+
+function antonova_yoast_title($title) {
+    return antonova_seo_context()['title'];
 }
 add_filter('wpseo_title', 'antonova_yoast_title');
 
-function antonova_yoast_front_page_description($description) {
-    if (is_front_page()) {
-        return 'Авторские торты и десерты на заказ в Москве. Свадебные, праздничные и тематические торты от Oksana Antonova.';
+function antonova_yoast_description($description) {
+    return antonova_seo_context()['description'];
+}
+add_filter('wpseo_metadesc', 'antonova_yoast_description');
+
+function antonova_render_seo_meta() {
+    // Yoast already renders these tags when active; avoid duplicate metadata.
+    if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION')) {
+        return;
     }
 
-    return $description;
+    $context = antonova_seo_context();
+    $image = antonova_theme_asset('assets/og-cake.jpg');
+    echo '<meta name="description" content="' . esc_attr(antonova_seo_limit($context['description'], 160)) . '">' . "\n";
+    echo '<meta property="og:type" content="' . esc_attr($context['type']) . '">' . "\n";
+    echo '<meta property="og:locale" content="ru_RU">' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr(antonova_seo_limit($context['title'], 60)) . '">' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr(antonova_seo_limit($context['description'], 160)) . '">' . "\n";
+    echo '<meta property="og:url" content="' . esc_url($context['url']) . '">' . "\n";
+    echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
+    echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+    echo '<meta name="twitter:title" content="' . esc_attr(antonova_seo_limit($context['title'], 60)) . '">' . "\n";
+    echo '<meta name="twitter:description" content="' . esc_attr(antonova_seo_limit($context['description'], 160)) . '">' . "\n";
+    echo '<meta name="twitter:image" content="' . esc_url($image) . '">' . "\n";
 }
-add_filter('wpseo_metadesc', 'antonova_yoast_front_page_description');
+add_action('wp_head', 'antonova_render_seo_meta', 2);
+
+function antonova_enable_core_sitemap($enabled) {
+    return true;
+}
+add_filter('wp_sitemaps_enabled', 'antonova_enable_core_sitemap');
+
+function antonova_add_sitemap_to_robots($output, $public) {
+    if (!$public) {
+        return $output;
+    }
+
+    $sitemap_line = 'Sitemap: ' . esc_url_raw(home_url('/wp-sitemap.xml'));
+    if (strpos($output, 'Sitemap:') === false) {
+        $output = rtrim($output) . "\n\n" . $sitemap_line . "\n";
+    }
+    return $output;
+}
+add_filter('robots_txt', 'antonova_add_sitemap_to_robots', 10, 2);
 
 function antonova_remove_unused_core_styles() {
     wp_dequeue_style('wp-block-library');
