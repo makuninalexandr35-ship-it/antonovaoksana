@@ -376,7 +376,7 @@ function antonova_add_sitemap_to_robots($output, $public) {
     }
     return $output;
 }
-add_filter('robots_txt', 'antonova_add_sitemap_to_robots', 10, 2);
+add_filter('robots_txt', 'antonova_add_sitemap_to_robots', 99, 2);
 
 function antonova_remove_unused_core_styles() {
     wp_dequeue_style('wp-block-library');
