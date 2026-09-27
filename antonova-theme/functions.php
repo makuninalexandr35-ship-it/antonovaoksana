@@ -92,6 +92,25 @@ function antonova_seed_cake_landing_pages() {
 }
 add_action('init', 'antonova_seed_cake_landing_pages', 20);
 
+/** Set the requested Yoast fields once, while keeping them editable in WordPress. */
+function antonova_seed_wedding_cake_seo() {
+    if (get_option('antonova_wedding_cake_seo_seeded')) {
+        return;
+    }
+
+    $page = get_page_by_path('svadebnye-torty');
+    if (!$page) {
+        return;
+    }
+
+    update_post_meta($page->ID, '_yoast_wpseo_focuskw', 'свадебный торт на заказ в Москве');
+    update_post_meta($page->ID, '_yoast_wpseo_title', 'Свадебный торт на заказ в Москве | Oksana Antonova');
+    update_post_meta($page->ID, '_yoast_wpseo_metadesc', 'Свадебный торт на заказ в Москве по индивидуальному дизайну. Выбор начинки и декора, самовывоз в Коптево и доставка по Москве и области.');
+
+    update_option('antonova_wedding_cake_seo_seeded', '1');
+}
+add_action('init', 'antonova_seed_wedding_cake_seo', 21);
+
 /**
  * Catalogue of finished works. Content is managed in WordPress, while the
  * catalogue interface stays in the theme and is deployed through GitHub.
@@ -319,8 +338,8 @@ function antonova_seo_context() {
     }
 
     if (is_page('svadebnye-torty')) {
-        $context['title'] = 'Свадебные торты на заказ в Москве | Oksana Antonova';
-        $context['description'] = 'Свадебные торты на заказ в Москве: индивидуальный дизайн, начинки, самовывоз в Коптево и доставка по Москве и области.';
+        $context['title'] = 'Свадебный торт на заказ в Москве | Oksana Antonova';
+        $context['description'] = 'Свадебный торт на заказ в Москве по индивидуальному дизайну. Выбор начинки и декора, самовывоз в Коптево и доставка по Москве и области.';
         $context['url'] = get_permalink();
         return $context;
     }
