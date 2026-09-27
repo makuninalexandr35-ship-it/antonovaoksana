@@ -177,7 +177,7 @@
 
     <section class="review-section reveal" aria-label="Отзывы">
       <p>Ваш отзыв — лучшая благодарность за мою работу</p>
-      <span class="review-yandex-link" aria-disabled="true">Оставить отзыв на Яндекс Картах <span aria-hidden="true">↗</span></span>
+      <a class="review-yandex-link" href="https://yandex.ru/profile/134953366795?intent=reviews" target="_blank" rel="noopener noreferrer">Оставить отзыв на Яндекс Картах <span aria-hidden="true">↗</span></a>
     </section>
 
     <section class="telegram-cta reveal">
