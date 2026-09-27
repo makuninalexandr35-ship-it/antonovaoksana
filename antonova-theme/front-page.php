@@ -81,12 +81,6 @@
       <div class="section-heading split-heading"><div><p class="eyebrow">Наши работы</p><h2><?php echo esc_html(antonova_content('antonova_works_heading', 'Сладкие шедевры для ваших торжеств')); ?></h2></div><p class="works-intro">Каждый заказ — отдельная история,<br>созданная вручную.</p></div>
       <?php $catalogue_works = antonova_get_catalogue_works(); ?>
       <?php if ($catalogue_works->have_posts()) : ?>
-        <div class="work-filters" aria-label="Категории работ">
-          <button class="work-filter is-active" type="button" data-work-filter="all">Все</button>
-          <?php foreach (get_terms(array('taxonomy' => 'antonova_work_category', 'hide_empty' => false)) as $category) : ?>
-            <button class="work-filter" type="button" data-work-filter="<?php echo esc_attr($category->slug); ?>"><?php echo esc_html($category->name); ?></button>
-          <?php endforeach; ?>
-        </div>
         <div class="work-grid" data-work-grid>
           <?php while ($catalogue_works->have_posts()) : $catalogue_works->the_post(); ?>
             <?php $work_image = antonova_work_image_url(get_the_ID()); ?>
