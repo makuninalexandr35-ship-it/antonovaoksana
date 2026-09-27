@@ -23,18 +23,22 @@ function antonova_send_security_headers() {
 add_action('send_headers', 'antonova_send_security_headers');
 
 function antonova_theme_assets() {
+    $theme_version = wp_get_theme()->get('Version');
+    $style_path = get_stylesheet_directory() . '/style.css';
+    $style_version = file_exists($style_path) ? (string) filemtime($style_path) : $theme_version;
+
     wp_enqueue_style(
         'antonova-local-fonts',
         get_template_directory_uri() . '/assets/fonts/fonts.css',
         array(),
-        wp_get_theme()->get('Version')
+        $theme_version
     );
 
     wp_enqueue_style(
         'antonova-style',
         get_stylesheet_uri(),
         array('antonova-local-fonts'),
-        wp_get_theme()->get('Version')
+        $style_version
     );
 
     wp_enqueue_script(

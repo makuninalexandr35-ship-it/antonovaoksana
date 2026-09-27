@@ -11,6 +11,7 @@
         <p class="lead"><?php echo esc_html(antonova_content('antonova_lead', 'Индивидуальные вкусы, оформление и внимание к каждой детали. От идеи и референса — до десерта, который станет частью вашего праздника.')); ?></p>
         <div class="actions">
           <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener"><span class="telegram-icon">➤</span> Заказать в Telegram</a>
+          <a class="button button-light" href="https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo" target="_blank" rel="noopener noreferrer"><span class="telegram-icon">➤</span> Заказать в MAX</a>
         </div>
         <ul class="hero-facts" aria-label="Краткая информация">
           <li><span class="fact-icon">♨</span><span><b>Торты</b><?php echo esc_html($price_cards[0]['price'] ?? 'от 3000 ₽/кг'); ?></span></li>
