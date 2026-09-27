@@ -52,6 +52,47 @@ function antonova_theme_assets() {
 add_action('wp_enqueue_scripts', 'antonova_theme_assets', 20);
 
 /**
+ * Create the two cake landing pages once. Their content remains editable in
+ * WordPress afterwards through the regular Pages screen.
+ */
+function antonova_seed_cake_landing_pages() {
+    if (get_option('antonova_cake_landing_pages_seeded')) {
+        return;
+    }
+
+    $pages = array(
+        array(
+            'slug' => 'torty-na-den-rozhdeniya',
+            'title' => 'Торты на день рождения',
+            'content' => '<p>Торт на день рождения — это маленькая история о человеке и его празднике. Подберём размер, начинку и оформление по вашей идее, фотографии или любимым цветам.</p><h2>Торт, который запомнится</h2><p>Создаю детские и взрослые торты с индивидуальным дизайном: для семейного праздника, юбилея или камерного вечера. Обсудим детали заранее, чтобы десерт подошёл по вкусу и настроению.</p><p><strong>Самовывоз в Коптево и доставка по Москве и области.</strong></p>',
+        ),
+        array(
+            'slug' => 'svadebnye-torty',
+            'title' => 'Свадебные торты',
+            'content' => '<p>Свадебный торт создаётся для вашей истории: от лёгкого минимализма до сложного декора с цветами, фактурами и личными деталями пары.</p><h2>Главный десерт вашего дня</h2><p>Помогу подобрать размер под количество гостей, начинку и оформление. Можно прислать референсы или рассказать о стилистике свадьбы — вместе найдём решение, которое будет гармонично смотреться на празднике.</p><p><strong>Самовывоз в Коптево и доставка по Москве и области.</strong></p>',
+        ),
+    );
+
+    foreach ($pages as $page) {
+        if (get_page_by_path($page['slug'])) {
+            continue;
+        }
+
+        wp_insert_post(array(
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'post_name' => $page['slug'],
+            'post_title' => $page['title'],
+            'post_content' => $page['content'],
+            'meta_input' => array('_wp_page_template' => 'page-cake-landing.php'),
+        ));
+    }
+
+    update_option('antonova_cake_landing_pages_seeded', '1');
+}
+add_action('init', 'antonova_seed_cake_landing_pages', 20);
+
+/**
  * Catalogue of finished works. Content is managed in WordPress, while the
  * catalogue interface stays in the theme and is deployed through GitHub.
  */
@@ -267,6 +308,20 @@ function antonova_seo_context() {
         $context['description'] = 'Авторская работа «' . $work_title . '» — торт или десерт ручной работы от Оксаны Антоновой в Москве.';
         $context['url'] = get_permalink();
         $context['type'] = 'article';
+        return $context;
+    }
+
+    if (is_page('torty-na-den-rozhdeniya')) {
+        $context['title'] = 'Торты на день рождения в Москве | Oksana Antonova';
+        $context['description'] = 'Торты на день рождения на заказ в Москве: индивидуальный дизайн, начинки, самовывоз в Коптево и доставка по Москве и области.';
+        $context['url'] = get_permalink();
+        return $context;
+    }
+
+    if (is_page('svadebnye-torty')) {
+        $context['title'] = 'Свадебные торты на заказ в Москве | Oksana Antonova';
+        $context['description'] = 'Свадебные торты на заказ в Москве: индивидуальный дизайн, начинки, самовывоз в Коптево и доставка по Москве и области.';
+        $context['url'] = get_permalink();
         return $context;
     }
 
