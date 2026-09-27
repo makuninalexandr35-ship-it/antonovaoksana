@@ -164,4 +164,4 @@ html,body{max-width:100%;overflow-x:hidden}
 @media(min-width:701px) and (max-width:900px){.footer-socials,.social-threads-group{gap:6px}.social-link{min-height:40px;padding:0 10px;font-size:10px}}
 
 /* Keep the desktop footer compact: identity, social links and privacy on one line. */
-@media(min-width:1250px){footer{display:grid;grid-template-columns:minmax(240px,1fr) auto auto;align-items:start;gap:28px;flex-wrap:nowrap}.footer-identity{grid-column:1;grid-row:1}.footer-socials{grid-column:2;grid-row:1;align-self:start;justify-content:flex-start;flex-wrap:nowrap;max-width:none}.footer-privacy{grid-column:3;grid-row:1;align-self:start;margin-top:13px;white-space:nowrap}}
+@media(min-width:1250px){footer{display:grid;grid-template-columns:minmax(240px,1fr) auto auto;align-items:start;gap:28px;flex-wrap:nowrap}.footer-identity{grid-column:1;grid-row:1}.footer-socials{grid-column:2;grid-row:1;align-self:start;justify-content:flex-start;flex-wrap:nowrap;max-width:none;margin-top:60px}.footer-privacy{grid-column:3;grid-row:1;align-self:start;margin-top:73px;white-space:nowrap}}
