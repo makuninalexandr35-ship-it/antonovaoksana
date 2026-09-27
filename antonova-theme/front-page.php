@@ -6,7 +6,6 @@
       <img class="hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/c6097e4cd88b-2268.webp" srcset="<?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/c6097e4cd88b-400.webp 400w, <?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/c6097e4cd88b-800.webp 800w, <?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/c6097e4cd88b-2268.webp 2268w" sizes="100vw" width="2268" height="4032" decoding="async" alt="Авторский торт домашней кондитерской" fetchpriority="high" loading="eager">
       <div class="hero-shade"></div>
       <div class="hero-content reveal">
-        <p class="eyebrow"><?php echo esc_html(antonova_content('antonova_city', 'Домашняя кондитерская · Москва')); ?></p>
         <h1><?php echo esc_html(antonova_content('antonova_h1', 'Торты и авторские десерты на заказ в Москве')); ?></h1>
         <p class="lead"><?php echo esc_html(antonova_content('antonova_lead', 'Индивидуальные вкусы, оформление и внимание к каждой детали. От идеи и референса — до десерта, который станет частью вашего праздника.')); ?></p>
         <div class="actions">
