@@ -49,6 +49,7 @@ jobs:
             antonova-theme/functions.php \
             antonova-theme/header.php \
             antonova-theme/index.php \
+            antonova-theme/page-cake-landing.php \
             antonova-theme/page.php \
             antonova-theme/script.js \
             antonova-theme/single-antonova_work.php \
