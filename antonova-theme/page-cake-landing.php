@@ -13,7 +13,7 @@ while (have_posts()) :
     the_post();
     ?>
     <main>
-        <section class="hero cake-page-hero<?php echo is_page('svadebnye-torty') ? ' cake-page-hero-wedding' : ''; ?>">
+        <section class="hero cake-page-hero<?php echo is_page('wedding-cakes') ? ' cake-page-hero-wedding' : ''; ?>">
             <img class="hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/c6097e4cd88b-2268.webp" alt="<?php echo esc_attr(get_the_title()); ?>" width="2268" height="4032" decoding="async" fetchpriority="high">
             <div class="hero-shade"></div>
             <div class="hero-content">
@@ -27,7 +27,7 @@ while (have_posts()) :
             </div>
         </section>
 
-        <article class="cake-page-content<?php echo is_page('svadebnye-torty') ? ' cake-page-content-wedding' : ''; ?>">
+        <article class="cake-page-content<?php echo is_page('wedding-cakes') ? ' cake-page-content-wedding' : ''; ?>">
             <p class="page-back-link"><a href="<?php echo esc_url(home_url('/')); ?>#products">← Вернуться к продукции</a></p>
             <div class="page-content">
                 <?php the_content(); ?>

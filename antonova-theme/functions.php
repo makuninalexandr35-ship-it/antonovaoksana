@@ -62,12 +62,12 @@ function antonova_seed_cake_landing_pages() {
 
     $pages = array(
         array(
-            'slug' => 'torty-na-den-rozhdeniya',
+            'slug' => 'birthday-cakes',
             'title' => 'Торты на день рождения',
             'content' => '<p>Торт на день рождения — это маленькая история о человеке и его празднике. Подберём размер, начинку и оформление по вашей идее, фотографии или любимым цветам.</p><h2>Торт, который запомнится</h2><p>Создаю детские и взрослые торты с индивидуальным дизайном: для семейного праздника, юбилея или камерного вечера. Обсудим детали заранее, чтобы десерт подошёл по вкусу и настроению.</p><p><strong>Самовывоз в Коптево и доставка по Москве и области.</strong></p>',
         ),
         array(
-            'slug' => 'svadebnye-torty',
+            'slug' => 'wedding-cakes',
             'title' => 'Свадебные торты',
             'content' => '<p>Свадебный торт создаётся для вашей истории: от лёгкого минимализма до сложного декора с цветами, фактурами и личными деталями пары.</p><h2>Главный десерт вашего дня</h2><p>Помогу подобрать размер под количество гостей, начинку и оформление. Можно прислать референсы или рассказать о стилистике свадьбы — вместе найдём решение, которое будет гармонично смотреться на празднике.</p><p><strong>Самовывоз в Коптево и доставка по Москве и области.</strong></p>',
         ),
@@ -92,13 +92,50 @@ function antonova_seed_cake_landing_pages() {
 }
 add_action('init', 'antonova_seed_cake_landing_pages', 20);
 
+/** Move the original Russian URLs to the short English URLs once. */
+function antonova_migrate_cake_page_slugs() {
+    if (get_option('antonova_cake_page_slugs_v2')) {
+        return;
+    }
+
+    $slugs = array(
+        'torty-na-den-rozhdeniya' => 'birthday-cakes',
+        'svadebnye-torty' => 'wedding-cakes',
+    );
+
+    foreach ($slugs as $old_slug => $new_slug) {
+        $page = get_page_by_path($old_slug);
+        if ($page) {
+            wp_update_post(array('ID' => $page->ID, 'post_name' => $new_slug));
+        }
+    }
+
+    update_option('antonova_cake_page_slugs_v2', '1');
+}
+add_action('init', 'antonova_migrate_cake_page_slugs', 21);
+
+/** Keep old links working after the URL change. */
+function antonova_redirect_legacy_cake_page_urls() {
+    $request_path = isset($_SERVER['REQUEST_URI']) ? wp_parse_url(wp_unslash($_SERVER['REQUEST_URI']), PHP_URL_PATH) : '';
+    $redirects = array(
+        '/torty-na-den-rozhdeniya/' => '/birthday-cakes/',
+        '/svadebnye-torty/' => '/wedding-cakes/',
+    );
+
+    if (isset($redirects[$request_path])) {
+        wp_safe_redirect(home_url($redirects[$request_path]), 301);
+        exit;
+    }
+}
+add_action('template_redirect', 'antonova_redirect_legacy_cake_page_urls', 1);
+
 /** Set the requested Yoast fields once, while keeping them editable in WordPress. */
 function antonova_seed_wedding_cake_seo() {
     if (get_option('antonova_wedding_cake_seo_seeded')) {
         return;
     }
 
-    $page = get_page_by_path('svadebnye-torty');
+    $page = get_page_by_path('wedding-cakes');
     if (!$page) {
         return;
     }
@@ -109,7 +146,7 @@ function antonova_seed_wedding_cake_seo() {
 
     update_option('antonova_wedding_cake_seo_seeded', '1');
 }
-add_action('init', 'antonova_seed_wedding_cake_seo', 21);
+add_action('init', 'antonova_seed_wedding_cake_seo', 22);
 
 /**
  * Catalogue of finished works. Content is managed in WordPress, while the
@@ -330,14 +367,14 @@ function antonova_seo_context() {
         return $context;
     }
 
-    if (is_page('torty-na-den-rozhdeniya')) {
+    if (is_page('birthday-cakes')) {
         $context['title'] = 'Торты на день рождения в Москве | Oksana Antonova';
         $context['description'] = 'Торт на день рождения в Москве по индивидуальному дизайну. Выбор начинки и оформления, самовывоз в Коптево и доставка по Москве и области.';
         $context['url'] = get_permalink();
         return $context;
     }
 
-    if (is_page('svadebnye-torty')) {
+    if (is_page('wedding-cakes')) {
         $context['title'] = 'Свадебный торт на заказ в Москве | Oksana Antonova';
         $context['description'] = 'Свадебный торт на заказ в Москве по индивидуальному дизайну. Выбор начинки и декора, самовывоз в Коптево и доставка по Москве и области.';
         $context['url'] = get_permalink();

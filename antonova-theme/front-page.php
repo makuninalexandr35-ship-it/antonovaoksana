@@ -36,8 +36,8 @@
         <?php endforeach; ?>
       </div>
       <nav class="product-cake-buttons" aria-label="Торты на заказ">
-        <a href="<?php echo esc_url(home_url('/torty-na-den-rozhdeniya/')); ?>">Торты на день рождения <span aria-hidden="true">→</span></a>
-        <a href="<?php echo esc_url(home_url('/svadebnye-torty/')); ?>">Свадебные торты <span aria-hidden="true">→</span></a>
+        <a href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">Торты на день рождения <span aria-hidden="true">→</span></a>
+        <a href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">Свадебные торты <span aria-hidden="true">→</span></a>
       </nav>
     </section>
 
