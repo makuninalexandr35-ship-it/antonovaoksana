@@ -27,21 +27,18 @@
       </div>
       <div class="product-grid">
         <?php foreach (antonova_get_products() as $product) : ?>
-          <?php $is_cake_product = trim(wp_strip_all_tags($product['name'])) === 'Торты'; ?>
-          <article<?php echo $is_cake_product ? ' class="product-card-cakes"' : ''; ?>>
+          <article>
             <img src="<?php echo esc_url($product['image']); ?>" alt="<?php echo esc_attr(str_replace("\n", " ", $product['name'])); ?>" loading="lazy">
             <div>
               <h3><?php echo nl2br(esc_html($product['name'])); ?></h3>
-              <?php if ($is_cake_product) : ?>
-                <nav class="product-cake-links" aria-label="Разделы тортов">
-                  <a href="<?php echo esc_url(home_url('/torty-na-den-rozhdeniya/')); ?>">На день рождения</a>
-                  <a href="<?php echo esc_url(home_url('/svadebnye-torty/')); ?>">Свадебные торты</a>
-                </nav>
-              <?php endif; ?>
             </div>
           </article>
         <?php endforeach; ?>
       </div>
+      <nav class="product-cake-buttons" aria-label="Торты на заказ">
+        <a href="<?php echo esc_url(home_url('/torty-na-den-rozhdeniya/')); ?>">Торты на день рождения <span aria-hidden="true">→</span></a>
+        <a href="<?php echo esc_url(home_url('/svadebnye-torty/')); ?>">Свадебные торты <span aria-hidden="true">→</span></a>
+      </nav>
     </section>
 
     <section class="custom-cake reveal">

@@ -139,7 +139,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .review-section{display:flex;align-items:center;justify-content:center;gap:28px;padding:42px max(4.7vw,24px);background:#f8f3eb;text-align:center}.review-section p{margin:0;color:var(--wine);font:clamp(23px,2.4vw,34px)/1.25 var(--serif)}.review-yandex-link{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 22px;border:1px solid rgba(89,20,44,.42);border-radius:100px;color:var(--wine);font-size:13px;font-weight:600;white-space:nowrap}.review-yandex-link span{font-size:17px}.review-yandex-link[aria-disabled="true"]{cursor:default}@media(max-width:700px){.review-section{flex-direction:column;gap:18px;padding:38px 18px}.review-section p{max-width:330px;font-size:26px}.review-yandex-link{min-height:46px;padding:0 19px;font-size:12px}}
 
 /* Product labels and first-screen spacing. */
-.product-grid article.product-card-cakes>div{display:flex;min-height:96px;flex-direction:column;justify-content:center;gap:8px}.product-cake-links{display:grid;gap:4px}.product-cake-links a{color:var(--wine);font-size:10px;font-weight:600;line-height:1.2;text-decoration:underline;text-underline-offset:3px}.product-cake-links a:hover,.product-cake-links a:focus-visible{color:var(--wine2)}
+.product-cake-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.product-cake-buttons a{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:48px;padding:0 22px;border-radius:100px;background:var(--wine);color:#fff;font-size:12px;font-weight:600;box-shadow:0 8px 22px rgba(89,20,44,.2);transition:transform .2s,background .2s,box-shadow .2s}.product-cake-buttons a:hover,.product-cake-buttons a:focus-visible{background:var(--wine2);transform:translateY(-2px);box-shadow:0 12px 28px rgba(89,20,44,.28)}.product-cake-buttons span{font-size:17px}
 .product-grid article>div{min-height:56px;padding:8px 12px;display:flex;align-items:center;justify-content:center;text-align:center}.product-grid h3{text-align:center}@media(min-width:769px){.hero>.hero-content>.eyebrow{position:relative;top:18px}.hero-facts{transform:translateY(-30px)}}
 
 /* Desktop alignment refinements. */
@@ -154,3 +154,4 @@ html,body{max-width:100%;overflow-x:hidden}
 
 /* Raise only the mobile hero eyebrow beneath the header. */
 @media(max-width:700px){.hero>.hero-content>.eyebrow{transform:translateY(-72px)}}
+@media(max-width:700px){.product-cake-buttons{flex-direction:column}.product-cake-buttons a{width:100%}}
