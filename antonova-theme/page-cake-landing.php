@@ -31,11 +31,6 @@ while (have_posts()) :
             <p class="page-back-link"><a href="<?php echo esc_url(home_url('/')); ?>#products">← Вернуться к продукции</a></p>
             <div class="page-content">
                 <?php the_content(); ?>
-                <?php if (is_page('birthday-cakes')) : ?>
-                    <p class="cake-page-cross-link">Если вы готовитесь к свадьбе, посмотрите наши <a href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">свадебные торты на заказ</a>.</p>
-                <?php elseif (is_page('wedding-cakes')) : ?>
-                    <p class="cake-page-cross-link">Также создаю <a href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">торты на день рождения</a> для детей и взрослых.</p>
-                <?php endif; ?>
             </div>
         </article>
     </main>

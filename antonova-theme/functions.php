@@ -148,6 +148,24 @@ function antonova_seed_wedding_cake_seo() {
 }
 add_action('init', 'antonova_seed_wedding_cake_seo', 22);
 
+/** Add useful internal links to the WordPress-managed cake pages. */
+function antonova_add_cake_page_cross_links($content) {
+    if (is_admin() || !is_main_query() || !in_the_loop()) {
+        return $content;
+    }
+
+    if (is_page('birthday-cakes')) {
+        return $content . '<p class="cake-page-cross-link">Если вы готовитесь к свадьбе, посмотрите наши <a href="' . esc_url(home_url('/wedding-cakes/')) . '">свадебные торты на заказ</a>.</p>';
+    }
+
+    if (is_page('wedding-cakes')) {
+        return $content . '<p class="cake-page-cross-link">Также создаю <a href="' . esc_url(home_url('/birthday-cakes/')) . '">торты на день рождения</a> для детей и взрослых.</p>';
+    }
+
+    return $content;
+}
+add_filter('the_content', 'antonova_add_cake_page_cross_links', 20);
+
 /**
  * Catalogue of finished works. Content is managed in WordPress, while the
  * catalogue interface stays in the theme and is deployed through GitHub.
