@@ -155,3 +155,10 @@ html,body{max-width:100%;overflow-x:hidden}
 /* Raise only the mobile hero eyebrow beneath the header. */
 @media(max-width:700px){.hero>.hero-content>.eyebrow{transform:translateY(-34px)}}
 @media(max-width:700px){.product-cake-buttons{flex-direction:column}.product-cake-buttons a{width:100%}}
+
+/* Keep the hero title below the header on tablet-sized screens. */
+@media(min-width:701px) and (max-width:900px){.hero{height:auto;min-height:900px;align-items:flex-start}.hero-content{padding-top:126px}}
+
+/* Keep every social link on one line on desktop and tablet. */
+@media(min-width:701px){footer{flex-wrap:wrap}.footer-socials{flex:0 0 100%;justify-content:center;flex-wrap:nowrap;max-width:none}}
+@media(min-width:701px) and (max-width:900px){.footer-socials,.social-threads-group{gap:6px}.social-link{min-height:40px;padding:0 10px;font-size:10px}}
