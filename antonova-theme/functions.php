@@ -376,6 +376,49 @@ function antonova_seo_context() {
         return $context;
     }
 
+    if (is_tax('antonova_work_category')) {
+        $term = get_queried_object();
+        $categories = array(
+            'cakes' => array(
+                'title' => 'Каталог тортов на заказ в Москве | Oksana Antonova',
+                'description' => 'Каталог тортов на заказ в Москве: праздничные, тематические и авторские торты Оксаны Антоновой.',
+            ),
+            'kids' => array(
+                'title' => 'Детские торты на заказ в Москве | Oksana Antonova',
+                'description' => 'Детские торты на заказ в Москве: индивидуальный дизайн, любимые персонажи и начинки для праздника.',
+            ),
+            'other-desserts' => array(
+                'title' => 'Авторские десерты на заказ в Москве | Oksana Antonova',
+                'description' => 'Авторские десерты на заказ в Москве: сладкие подарки и угощения для праздника с индивидуальным оформлением.',
+            ),
+            'pastries' => array(
+                'title' => 'Пирожные на заказ в Москве | Oksana Antonova',
+                'description' => 'Пирожные на заказ в Москве: авторские десерты для подарка, праздника и уютного чаепития.',
+            ),
+            'chocolate' => array(
+                'title' => 'Шоколад ручной работы в Москве | Oksana Antonova',
+                'description' => 'Шоколад ручной работы в Москве: авторские сладости и подарки с красивым оформлением.',
+            ),
+            'candy' => array(
+                'title' => 'Конфеты ручной работы в Москве | Oksana Antonova',
+                'description' => 'Конфеты ручной работы в Москве: авторские сладости для подарка и особого случая.',
+            ),
+            'nuts' => array(
+                'title' => 'Орешки со сгущёнкой на заказ в Москве | Oksana Antonova',
+                'description' => 'Орешки со сгущёнкой на заказ в Москве: домашний десерт для подарка и праздника.',
+            ),
+        );
+        $category = $categories[$term->slug] ?? array(
+            'title' => antonova_seo_limit($term->name . ' | Oksana Antonova', 60),
+            'description' => antonova_seo_limit('Каталог работ категории «' . $term->name . '» от домашней кондитерской Оксаны Антоновой в Москве.', 160),
+        );
+
+        $context['title'] = $category['title'];
+        $context['description'] = $category['description'];
+        $context['url'] = get_term_link($term);
+        return $context;
+    }
+
     if (is_singular('antonova_work')) {
         $work_title = get_the_title();
         $context['title'] = antonova_seo_limit($work_title . ' | Oksana Antonova', 60);

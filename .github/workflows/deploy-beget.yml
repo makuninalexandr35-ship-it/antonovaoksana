@@ -53,6 +53,7 @@ jobs:
             antonova-theme/page.php \
             antonova-theme/script.js \
             antonova-theme/single-antonova_work.php \
+            antonova-theme/taxonomy-antonova_work_category.php \
             antonova-theme/style.css \
             antonova-theme/favicon.ico \
             "$bundle_dir/"
