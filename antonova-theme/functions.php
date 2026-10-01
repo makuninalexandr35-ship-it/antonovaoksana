@@ -508,6 +508,44 @@ function antonova_yoast_opengraph_type($type) {
 }
 add_filter('wpseo_opengraph_type', 'antonova_yoast_opengraph_type');
 
+/** Keep the main-page Schema readable even when Yoast uses a generic page type. */
+function antonova_yoast_schema_webpage($data) {
+    if (is_front_page()) {
+        $data['@type'] = 'WebPage';
+        $data['name'] = 'Торты на заказ в Москве | Oksana Antonova';
+    }
+
+    return $data;
+}
+add_filter('wpseo_schema_webpage', 'antonova_yoast_schema_webpage', 20);
+
+function antonova_yoast_schema_website($data) {
+    $data['name'] = 'Oksana Antonova';
+    $data['description'] = 'Авторские торты на заказ в Москве для свадеб, дней рождения и других праздников.';
+
+    return $data;
+}
+add_filter('wpseo_schema_website', 'antonova_yoast_schema_website', 20);
+
+/**
+ * Yoast can have its Open Graph module disabled. Render a stable preview image
+ * from the theme so social networks always receive a valid image URL.
+ */
+function antonova_render_social_image_meta() {
+    if (is_admin()) {
+        return;
+    }
+
+    $image = antonova_theme_asset('assets/og-cake.jpg');
+    echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
+    echo '<meta property="og:image:secure_url" content="' . esc_url($image) . '">' . "\n";
+    echo '<meta property="og:image:type" content="image/jpeg">' . "\n";
+    echo '<meta property="og:image:width" content="675">' . "\n";
+    echo '<meta property="og:image:height" content="1200">' . "\n";
+    echo '<meta name="twitter:image" content="' . esc_url($image) . '">' . "\n";
+}
+add_action('wp_head', 'antonova_render_social_image_meta', 99);
+
 function antonova_render_seo_meta() {
     // Yoast already renders these tags when active; avoid duplicate metadata.
     if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION')) {
