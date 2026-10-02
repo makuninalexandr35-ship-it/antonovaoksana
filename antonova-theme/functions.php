@@ -10,10 +10,14 @@ function antonova_theme_setup() {
 }
 add_action('after_setup_theme', 'antonova_theme_setup');
 
-function antonova_send_security_headers() {
+function antonova_hide_php_version_header() {
     if (function_exists('header_remove')) {
         header_remove('X-Powered-By');
     }
+}
+
+function antonova_send_security_headers() {
+    antonova_hide_php_version_header();
 
     if (is_admin()) {
         return;
@@ -25,6 +29,12 @@ function antonova_send_security_headers() {
     header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
 }
 add_action('send_headers', 'antonova_send_security_headers', 999);
+
+function antonova_hide_php_version_from_rest_response($served) {
+    antonova_hide_php_version_header();
+    return $served;
+}
+add_filter('rest_pre_serve_request', 'antonova_hide_php_version_from_rest_response', 999);
 
 function antonova_theme_assets() {
     $theme_version = wp_get_theme()->get('Version');
