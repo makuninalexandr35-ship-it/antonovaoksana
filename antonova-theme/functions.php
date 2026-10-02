@@ -11,6 +11,10 @@ function antonova_theme_setup() {
 add_action('after_setup_theme', 'antonova_theme_setup');
 
 function antonova_send_security_headers() {
+    if (function_exists('header_remove')) {
+        header_remove('X-Powered-By');
+    }
+
     if (is_admin()) {
         return;
     }
@@ -20,7 +24,7 @@ function antonova_send_security_headers() {
     header('Referrer-Policy: strict-origin-when-cross-origin');
     header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
 }
-add_action('send_headers', 'antonova_send_security_headers');
+add_action('send_headers', 'antonova_send_security_headers', 999);
 
 function antonova_theme_assets() {
     $theme_version = wp_get_theme()->get('Version');
