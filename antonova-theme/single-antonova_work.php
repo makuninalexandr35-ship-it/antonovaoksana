@@ -15,7 +15,7 @@
         <h1><?php the_title(); ?></h1>
         <?php if ($work_price) : ?><p class="work-single-price"><?php echo esc_html($work_price); ?></p><?php endif; ?>
         <div class="work-single-description"><?php the_content(); ?></div>
-        <a class="button" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener"><span class="telegram-icon">➤</span> Заказать похожий</a>
+        <a class="button" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать похожий</a>
       </div>
     </article>
   </main>

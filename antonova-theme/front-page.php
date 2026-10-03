@@ -9,8 +9,7 @@
         <h1><?php echo esc_html(antonova_content('antonova_h1', 'Торты и авторские десерты на заказ в Москве')); ?></h1>
         <p class="lead"><?php echo esc_html(antonova_content('antonova_lead', 'Индивидуальные вкусы, оформление и внимание к каждой детали. От идеи и референса — до десерта, который станет частью вашего праздника.')); ?></p>
         <div class="actions">
-          <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener"><span class="telegram-icon">➤</span> Заказать в Telegram</a>
-          <a class="button button-light" href="https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo" target="_blank" rel="noopener noreferrer"><span class="telegram-icon">➤</span> Заказать в MAX</a>
+          <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать в MAX</a>
         </div>
         <ul class="hero-facts" aria-label="Краткая информация">
           <li><span class="fact-icon">♨</span><span><b>Торты</b><?php echo esc_html($price_cards[0]['price'] ?? 'от 3000 ₽/кг'); ?></span></li>
@@ -51,7 +50,7 @@
           <li><span>♡</span><b>Начинка на ваш вкус</b><small>10 вариантов вкусов</small></li>
           <li><span>♙</span><b>Размер под количество гостей</b><small>Ориентируемся на 150–200 г</small></li>
         </ul>
-        <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener"><span class="telegram-icon">➤</span> Обсудить идею в Telegram</a>
+        <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить идею в MAX</a>
       </div>
       <div class="custom-photo">
         <div class="custom-photo-media"><img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/323e56724d61-852.webp" srcset="<?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/323e56724d61-400.webp 400w, <?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/323e56724d61-800.webp 800w, <?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/323e56724d61-852.webp 852w" sizes="(max-width: 700px) 100vw, 52vw" width="852" height="1280" decoding="async" alt="Белый многоярусный торт с декором в виде лебедей" loading="lazy"></div>
@@ -142,12 +141,12 @@
           </article>
         <?php endforeach; ?>
       </div>
-      <a class="button button-light price-order-button" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener">Рассчитать заказ</a>
+      <a class="button button-light price-order-button" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Рассчитать заказ</a>
     </section>
 
     <section id="order" class="section order reveal">
       <p class="eyebrow">Как заказать</p><h2>Четыре шага до вашего десерта</h2>
-      <ol class="steps"><li><span>01</span><b>Напишите в Telegram</b><p>Расскажите, что хотите заказать и к какой дате.</p></li><li><span>02</span><b>Обсудим детали</b><p>Количество гостей, вес, начинку и оформление.</p></li><li><span>03</span><b>Согласуем стоимость</b><p>Рассчитаем декор и при необходимости доставку.</p></li><li><span>04</span><b>Получите заказ</b><p>Самовывозом или удобной курьерской доставкой.</p></li></ol>
+      <ol class="steps"><li><span>01</span><b>Напишите в MAX</b><p>Расскажите, что хотите заказать и к какой дате.</p></li><li><span>02</span><b>Обсудим детали</b><p>Количество гостей, вес, начинку и оформление.</p></li><li><span>03</span><b>Согласуем стоимость</b><p>Рассчитаем декор и при необходимости доставку.</p></li><li><span>04</span><b>Получите заказ</b><p>Самовывозом или удобной курьерской доставкой.</p></li></ol>
     </section>
 
     <?php $about_image = antonova_content('antonova_about_image', ''); ?>
@@ -182,7 +181,7 @@
     </section>
 
     <section class="telegram-cta reveal">
-      <p class="eyebrow">Готовы оформить заказ?</p><h2>Расскажите, какой<br>десерт вы хотите</h2><p>Напишите напрямую в Telegram. Чтобы быстрее рассчитать заказ, укажите дату, количество гостей, желаемый вес и начинку. Если есть идея оформления — прикрепите фотографию.</p><a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener"><span class="telegram-icon">➤</span> Заказать в Telegram</a><a class="phone" href="tel:<?php echo esc_attr(antonova_content('antonova_phone_tel', '+79647281844')); ?>"><?php echo esc_html(antonova_content('antonova_phone_display', '+7 964 728-18-44')); ?></a>
+      <p class="eyebrow">Готовы оформить заказ?</p><h2>Расскажите, какой<br>десерт вы хотите</h2><p>Напишите напрямую в MAX. Чтобы быстрее рассчитать заказ, укажите дату, количество гостей, желаемый вес и начинку. Если есть идея оформления — прикрепите фотографию.</p><a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать в MAX</a><a class="phone" href="tel:<?php echo esc_attr(antonova_content('antonova_phone_tel', '+79647281844')); ?>"><?php echo esc_html(antonova_content('antonova_phone_display', '+7 964 728-18-44')); ?></a>
     </section>
 
     <section id="faq" class="section faq reveal">

@@ -33,7 +33,7 @@ $current_category = get_queried_object();
     <p class="works-empty">Работы этой категории скоро появятся в каталоге.</p>
   <?php endif; ?>
 
-  <p class="works-exit-order"><a class="button" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener">Заказать</a></p>
+  <p class="works-exit-order"><a class="button" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать</a></p>
 </main>
 
 <div class="work-lightbox" data-work-lightbox-dialog hidden role="dialog" aria-modal="true" aria-label="Увеличенное фото работы">

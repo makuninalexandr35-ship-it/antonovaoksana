@@ -838,6 +838,7 @@ function antonova_register_content_settings() {
         'antonova_lead',
         'antonova_telegram_url',
         'antonova_whatsapp_url',
+        'antonova_max_url',
         'antonova_phone_display',
         'antonova_phone_tel',
         'antonova_instagram_url',
@@ -857,7 +858,7 @@ function antonova_register_content_settings() {
             $field,
             array(
                 'type' => 'string',
-                'sanitize_callback' => in_array($field, array('antonova_telegram_url', 'antonova_whatsapp_url', 'antonova_instagram_url', 'antonova_vk_candy_url', 'antonova_vk_oksana_url', 'antonova_threads_url', 'antonova_about_image'), true) ? 'esc_url_raw' : 'sanitize_text_field',
+                'sanitize_callback' => in_array($field, array('antonova_telegram_url', 'antonova_whatsapp_url', 'antonova_max_url', 'antonova_instagram_url', 'antonova_vk_candy_url', 'antonova_vk_oksana_url', 'antonova_threads_url', 'antonova_about_image'), true) ? 'esc_url_raw' : 'sanitize_text_field',
                 'default' => '',
             )
         );
@@ -916,6 +917,7 @@ function antonova_render_content_page() {
         'antonova_lead' => array('Подзаголовок', 'Индивидуальные вкусы, оформление и внимание к каждой детали. От идеи и референса — до десерта, который станет частью вашего праздника.', 'text'),
         'antonova_telegram_url' => array('Ссылка Telegram', 'https://t.me/antonovaov', 'url'),
         'antonova_whatsapp_url' => array('Ссылка WhatsApp', 'https://wa.me/79647281844', 'url'),
+        'antonova_max_url' => array('Ссылка MAX', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo', 'url'),
         'antonova_phone_display' => array('Телефон — как показывать', '+7 964 728-18-44', 'text'),
         'antonova_phone_tel' => array('Телефон — для ссылки tel:', '+79647281844', 'text'),
         'antonova_instagram_url' => array('Instagram', 'https://www.instagram.com/_____antonova_____', 'url'),

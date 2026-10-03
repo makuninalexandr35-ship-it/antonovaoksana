@@ -63,6 +63,7 @@ jobs:
             antonova-theme/assets/favicon-48.png \
             antonova-theme/assets/Sertifikat.jpg \
             antonova-theme/assets/og-cake.jpg \
+            antonova-theme/assets/max-logo.svg \
             antonova-theme/assets/red-cake.jpg \
             "$bundle_dir/assets/"
           install -m 644 antonova-theme/assets/optimized/*.webp "$bundle_dir/assets/optimized/"

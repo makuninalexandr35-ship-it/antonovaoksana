@@ -21,6 +21,7 @@ footer{gap:42px}.footer-identity{display:grid;gap:12px;text-align:left}.footer-i
 
 /* Recognizable social network logos */
 .social-icon{width:20px;height:20px;flex:0 0 20px;fill:currentColor;stroke:currentColor;stroke-width:1.8;color:#fff}.social-instagram .social-icon{fill:none}.social-instagram .icon-dot{fill:currentColor;stroke:none}.social-icon-vk{stroke:none}.social-telegram .social-icon{transform:none}
+.max-icon{display:inline-block;width:20px;height:20px;flex:0 0 20px;object-fit:contain}.social-max .max-icon{width:21px;height:21px}
 
 /* Product gallery interactions */
 .product-grid article{position:relative}

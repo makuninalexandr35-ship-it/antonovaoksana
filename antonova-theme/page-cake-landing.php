@@ -21,8 +21,7 @@ while (have_posts()) :
                 <h1><?php the_title(); ?></h1>
                 <p class="lead">Индивидуальный дизайн, любимые начинки и внимание к каждой детали вашего праздника.</p>
                 <div class="actions">
-                    <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_telegram_url', 'https://t.me/antonovaov')); ?>" target="_blank" rel="noopener"><span class="telegram-icon">➤</span> Заказать в Telegram</a>
-                    <a class="button button-light" href="https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo" target="_blank" rel="noopener noreferrer"><span class="telegram-icon">➤</span> Заказать в MAX</a>
+                    <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать в MAX</a>
                 </div>
             </div>
         </section>

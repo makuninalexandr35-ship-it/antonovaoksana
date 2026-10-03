@@ -29,7 +29,7 @@
       <?php endwhile; ?>
     </div>
     <button class="works-more" type="button" data-works-more hidden>Показать ещё работы <span aria-hidden="true">↻</span></button>
-    <p class="works-exit-order"><a class="button" href="<?php echo esc_url(antonova_content('antonova_whatsapp_url', 'https://wa.me/79647281844')); ?>" target="_blank" rel="noopener">Выйти и заказать</a></p>
+    <p class="works-exit-order"><a class="button" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Выйти и заказать</a></p>
     <?php wp_reset_postdata(); ?>
   <?php else : ?>
     <p class="works-empty">Работы скоро появятся в каталоге.</p>
