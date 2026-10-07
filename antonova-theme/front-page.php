@@ -176,7 +176,6 @@
       <p>Ваш отзыв — лучшая благодарность за мою работу</p>
       <div class="review-links">
         <a class="review-yandex-link" href="https://yandex.ru/profile/134953366795?intent=reviews" target="_blank" rel="noopener noreferrer">Оставить отзыв на Яндекс Картах <span aria-hidden="true">↗</span></a>
-        <a class="review-yandex-link" href="https://www.avito.ru/profile/rating?page_from=profile_menu" target="_blank" rel="noopener noreferrer">Отзывы на Авито <span aria-hidden="true">↗</span></a>
       </div>
     </section>
 
