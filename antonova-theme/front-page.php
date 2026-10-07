@@ -3,7 +3,7 @@
 
   <main id="top">
     <section class="hero">
-      <img class="hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/Hero1.webp" width="1680" height="945" decoding="async" alt="Шоколадная плитка с цветочным декором в подарочной коробке" fetchpriority="high" loading="eager">
+      <img class="hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero1.webp" width="1680" height="945" decoding="async" alt="Шоколадная плитка с цветочным декором в подарочной коробке" fetchpriority="high" loading="eager">
       <div class="hero-shade"></div>
       <div class="hero-content reveal">
         <h1><?php echo esc_html(antonova_content('antonova_h1', 'Торты и авторские десерты на заказ в Москве')); ?></h1>

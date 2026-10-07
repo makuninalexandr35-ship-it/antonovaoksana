@@ -15,7 +15,7 @@ while (have_posts()) :
     ?>
     <main>
         <section class="chocolate-hero">
-            <img class="chocolate-hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/Hero4.webp" width="1680" height="945" decoding="async" alt="Торт с ежевикой на праздничном столе" fetchpriority="high">
+            <img class="chocolate-hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero4.webp" width="1680" height="945" decoding="async" alt="Торт с ежевикой на праздничном столе" fetchpriority="high">
             <div class="chocolate-hero-copy">
                 <p class="eyebrow">Торты на день рождения</p>
                 <h1>Торты на день<br>рождения на заказ<br>в Москве</h1>

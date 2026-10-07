@@ -39,7 +39,7 @@ jobs:
           set -euo pipefail
           bundle_dir="$RUNNER_TEMP/antonova-theme-deploy"
           rm -rf "$bundle_dir"
-          mkdir -p "$bundle_dir/assets/optimized" "$bundle_dir/assets/fonts"
+          mkdir -p "$bundle_dir/assets/optimized" "$bundle_dir/assets/fonts" "$bundle_dir/assets/hero"
 
           install -m 644 \
             antonova-theme/404.php \
@@ -72,6 +72,13 @@ jobs:
             "$bundle_dir/assets/"
           install -m 644 antonova-theme/assets/optimized/*.webp "$bundle_dir/assets/optimized/"
           install -m 644 antonova-theme/assets/fonts/* "$bundle_dir/assets/fonts/"
+          find antonova-theme/assets/hero -maxdepth 1 -type f -print0 |
+            xargs -0 -r install -m 644 -t "$bundle_dir/assets/hero"
+
+          test -s "$bundle_dir/assets/hero/Hero1.webp"
+          test -s "$bundle_dir/assets/hero/Hero2.webp"
+          test -s "$bundle_dir/assets/hero/Hero3.webp"
+          test -s "$bundle_dir/assets/hero/Hero4.webp"
 
           test "$(find "$bundle_dir" -type f | wc -l)" -gt 10
           printf 'DEPLOY_BUNDLE=%s\n' "$bundle_dir" >> "$GITHUB_ENV"
