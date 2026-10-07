@@ -2,6 +2,11 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+
+if (is_page('wedding-cakes')) {
+    require get_template_directory() . '/page-wedding-cakes.php';
+    return;
+}
 ?>
 <?php get_header(); ?>
 
