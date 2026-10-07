@@ -269,8 +269,8 @@ function antonova_add_landing_page_cross_links($content) {
 
     return $content;
 }
-/* Run last so that editorial SEO sections added by WordPress plugins stay above these links. */
-add_filter('the_content', 'antonova_add_landing_page_cross_links', 999);
+/* Run after every normal plugin filter so editorial SEO sections stay above these links. */
+add_filter('the_content', 'antonova_add_landing_page_cross_links', PHP_INT_MAX);
 
 /** Hide the duplicated wedding introduction: it is shown in the hero instead. */
 function antonova_remove_wedding_hero_duplicate($content) {
