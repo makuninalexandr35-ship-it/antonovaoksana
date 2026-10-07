@@ -227,23 +227,49 @@ function antonova_seed_wedding_cake_seo() {
 }
 add_action('init', 'antonova_seed_wedding_cake_seo', 22);
 
-/** Add useful internal links to the WordPress-managed cake pages. */
-function antonova_add_cake_page_cross_links($content) {
+/**
+ * Link the three landing pages to one another.
+ *
+ * The links are displayed as unobtrusive theme-styled pills, not as inline
+ * underlined text, so they help visitors and search engines without changing
+ * the editorial copy managed in WordPress.
+ */
+function antonova_add_landing_page_cross_links($content) {
     if (is_admin() || !is_main_query() || !in_the_loop()) {
         return $content;
     }
 
-    if (is_page('birthday-cakes')) {
-        return $content . '<p class="cake-page-cross-link">Если вы готовитесь к свадьбе, посмотрите наши <a href="' . esc_url(home_url('/wedding-cakes/')) . '">свадебные торты на заказ</a>.</p>';
-    }
+    $page_links = array(
+        'birthday-cakes' => array(
+            array('url' => '/wedding-cakes/', 'label' => 'Свадебные торты на заказ в Москве'),
+            array('url' => '/handmade-chocolate/', 'label' => 'Шоколад ручной работы'),
+        ),
+        'wedding-cakes' => array(
+            array('url' => '/birthday-cakes/', 'label' => 'Торты на день рождения на заказ'),
+            array('url' => '/handmade-chocolate/', 'label' => 'Шоколад ручной работы'),
+        ),
+        'handmade-chocolate' => array(
+            array('url' => '/birthday-cakes/', 'label' => 'Торты на день рождения на заказ'),
+            array('url' => '/wedding-cakes/', 'label' => 'Свадебные торты на заказ в Москве'),
+        ),
+    );
 
-    if (is_page('wedding-cakes')) {
-        return $content . '<p class="cake-page-cross-link">Также создаю <a href="' . esc_url(home_url('/birthday-cakes/')) . '">торты на день рождения</a> для детей и взрослых.</p>';
+    foreach ($page_links as $slug => $links) {
+        if (!is_page($slug)) {
+            continue;
+        }
+
+        $items = '';
+        foreach ($links as $link) {
+            $items .= '<a href="' . esc_url(home_url($link['url'])) . '">' . esc_html($link['label']) . '</a>';
+        }
+
+        return $content . '<nav class="landing-page-links" aria-label="Другие направления"><p>Другие направления</p><div>' . $items . '</div></nav>';
     }
 
     return $content;
 }
-add_filter('the_content', 'antonova_add_cake_page_cross_links', 20);
+add_filter('the_content', 'antonova_add_landing_page_cross_links', 20);
 
 /**
  * Catalogue of finished works. Content is managed in WordPress, while the
@@ -604,11 +630,19 @@ function antonova_yoast_opengraph_type($type) {
 }
 add_filter('wpseo_opengraph_type', 'antonova_yoast_opengraph_type');
 
-/** Keep the main-page Schema readable even when Yoast uses a generic page type. */
+/** Keep key landing-page Schema readable even when Yoast uses a generic page type. */
 function antonova_yoast_schema_webpage($data) {
     if (is_front_page()) {
         $data['@type'] = 'WebPage';
         $data['name'] = 'Торты на заказ в Москве | Oksana Antonova';
+    }
+
+    if (is_page('handmade-chocolate')) {
+        $context = antonova_seo_context();
+        $data['@type'] = 'WebPage';
+        $data['name'] = 'Шоколад ручной работы на заказ в Москве';
+        $data['description'] = $context['description'];
+        $data['url'] = $context['url'];
     }
 
     return $data;
