@@ -259,7 +259,7 @@ function antonova_landing_page_cross_links_html() {
             $items .= '<a href="' . esc_url(home_url($link['url'])) . '">' . esc_html($link['label']) . '</a>';
         }
 
-        return '<nav class="landing-page-links" aria-label="Другие направления"><p>Другие направления</p><div>' . $items . '</div></nav>';
+        return '<aside class="landing-page-links" aria-label="Другие направления"><h2 class="landing-page-links-title">Другие направления</h2><div class="landing-page-links-actions">' . $items . '</div></aside>';
     }
 
     return '';
