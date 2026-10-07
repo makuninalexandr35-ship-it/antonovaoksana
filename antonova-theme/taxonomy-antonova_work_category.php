@@ -8,11 +8,24 @@ $current_category = get_queried_object();
 ?>
 
 <main class="works-catalogue-page">
+  <nav class="work-breadcrumbs" aria-label="Навигация по каталогу">
+    <a href="<?php echo esc_url(get_post_type_archive_link('antonova_work')); ?>">Все работы</a><span aria-hidden="true">/</span><span><?php echo esc_html($current_category->name); ?></span>
+  </nav>
   <section class="works-catalogue-hero">
     <p class="eyebrow">Каталог работ</p>
     <h1><?php echo esc_html($current_category->name); ?></h1>
     <p>Выберите работу, чтобы посмотреть детали и увеличить фотографию.</p>
   </section>
+
+  <nav class="work-category-links" aria-label="Другие категории работ">
+    <a class="work-filter" href="<?php echo esc_url(get_post_type_archive_link('antonova_work')); ?>">Все работы</a>
+    <?php foreach (get_terms(array('taxonomy' => 'antonova_work_category', 'hide_empty' => false)) as $category) : ?>
+      <?php $category_url = get_term_link($category); ?>
+      <?php if (!is_wp_error($category_url)) : ?>
+        <a class="work-filter<?php echo $category->term_id === $current_category->term_id ? ' is-active' : ''; ?>" href="<?php echo esc_url($category_url); ?>"><?php echo esc_html($category->name); ?></a>
+      <?php endif; ?>
+    <?php endforeach; ?>
+  </nav>
 
   <?php if (have_posts()) : ?>
     <div class="work-grid work-grid-catalogue" data-work-grid>
@@ -20,9 +33,9 @@ $current_category = get_queried_object();
         <?php $work_image = antonova_work_image_url(get_the_ID()); ?>
         <?php if ($work_image) : ?>
           <article class="work-card">
-            <a href="<?php echo esc_url($work_image); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work_image); ?>" data-work-title="<?php echo esc_attr(get_the_title()); ?>" aria-label="Увеличить: <?php echo esc_attr(get_the_title()); ?>">
+            <a href="<?php the_permalink(); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work_image); ?>" data-work-title="<?php echo esc_attr(get_the_title()); ?>" aria-label="Открыть работу: <?php echo esc_attr(get_the_title()); ?>">
               <img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr(get_the_title() ?: 'Авторская работа'); ?>" loading="lazy">
-              <span class="work-card-caption"><b><?php the_title(); ?></b><span>Увеличить фото →</span></span>
+              <span class="work-card-caption"><b><?php the_title(); ?></b><span>Открыть работу →</span></span>
             </a>
           </article>
         <?php endif; ?>

@@ -80,7 +80,8 @@ document.querySelectorAll('[data-work-grid]').forEach((grid) => {
   };
 
   filters.forEach((filter) => {
-    filter.addEventListener('click', () => {
+    filter.addEventListener('click', (event) => {
+      event.preventDefault();
       activeFilter = filter.dataset.workFilter;
       visibleCount = pageSize;
       filters.forEach((item) => item.classList.toggle('is-active', item === filter));
