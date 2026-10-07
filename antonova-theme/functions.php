@@ -160,6 +160,28 @@ HTML;
 }
 add_action('init', 'antonova_seed_handmade_chocolate_page', 23);
 
+/** The existing wedding page keeps its WordPress content but uses the shared landing layout. */
+function antonova_wedding_cakes_template($template) {
+    if (!is_page('wedding-cakes')) {
+        return $template;
+    }
+
+    $wedding_template = get_template_directory() . '/page-wedding-cakes.php';
+    return file_exists($wedding_template) ? $wedding_template : $template;
+}
+add_filter('template_include', 'antonova_wedding_cakes_template', 99);
+
+/** The existing wedding page keeps its WordPress content but uses the shared landing layout. */
+function antonova_wedding_cakes_template($template) {
+    if (!is_page('wedding-cakes')) {
+        return $template;
+    }
+
+    $wedding_template = get_template_directory() . '/page-wedding-cakes.php';
+    return file_exists($wedding_template) ? $wedding_template : $template;
+}
+add_filter('template_include', 'antonova_wedding_cakes_template', 99);
+
 /** Move the original Russian URLs to the short English URLs once. */
 function antonova_migrate_cake_page_slugs() {
     if (get_option('antonova_cake_page_slugs_v2')) {
