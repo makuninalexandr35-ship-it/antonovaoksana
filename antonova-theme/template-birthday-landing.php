@@ -30,7 +30,6 @@ while (have_posts()) :
             </div>
             <div class="chocolate-page-actions">
                 <a class="button" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить заказ</a>
-                <a class="text-link" href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">Свадебные торты <span aria-hidden="true">→</span></a>
             </div>
         </article>
     </main>

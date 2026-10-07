@@ -22,7 +22,6 @@
     <section id="products" class="section products reveal">
       <div class="section-heading split-heading">
         <div><p class="eyebrow">Что можно заказать</p><h2><?php echo esc_html(antonova_content('antonova_products_heading', 'Десерты для праздника, подарка или просто особенного дня')); ?></h2><p>Выберите готовое направление или расскажите свою идею —<br>оформление и детали обсудим индивидуально.</p></div>
-        <a class="text-link" href="<?php echo esc_url(get_post_type_archive_link('antonova_work')); ?>">Смотреть все работы <span>→</span></a>
       </div>
       <div class="product-grid">
         <?php foreach (antonova_get_products() as $product) : ?>
@@ -94,7 +93,6 @@
           <?php endwhile; ?>
         </div>
         <button class="works-more" type="button" data-works-more hidden>Показать ещё работы <span aria-hidden="true">↻</span></button>
-        <p class="works-catalogue-link"><a href="<?php echo esc_url(get_post_type_archive_link('antonova_work')); ?>">Открыть весь каталог →</a></p>
         <?php wp_reset_postdata(); ?>
       <?php else : ?>
         <div class="gallery">

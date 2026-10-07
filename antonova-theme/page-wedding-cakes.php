@@ -16,9 +16,8 @@ while (have_posts()) :
         <section class="chocolate-hero">
             <div class="chocolate-hero-copy">
                 <p class="eyebrow">Свадебные торты</p>
-                <h1><?php the_title(); ?></h1>
-                <p>Создаю <a href="<?php echo esc_url(home_url('/works/%d1%81%d0%b2%d0%b0%d0%b4%d0%b5%d0%b1%d0%bd%d1%8b%d0%b9-%d1%82%d0%be%d1%80%d1%82-%d1%81-%d1%86%d0%b2%d0%b5%d1%82%d0%b0%d0%bc%d0%b8/')); ?>">свадебные торты</a> в Москве по индивидуальному дизайну. Обсудим размер, начинку, цвет, декор и оформление торта с учётом стиля вашей свадьбы. Доступны самовывоз в Коптево и доставка по Москве и области.</p>
-                <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать свадебный торт</a>
+                <h1>Свадебные торты на заказ в Москве</h1>
+                <p>Создаю свадебные торты в Москве по индивидуальному дизайну. Обсудим размер, начинку, цвет, декор и оформление торта с учётом стиля вашей свадьбы. Доступны самовывоз в Коптево и доставка по Москве и области.</p>
             </div>
         </section>
 
@@ -29,7 +28,6 @@ while (have_posts()) :
             </div>
             <div class="chocolate-page-actions">
                 <a class="button" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить заказ</a>
-                <a class="text-link" href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">Торты на день рождения <span aria-hidden="true">→</span></a>
             </div>
         </article>
     </main>

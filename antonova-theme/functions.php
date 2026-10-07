@@ -271,6 +271,36 @@ function antonova_add_landing_page_cross_links($content) {
 }
 add_filter('the_content', 'antonova_add_landing_page_cross_links', 20);
 
+/** Hide the duplicated wedding introduction: it is shown in the hero instead. */
+function antonova_remove_wedding_hero_duplicate($content) {
+    if (is_admin() || !is_main_query() || !in_the_loop() || !is_page('wedding-cakes')) {
+        return $content;
+    }
+
+    $pattern = '#^\s*<h2[^>]*>\s*Свадебные торты на заказ в Москве\s*</h2>\s*<p[^>]*>\s*Создаю свадебные торты в Москве по индивидуальному дизайну\. Обсудим размер, начинку, цвет, декор и оформление торта с учётом стиля вашей свадьбы\. Доступны самовывоз в Коптево и доставка по Москве и области\.\s*</p>\s*#u';
+
+    return preg_replace($pattern, '', $content, 1);
+}
+add_filter('the_content', 'antonova_remove_wedding_hero_duplicate', 10);
+
+/**
+ * The gallery on the front page keeps using the saved work photos, but the
+ * separate catalogue and its detail pages are no longer public destinations.
+ */
+function antonova_redirect_removed_work_catalogue() {
+    if (is_post_type_archive('antonova_work') || is_tax('antonova_work_category') || is_singular('antonova_work')) {
+        wp_safe_redirect(home_url('/#works'), 301);
+        exit;
+    }
+}
+add_action('template_redirect', 'antonova_redirect_removed_work_catalogue', 1);
+
+function antonova_exclude_removed_work_catalogue_from_yoast_sitemap($excluded, $object_type) {
+    return in_array($object_type, array('antonova_work', 'antonova_work_category'), true) ? true : $excluded;
+}
+add_filter('wpseo_sitemap_exclude_post_type', 'antonova_exclude_removed_work_catalogue_from_yoast_sitemap', 10, 2);
+add_filter('wpseo_sitemap_exclude_taxonomy', 'antonova_exclude_removed_work_catalogue_from_yoast_sitemap', 10, 2);
+
 /**
  * Catalogue of finished works. Content is managed in WordPress, while the
  * catalogue interface stays in the theme and is deployed through GitHub.
