@@ -78,7 +78,8 @@
     <section id="works" class="section works reveal">
       <div class="section-heading split-heading"><div><p class="eyebrow">Наши работы</p><h2><?php echo esc_html(antonova_content('antonova_works_heading', 'Сладкие шедевры для ваших торжеств')); ?></h2></div><p class="works-intro">Каждый заказ — отдельная история,<br>созданная вручную.</p></div>
       <?php $catalogue_works = antonova_get_catalogue_works(); ?>
-      <?php if ($catalogue_works->have_posts()) : ?>
+      <?php $theme_works = antonova_get_theme_works(); ?>
+      <?php if ($catalogue_works->have_posts() || !empty($theme_works)) : ?>
         <div class="work-grid" data-work-grid>
           <?php while ($catalogue_works->have_posts()) : $catalogue_works->the_post(); ?>
             <?php $work_image = antonova_work_image_url(get_the_ID()); ?>
@@ -91,6 +92,14 @@
               </article>
             <?php endif; ?>
           <?php endwhile; ?>
+          <?php foreach ($theme_works as $work) : ?>
+            <article class="work-card" data-work-card data-categories="<?php echo esc_attr($work['categories']); ?>">
+              <a href="<?php echo esc_url($work['image']); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work['image']); ?>" data-work-title="<?php echo esc_attr($work['title']); ?>" aria-label="Увеличить: <?php echo esc_attr($work['title']); ?>">
+                <img src="<?php echo esc_url($work['image']); ?>" alt="<?php echo esc_attr($work['alt']); ?>" loading="lazy">
+                <span class="work-card-caption"><b><?php echo esc_html($work['title']); ?></b><span>Увеличить фото →</span></span>
+              </a>
+            </article>
+          <?php endforeach; ?>
         </div>
         <button class="works-more" type="button" data-works-more hidden>Показать ещё работы <span aria-hidden="true">↻</span></button>
         <?php wp_reset_postdata(); ?>

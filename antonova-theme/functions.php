@@ -783,6 +783,40 @@ function antonova_theme_asset($path) {
     return trailingslashit(get_template_directory_uri()) . ltrim($path, '/');
 }
 
+/**
+ * Photos placed in assets/works are automatically included in the front-page
+ * portfolio. The file name becomes the visible caption, so it should describe
+ * the work, for example: svadebnyj-tort-s-cvetami.webp.
+ */
+function antonova_get_theme_works() {
+    $directory = trailingslashit(get_template_directory()) . 'assets/works';
+    $files = glob($directory . '/*.{webp,WEBP,jpg,JPG,jpeg,JPEG,png,PNG,avif,AVIF}', GLOB_BRACE);
+
+    if (empty($files)) {
+        return array();
+    }
+
+    usort($files, function ($left, $right) {
+        return filemtime($right) <=> filemtime($left);
+    });
+
+    $works = array();
+    foreach ($files as $file) {
+        $filename = wp_basename($file);
+        $title = trim(preg_replace('/[-_]+/u', ' ', pathinfo($filename, PATHINFO_FILENAME)));
+        $title = $title !== '' ? $title : 'Авторская работа';
+
+        $works[] = array(
+            'image' => antonova_theme_asset('assets/works/' . rawurlencode($filename)),
+            'title' => $title,
+            'alt' => $title,
+            'categories' => 'other-desserts',
+        );
+    }
+
+    return $works;
+}
+
 function antonova_content($key, $default) {
     $value = get_option($key, '');
     return $value !== '' ? $value : $default;
