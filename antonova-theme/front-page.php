@@ -3,7 +3,7 @@
 
   <main id="top">
     <section class="hero">
-      <img class="hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/c6097e4cd88b-2268.webp" srcset="<?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/c6097e4cd88b-400.webp 400w, <?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/c6097e4cd88b-800.webp 800w, <?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/c6097e4cd88b-2268.webp 2268w" sizes="100vw" width="2268" height="4032" decoding="async" alt="Авторский торт домашней кондитерской" fetchpriority="high" loading="eager">
+      <img class="hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/Hero1.webp" width="1680" height="945" decoding="async" alt="Шоколадная плитка с цветочным декором в подарочной коробке" fetchpriority="high" loading="eager">
       <div class="hero-shade"></div>
       <div class="hero-content reveal">
         <h1><?php echo esc_html(antonova_content('antonova_h1', 'Торты и авторские десерты на заказ в Москве')); ?></h1>

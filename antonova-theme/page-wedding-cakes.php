@@ -14,6 +14,7 @@ while (have_posts()) :
     ?>
     <main>
         <section class="chocolate-hero">
+            <img class="chocolate-hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/Hero2.webp" width="1680" height="945" decoding="async" alt="Свадебный торт с белыми цветами и лебедями" fetchpriority="high">
             <div class="chocolate-hero-copy">
                 <p class="eyebrow">Свадебные торты</p>
                 <h1>Свадебные торты<br>на заказ в Москве</h1>
