@@ -170,3 +170,22 @@ html,body{max-width:100%;overflow-x:hidden}
 
 /* Editorial content for the birthday and wedding cake pages. */
 .cake-page-hero{min-height:620px;max-height:820px}.cake-page-content{max-width:900px;margin:0 auto;padding:76px 24px 96px}.cake-page-content .page-back-link{margin:0 0 34px}.cake-page-content .page-content{max-width:720px}.cake-page-hero-wedding h1,.cake-page-content-wedding .page-content h1,.cake-page-content-wedding .page-content h2,.cake-page-content-wedding .page-content h3,.cake-page-wedding h1,.cake-page-wedding h2,.cake-page-wedding h3{text-align:center}.cake-page-content .page-content p{margin:0 0 20px;font-size:17px;color:var(--muted)}.cake-page-content .page-content .cake-page-cross-link,.page-layout .cake-page-cross-link{margin-top:34px;color:var(--ink)}.cake-page-cross-link a{color:var(--wine);font-weight:700;text-decoration:underline;text-underline-offset:3px}.cake-page-content .page-content h2{margin:44px 0 18px;font:clamp(32px,3.4vw,46px)/1.12 var(--serif);letter-spacing:-.035em}.cake-page-content .page-content strong{color:var(--wine)}@media(max-width:700px){.cake-page-hero{min-height:720px}.cake-page-content{padding:54px 18px 74px}.cake-page-content .page-content p{font-size:15px}}
+
+/* Keep the birthday-cake story headings centered over their gallery. */
+.cake-page-birthday>article>h1,.cake-page-birthday .page-content h2{text-align:center}
+
+/* Give the works introduction a clear breathing space above the gallery. */
+#works .section-heading{transform:translateY(-32px);margin-bottom:-32px}
+#works .gallery{margin-top:64px}
+@media(max-width:700px){#works .section-heading{transform:translateY(-22px);margin-bottom:-22px}#works .gallery{margin-top:48px}}
+
+/* Catalogue category labels remain centred and legible in every state. */
+.work-filter{display:inline-flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:1.2}
+@media(max-width:700px){.work-filter{font-size:11px}}
+
+/* Work pages use the same content edges for the header and footer brand. */
+@media(min-width:701px){
+  body:is(.post-type-archive-antonova_work,.tax-antonova_work_category,.single-antonova_work) .site-header,
+  body:is(.post-type-archive-antonova_work,.tax-antonova_work_category,.single-antonova_work) footer{padding-left:max(24px,calc((100vw - 1180px)/2));padding-right:max(24px,calc((100vw - 1180px)/2))}
+  body:is(.post-type-archive-antonova_work,.tax-antonova_work_category,.single-antonova_work) footer .footer-identity{justify-items:start;align-items:start;text-align:left}
+}

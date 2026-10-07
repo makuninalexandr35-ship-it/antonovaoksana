@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 ?>
 <?php get_header(); ?>
 
-<main class="page-layout<?php echo is_page('wedding-cakes') ? ' cake-page-wedding' : ''; ?>">
+<main class="page-layout<?php echo is_page('wedding-cakes') ? ' cake-page-wedding' : ''; ?><?php echo is_page('birthday-cakes') ? ' cake-page-birthday' : ''; ?>">
     <p class="page-back-link">
         <a href="<?php echo esc_url(home_url('/')); ?>">
             ← Вернуться на главную
