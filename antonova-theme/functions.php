@@ -230,15 +230,10 @@ add_action('init', 'antonova_seed_wedding_cake_seo', 22);
 /**
  * Link the three landing pages to one another.
  *
- * The links are displayed as unobtrusive theme-styled pills, not as inline
- * underlined text, so they help visitors and search engines without changing
- * the editorial copy managed in WordPress.
+ * The links are rendered by the page templates after WordPress content, so
+ * third-party SEO blocks cannot be inserted between the article and links.
  */
-function antonova_add_landing_page_cross_links($content) {
-    if (is_admin() || !is_main_query() || !in_the_loop()) {
-        return $content;
-    }
-
+function antonova_landing_page_cross_links_html() {
     $page_links = array(
         'birthday-cakes' => array(
             array('url' => '/wedding-cakes/', 'label' => 'Свадебные торты на заказ в Москве'),
@@ -264,13 +259,11 @@ function antonova_add_landing_page_cross_links($content) {
             $items .= '<a href="' . esc_url(home_url($link['url'])) . '">' . esc_html($link['label']) . '</a>';
         }
 
-        return $content . '<nav class="landing-page-links" aria-label="Другие направления"><p>Другие направления</p><div>' . $items . '</div></nav>';
+        return '<nav class="landing-page-links" aria-label="Другие направления"><p>Другие направления</p><div>' . $items . '</div></nav>';
     }
 
-    return $content;
+    return '';
 }
-/* Run after every normal plugin filter so editorial SEO sections stay above these links. */
-add_filter('the_content', 'antonova_add_landing_page_cross_links', PHP_INT_MAX);
 
 /** Hide the duplicated wedding introduction: it is shown in the hero instead. */
 function antonova_remove_wedding_hero_duplicate($content) {
