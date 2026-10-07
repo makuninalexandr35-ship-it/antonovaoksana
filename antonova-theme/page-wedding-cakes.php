@@ -1,4 +1,8 @@
 <?php
+/*
+Template Name: Свадебные торты — лендинг
+*/
+
 if (!defined('ABSPATH')) {
     exit;
 }
