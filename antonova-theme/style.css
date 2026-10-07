@@ -175,9 +175,9 @@ html,body{max-width:100%;overflow-x:hidden}
 .cake-page-birthday>article>h1,.cake-page-birthday .page-content h2{text-align:center}
 
 /* Give the works introduction a clear breathing space above the gallery. */
-#works .section-heading{transform:translateY(-32px);margin-bottom:-32px}
-#works .gallery{margin-top:64px}
-@media(max-width:700px){#works .section-heading{transform:translateY(-22px);margin-bottom:-22px}#works .gallery{margin-top:48px}}
+#works .section-heading{transform:translateY(-64px);margin-bottom:0}
+#works .gallery{margin-top:80px}
+@media(max-width:700px){#works .section-heading{transform:translateY(-36px);margin-bottom:0}#works .gallery{margin-top:64px}}
 
 /* Catalogue category labels remain centred and legible in every state. */
 .work-filter{display:inline-flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:1.2}
