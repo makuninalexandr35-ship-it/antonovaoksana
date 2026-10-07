@@ -106,6 +106,60 @@ function antonova_seed_cake_landing_pages() {
 }
 add_action('init', 'antonova_seed_cake_landing_pages', 20);
 
+/** Create the editable handmade-chocolate landing page once. */
+function antonova_seed_handmade_chocolate_page() {
+    $page = get_page_by_path('handmade-chocolate');
+
+    if (!$page) {
+        $content = <<<'HTML'
+<h2>Авторский шоколад ручной работы</h2>
+<p>Шоколад ручной работы — это возможность выбрать сладкий подарок или заказать шоколадные изделия для особого случая. Формат, внешний вид и детали обсуждаются заранее, чтобы заказ соответствовал вашему поводу и идее.</p>
+<p>Авторский шоколад подойдёт для поздравления, семейного праздника, небольшого знака внимания или индивидуального подарка. Каждый заказ согласовывается отдельно — от выбранного варианта до оформления.</p>
+<h2>Какой шоколад можно заказать</h2>
+<h3>Шоколад на заказ для вашего повода</h3>
+<p>Вариант шоколадного заказа подбирается по задаче: для подарка, праздничного стола или личного поздравления. Перед оформлением можно обсудить количество изделий, формат набора и внешний вид, который будет уместен для конкретного случая.</p>
+<h3>Подарочные наборы</h3>
+<p>Подарочный набор шоколада собирается после согласования идеи. Это удобный формат, когда нужен шоколадный подарок для близкого человека, коллеги или небольшого события.</p>
+<h2>Шоколад ручной работы в подарок</h2>
+<p>Подарочный шоколад помогает выразить внимание без лишних слов. Шоколад ручной работы в подарок можно заказать к празднику, дню рождения или просто как тёплый знак внимания. Если нужен индивидуальный вариант, заранее обсудим, каким должен быть шоколадный подарок и как его лучше оформить.</p>
+<h2>Индивидуальное оформление</h2>
+<p>Возможность индивидуального оформления зависит от выбранного изделия и задачи. Детали заказа согласовываются заранее: внешний вид, набор, упаковка, цвет, надпись или тематика — только те элементы, которые действительно подходят выбранному варианту.</p>
+<h2>Примеры шоколада ручной работы</h2>
+<p>Здесь будут размещены реальные фотографии готовых шоколадных работ. Они помогут выбрать подходящий вариант и обсудить вашу идею без шаблонных решений.</p>
+<h2>Стоимость шоколада ручной работы</h2>
+<p>Стоимость зависит от выбранного изделия, количества, оформления и других параметров заказа. Точная стоимость рассчитывается после согласования деталей.</p>
+<h2>Получение и доставка шоколада</h2>
+<p>Доступны самовывоз в Коптево и доставка по Москве и области. Условия получения шоколада ручной работы с доставкой в Москве уточняются при согласовании заказа.</p>
+<h2>Заказать шоколад ручной работы в Москве</h2>
+<p>Чтобы заказать шоколад ручной работы, напишите Оксане и расскажите, для какого случая нужен заказ. Затем согласуем вариант изделия и оформление, рассчитаем стоимость и остальные условия. Так шоколад на заказ в Москве будет соответствовать вашему поводу, а не случайному готовому набору.</p>
+HTML;
+
+        $page_id = wp_insert_post(array(
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'post_name' => 'handmade-chocolate',
+            'post_title' => 'Шоколад ручной работы на заказ в Москве',
+            'post_content' => $content,
+            'meta_input' => array('_wp_page_template' => 'page-handmade-chocolate.php'),
+        ));
+
+        if (!$page_id || is_wp_error($page_id)) {
+            return;
+        }
+
+        $page = get_post($page_id);
+    }
+
+    if ($page && !get_option('antonova_handmade_chocolate_seo_seeded')) {
+        update_post_meta($page->ID, '_yoast_wpseo_focuskw', 'шоколад ручной работы на заказ в Москве');
+        update_post_meta($page->ID, '_yoast_wpseo_title', 'Шоколад ручной работы на заказ в Москве | Оксана Антонова');
+        update_post_meta($page->ID, '_yoast_wpseo_metadesc', 'Шоколад ручной работы на заказ в Москве. Авторские шоколадные изделия и подарочные наборы с индивидуальным оформлением. Узнайте варианты и оформите заказ.');
+        update_post_meta($page->ID, '_yoast_wpseo_canonical', home_url('/handmade-chocolate/'));
+        update_option('antonova_handmade_chocolate_seo_seeded', '1');
+    }
+}
+add_action('init', 'antonova_seed_handmade_chocolate_page', 23);
+
 /** Move the original Russian URLs to the short English URLs once. */
 function antonova_migrate_cake_page_slugs() {
     if (get_option('antonova_cake_page_slugs_v2')) {
@@ -456,6 +510,13 @@ function antonova_seo_context() {
         return $context;
     }
 
+    if (is_page('handmade-chocolate')) {
+        $context['title'] = 'Шоколад ручной работы на заказ в Москве | Оксана Антонова';
+        $context['description'] = 'Шоколад ручной работы на заказ в Москве. Авторские шоколадные изделия и подарочные наборы с индивидуальным оформлением. Узнайте варианты и оформите заказ.';
+        $context['url'] = home_url('/handmade-chocolate/');
+        return $context;
+    }
+
     if (is_page()) {
         $page_title = get_the_title();
         $context['title'] = antonova_seo_limit($page_title . ' | Oksana Antonova', 60);
@@ -512,8 +573,18 @@ function antonova_yoast_opengraph_description($description) {
 }
 add_filter('wpseo_opengraph_desc', 'antonova_yoast_opengraph_description');
 
-function antonova_yoast_opengraph_image($image) {
+function antonova_social_image_url() {
+    if (is_page('handmade-chocolate')) {
+        $page_id = get_queried_object_id();
+        $featured_image = $page_id ? get_the_post_thumbnail_url($page_id, 'full') : '';
+        return $featured_image ? $featured_image : '';
+    }
+
     return antonova_theme_asset('assets/og-cake.jpg');
+}
+
+function antonova_yoast_opengraph_image($image) {
+    return antonova_social_image_url();
 }
 add_filter('wpseo_opengraph_image', 'antonova_yoast_opengraph_image');
 
@@ -550,7 +621,10 @@ function antonova_render_social_image_meta() {
         return;
     }
 
-    $image = antonova_theme_asset('assets/og-cake.jpg');
+    $image = antonova_social_image_url();
+    if (!$image) {
+        return;
+    }
     echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
     echo '<meta property="og:image:secure_url" content="' . esc_url($image) . '">' . "\n";
     echo '<meta property="og:image:type" content="image/jpeg">' . "\n";
@@ -567,20 +641,42 @@ function antonova_render_seo_meta() {
     }
 
     $context = antonova_seo_context();
-    $image = antonova_theme_asset('assets/og-cake.jpg');
+    $image = antonova_social_image_url();
     echo '<meta name="description" content="' . esc_attr(antonova_seo_limit($context['description'], 160)) . '">' . "\n";
+    echo '<link rel="canonical" href="' . esc_url($context['url']) . '">' . "\n";
     echo '<meta property="og:type" content="' . esc_attr($context['type']) . '">' . "\n";
     echo '<meta property="og:locale" content="ru_RU">' . "\n";
     echo '<meta property="og:title" content="' . esc_attr(antonova_seo_limit($context['title'], 60)) . '">' . "\n";
     echo '<meta property="og:description" content="' . esc_attr(antonova_seo_limit($context['description'], 160)) . '">' . "\n";
     echo '<meta property="og:url" content="' . esc_url($context['url']) . '">' . "\n";
-    echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
     echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
     echo '<meta name="twitter:title" content="' . esc_attr(antonova_seo_limit($context['title'], 60)) . '">' . "\n";
     echo '<meta name="twitter:description" content="' . esc_attr(antonova_seo_limit($context['description'], 160)) . '">' . "\n";
-    echo '<meta name="twitter:image" content="' . esc_url($image) . '">' . "\n";
+    if ($image) {
+        echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
+        echo '<meta name="twitter:image" content="' . esc_url($image) . '">' . "\n";
+    }
 }
 add_action('wp_head', 'antonova_render_seo_meta', 2);
+
+/** The breadcrumb schema mirrors the visible trail on the chocolate page. */
+function antonova_render_handmade_chocolate_breadcrumb_schema() {
+    if (!is_page('handmade-chocolate')) {
+        return;
+    }
+
+    $schema = array(
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => array(
+            array('@type' => 'ListItem', 'position' => 1, 'name' => 'Главная', 'item' => home_url('/')),
+            array('@type' => 'ListItem', 'position' => 2, 'name' => 'Шоколад ручной работы', 'item' => home_url('/handmade-chocolate/')),
+        ),
+    );
+
+    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
+}
+add_action('wp_head', 'antonova_render_handmade_chocolate_breadcrumb_schema', 30);
 
 function antonova_enable_core_sitemap($enabled) {
     return true;
