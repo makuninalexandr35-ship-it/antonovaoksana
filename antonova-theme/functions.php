@@ -784,9 +784,61 @@ function antonova_theme_asset($path) {
 }
 
 /**
+ * Human-readable captions for the photos supplied in assets/works.
+ * Keep the technical file name as the array key; it makes replacing a photo
+ * possible without changing its public URL or the gallery markup.
+ */
+function antonova_theme_work_captions() {
+    return array(
+        '1-ezgif.com-jpg-to-webp-converter.webp' => 'Подарочный набор шоколадных пончиков',
+        '12-ezgif.com-jpg-to-webp-converter.webp' => 'Розовый торт с единорогом на 12 лет',
+        '123-ezgif.com-jpg-to-webp-converter.webp' => 'Набор шоколада с фисташками',
+        '19-ezgif.com-jpg-to-webp-converter.webp' => 'Торт «Без паники, ты не старенький»',
+        '2-ezgif.com-jpg-to-webp-converter (1).webp' => 'Подарочные наборы шоколада с цветочным декором',
+        '2-ezgif.com-jpg-to-webp-converter (2).webp' => 'Десертная тарелка с розовыми безе',
+        '2-ezgif.com-jpg-to-webp-converter (3).webp' => 'Розовый торт с бантиками',
+        '2-ezgif.com-jpg-to-webp-converter (4).webp' => 'Набор авторского шоколада и конфет',
+        '2-ezgif.com-jpg-to-webp-converter (5).webp' => 'Шоколадный торт с карамелью',
+        '2-ezgif.com-jpg-to-webp-converter (6).webp' => 'Набор шоколадных пончиков',
+        '2-ezgif.com-jpg-to-webp-converter.webp' => 'Разноцветные макаруны',
+        '233-ezgif.com-jpg-to-webp-converter.webp' => 'Медовик со свежими ягодами',
+        '3-ezgif.com-jpg-to-webp-converter (1).webp' => 'Подарочный набор шоколадных конфет',
+        '3-ezgif.com-jpg-to-webp-converter.webp' => 'Набор шоколадных плиток с орехами и ягодами',
+        '30-ezgif.com-jpg-to-webp-converter.webp' => 'Белый торт с розами на 30 лет',
+        '4-ezgif.com-jpg-to-webp-converter.webp' => 'Золотой набор шоколадных конфет',
+        '5-ezgif.com-jpg-to-webp-converter.webp' => 'Набор геометрического шоколада',
+        '51-ezgif.com-jpg-to-webp-converter.webp' => 'Торт с ежевикой на 51 год',
+        'ezgif.com-jpg-to-webp-converter (1).webp' => 'Торт с грушами и виноградом',
+        'ezgif.com-jpg-to-webp-converter (10).webp' => 'Безе с малиновой начинкой',
+        'ezgif.com-jpg-to-webp-converter (11).webp' => 'Яркий торт с ягодами и шоколадом',
+        'ezgif.com-jpg-to-webp-converter (12).webp' => 'Прямоугольный торт со свежими ягодами и фруктами',
+        'ezgif.com-jpg-to-webp-converter (13).webp' => 'Подарочный набор шоколада с зимним декором',
+        'ezgif.com-jpg-to-webp-converter (14).webp' => 'Лимонный торт',
+        'ezgif.com-jpg-to-webp-converter (15).webp' => 'Торт в виде корабля',
+        'ezgif.com-jpg-to-webp-converter (16).webp' => 'Торт-карусель',
+        'ezgif.com-jpg-to-webp-converter (17).webp' => 'Торт с футбольными мячами',
+        'ezgif.com-jpg-to-webp-converter (18).webp' => 'Черничный торт со свечами',
+        'ezgif.com-jpg-to-webp-converter (19).webp' => 'Чёрно-золотой торт с геометрическим узором',
+        'ezgif.com-jpg-to-webp-converter (2).webp' => 'Зелёный двухъярусный торт на день рождения',
+        'ezgif.com-jpg-to-webp-converter (20).webp' => 'Чизкейк с клубничным покрытием',
+        'ezgif.com-jpg-to-webp-converter (21).webp' => 'Набор шоколадных плиток и конфет',
+        'ezgif.com-jpg-to-webp-converter (22).webp' => 'Шоколадная ёлка',
+        'ezgif.com-jpg-to-webp-converter (3).webp' => 'Розовые безе',
+        'ezgif.com-jpg-to-webp-converter (4).webp' => 'Торт с клубникой и фигурками',
+        'ezgif.com-jpg-to-webp-converter (5).webp' => 'Шоколадные конфеты с декором',
+        'ezgif.com-jpg-to-webp-converter (6).webp' => 'Торт с печеньем и драже',
+        'ezgif.com-jpg-to-webp-converter (7).webp' => 'Белый двухъярусный торт с золотом',
+        'ezgif.com-jpg-to-webp-converter (8).webp' => 'Подарочная коробка с печеньем',
+        'ezgif.com-jpg-to-webp-converter (9).webp' => 'Торт с мишкой и макарунами',
+        'ezgif.com-jpg-to-webp-converter.webp' => 'Десертная тарелка с макарунами и безе',
+        'svadebniy-ezgif.com-jpg-to-webp-converter.webp' => 'Розовый свадебный торт с цветами',
+    );
+}
+
+/**
  * Photos placed in assets/works are automatically included in the front-page
- * portfolio. The file name becomes the visible caption, so it should describe
- * the work, for example: svadebnyj-tort-s-cvetami.webp.
+ * portfolio. Approved captions provide names and alt text for the current
+ * collection; descriptive file names remain a safe fallback for later photos.
  */
 function antonova_get_theme_works() {
     $directory = trailingslashit(get_template_directory()) . 'assets/works';
@@ -801,9 +853,10 @@ function antonova_get_theme_works() {
     });
 
     $works = array();
+    $captions = antonova_theme_work_captions();
     foreach ($files as $file) {
         $filename = wp_basename($file);
-        $title = trim(preg_replace('/[-_]+/u', ' ', pathinfo($filename, PATHINFO_FILENAME)));
+        $title = isset($captions[$filename]) ? $captions[$filename] : trim(preg_replace('/[-_]+/u', ' ', pathinfo($filename, PATHINFO_FILENAME)));
         $title = $title !== '' ? $title : 'Авторская работа';
 
         $works[] = array(
