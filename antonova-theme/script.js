@@ -246,19 +246,31 @@ if (workLightbox) {
   });
 }
 
-// The SEO module appends this editorial block after the page content. Move it
-// beneath the custom-design section and before the fillings information.
+// The SEO module appends this editorial block after the theme has rendered.
+// Watch for it, then place it beneath the custom-design section and before
+// the fillings information.
 if (window.location.pathname.replace(/\/+$/, '') === '/birthday-cakes') {
   const normaliseHeading = (element) => element.textContent.replace(/\s+/g, ' ').trim().toLowerCase();
-  const mensCakeSection = Array.from(document.querySelectorAll('.seo-agent-section')).find((section) => {
-    const heading = section.querySelector('h2');
-    return heading && normaliseHeading(heading).startsWith('торт на день рождения мужу');
-  });
-  const fillingsHeading = Array.from(document.querySelectorAll('.page-content h2')).find((heading) => (
-    normaliseHeading(heading) === 'начинки и размер торта'
-  ));
+  const placeBirthdayEditorialSection = () => {
+    const mensCakeSection = Array.from(document.querySelectorAll('.seo-agent-section')).find((section) => {
+      const heading = section.querySelector('h2');
+      return heading && normaliseHeading(heading).startsWith('торт на день рождения мужу');
+    });
+    const fillingsHeading = Array.from(document.querySelectorAll('.page-content h2')).find((heading) => (
+      normaliseHeading(heading) === 'начинки и размер торта'
+    ));
 
-  if (mensCakeSection && fillingsHeading) {
-    fillingsHeading.before(mensCakeSection);
+    if (!mensCakeSection || !fillingsHeading) return false;
+    if (mensCakeSection.nextElementSibling !== fillingsHeading) {
+      fillingsHeading.before(mensCakeSection);
+    }
+    return true;
+  };
+
+  if (!placeBirthdayEditorialSection()) {
+    const birthdayEditorialObserver = new MutationObserver(() => {
+      if (placeBirthdayEditorialSection()) birthdayEditorialObserver.disconnect();
+    });
+    birthdayEditorialObserver.observe(document.documentElement, { childList: true, subtree: true });
   }
 }
