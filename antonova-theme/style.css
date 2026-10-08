@@ -199,3 +199,6 @@ html,body{max-width:100%;overflow-x:hidden}
 
 /* Centre the contact block and landing-page content; keep Hero copy aligned left. */
 footer .footer-identity{justify-items:center;align-items:center;text-align:center}footer .footer-phone{justify-self:center}.chocolate-hero-copy{margin-left:0;margin-right:0;text-align:left}.chocolate-hero-copy>p:not(.eyebrow){margin-left:0;margin-right:0}.chocolate-page-content{text-align:center}.page-breadcrumbs{justify-content:center}.chocolate-page-content .page-content{margin-left:auto;margin-right:auto;text-align:center}.chocolate-page-content :is(h2,h3){text-align:center}.chocolate-page-content .page-content :is(figure,.wp-block-image){margin-left:auto;margin-right:auto}.chocolate-page-content .page-content .wp-block-image img{margin-left:auto;margin-right:auto}.chocolate-page-content .page-content .seo-agent-section h2,.chocolate-page-content .page-content .seo-agent-section p{text-align:center}@media(min-width:1250px){footer .footer-identity{justify-items:center;align-items:center;text-align:center}}
+
+/* Preserve the complete wedding cake in its wide Hero without distorting it. */
+.wedding-hero .chocolate-hero-image{object-fit:contain;object-position:right center}

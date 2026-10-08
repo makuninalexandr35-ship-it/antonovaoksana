@@ -13,7 +13,7 @@ while (have_posts()) :
     the_post();
     ?>
     <main>
-        <section class="chocolate-hero">
+        <section class="chocolate-hero wedding-hero">
             <img class="chocolate-hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero2.webp" width="1680" height="945" decoding="async" alt="Свадебный торт с белыми цветами и лебедями" fetchpriority="high">
             <div class="chocolate-hero-copy">
                 <p class="eyebrow">Свадебные&nbsp;торты</p>
