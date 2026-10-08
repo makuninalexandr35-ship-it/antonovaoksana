@@ -6,7 +6,7 @@
       <img class="hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero1.webp" width="1680" height="945" decoding="async" alt="Шоколадная плитка с цветочным декором в подарочной коробке" fetchpriority="high" loading="eager">
       <div class="hero-shade"></div>
       <div class="hero-content reveal">
-        <h1><?php echo esc_html(antonova_content('antonova_h1', 'Торты и авторские десерты на заказ в Москве')); ?></h1>
+        <h1>Торты и авторские<br>десерты на заказ<br>в Москве</h1>
         <p class="lead"><?php echo esc_html(antonova_content('antonova_lead', 'Индивидуальные вкусы, оформление и внимание к каждой детали. От идеи и референса — до десерта, который станет частью вашего праздника.')); ?></p>
         <div class="actions">
           <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать в MAX</a>
