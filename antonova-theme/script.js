@@ -1,4 +1,33 @@
 const header = document.querySelector('.site-header');
+
+// Keep punctuation and dashes with the phrase that follows them, so a line
+// does not end with a comma, colon, semicolon, or dash.
+const protectTypography = (root = document) => {
+  if (!root) return;
+
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      if (!parent || parent.closest('script, style, noscript, textarea, pre, code')) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    },
+  });
+
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach((node) => {
+    node.nodeValue = node.nodeValue
+      .replace(/([,;:])\s+/g, '$1\u00a0')
+      .replace(/\s*([—–])\s*/g, '\u00a0$1\u00a0')
+      .replace(/([А-Яа-яЁё])-(?=[А-Яа-яЁё])/g, '$1\u2011')
+      .replace(/(^|[\s(«])([ВвКкСсУуОоАаИи])\s+/g, '$1$2\u00a0');
+  });
+};
+
+protectTypography(document.querySelector('main'));
+protectTypography(document.querySelector('footer'));
 const revealItems = document.querySelectorAll('.reveal');
 
 if (header) {

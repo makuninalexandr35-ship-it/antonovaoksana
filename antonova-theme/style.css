@@ -158,6 +158,9 @@ html,body{max-width:100%;overflow-x:hidden}
 @media(max-width:700px){.hero>.hero-content>.eyebrow{transform:translateY(-34px)}}
 @media(max-width:700px){.popular-directions{margin-top:34px;padding-top:22px}.popular-directions-grid{grid-template-columns:1fr;gap:10px}.popular-direction-card{min-height:110px}.popular-direction-card-label{font-size:13px}}
 
+/* Intentional lines in the homepage copy and more natural text wrapping sitewide. */
+.works-title>span,.works-intro>span{display:block}.works-title>span{white-space:nowrap}.works-intro>span{white-space:nowrap}.works-intro{min-width:290px}.hero h1,.section h1,.section h2,.section h3,.page-content h1,.page-content h2,.page-content h3,.page-content p,.chocolate-hero h1,.chocolate-hero p,.work-single h1,.work-single-description,.footer-identity p{hyphens:none;overflow-wrap:normal;word-break:normal;text-wrap:pretty}@media(min-width:701px) and (max-width:900px){body.home .hero h1{font-size:clamp(46px,7vw,58px);line-height:1.04}}@media(max-width:700px){body.home .hero h1{font-size:clamp(35px,10vw,40px);line-height:1.04}body.home .hero h1 br{display:block}.works-title>span{white-space:normal}.works-intro{min-width:0}.works-intro>span{white-space:normal}}
+
 /* Keep the hero title below the header on tablet-sized screens. */
 @media(min-width:701px) and (max-width:900px){.hero{height:auto;min-height:900px;align-items:flex-start}.hero-content{padding-top:126px}}
 

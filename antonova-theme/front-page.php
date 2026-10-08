@@ -91,7 +91,8 @@
     </section>
 
     <section id="works" class="section works reveal">
-      <div class="section-heading split-heading"><div><p class="eyebrow">Наши работы</p><h2><?php echo esc_html(antonova_content('antonova_works_heading', 'Сладкие шедевры для ваших торжеств')); ?></h2></div><p class="works-intro">Каждый заказ — отдельная история,<br>созданная вручную.</p></div>
+      <?php $works_heading = antonova_content('antonova_works_heading', 'Сладкие шедевры для ваших торжеств'); ?>
+      <div class="section-heading split-heading"><div><p class="eyebrow">Наши работы</p><h2 class="works-title"><?php if (trim($works_heading) === 'Сладкие шедевры для ваших торжеств') : ?><span>Сладкие шедевры</span><span>для ваших торжеств</span><?php else : ?><?php echo esc_html($works_heading); ?><?php endif; ?></h2></div><p class="works-intro"><span>Каждый заказ&nbsp;— отдельная</span><span>история, созданная вручную.</span></p></div>
       <?php $catalogue_works = antonova_get_catalogue_works(); ?>
       <?php $theme_works = antonova_get_theme_works(); ?>
       <?php if ($catalogue_works->have_posts() || !empty($theme_works)) : ?>
