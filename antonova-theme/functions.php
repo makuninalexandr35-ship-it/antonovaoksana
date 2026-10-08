@@ -278,46 +278,6 @@ function antonova_remove_wedding_hero_duplicate($content) {
 add_filter('the_content', 'antonova_remove_wedding_hero_duplicate', 10);
 
 /**
- * Keep the birthday-page editorial note directly before the fillings section.
- * The note is injected by the SEO module, so its order is adjusted only after
- * that module has finished building the page content.
- */
-function antonova_reposition_birthday_mens_cake_section($content) {
-    $section_pattern = '#<section\\b[^>]*\\bseo-agent-section\\b[^>]*>\\s*<h2[^>]*>\\s*Торт на день рождения мужу [–—-] вкусное поздравление\\s*</h2>.*?</section>\\s*#su';
-    if (!preg_match($section_pattern, $content, $match)) {
-        return $content;
-    }
-
-    $fillings_heading = '#(?=<h2\\b[^>]*>\\s*Начинки и размер торта\\s*</h2>)#u';
-    if (!preg_match($fillings_heading, $content)) {
-        return $content;
-    }
-
-    $content = preg_replace($section_pattern, '', $content, 1);
-
-    return preg_replace($fillings_heading, $match[0], $content, 1);
-}
-
-/** Render birthday content after third-party modules have appended their HTML. */
-function antonova_birthday_page_content() {
-    ob_start();
-    the_content();
-    $content = ob_get_clean();
-
-    echo antonova_reposition_birthday_mens_cake_section($content); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-}
-
-/** Apply the same order after SEO modules finish their final page pass. */
-function antonova_buffer_birthday_page_output() {
-    if (is_admin() || !is_page('birthday-cakes')) {
-        return;
-    }
-
-    ob_start('antonova_reposition_birthday_mens_cake_section');
-}
-add_action('template_redirect', 'antonova_buffer_birthday_page_output', 0);
-
-/**
  * The gallery on the front page keeps using the saved work photos, but the
  * separate catalogue and its detail pages are no longer public destinations.
  */
