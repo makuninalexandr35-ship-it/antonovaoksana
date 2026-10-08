@@ -251,6 +251,16 @@ if (workLightbox) {
 // the fillings information.
 if (window.location.pathname.replace(/\/+$/, '') === '/birthday-cakes') {
   const normaliseHeading = (element) => element.textContent.replace(/\s+/g, ' ').trim().toLowerCase();
+  const replaceBirthdaySeoTelegramWithMax = (section) => {
+    const textNodes = [];
+    const walker = document.createTreeWalker(section, NodeFilter.SHOW_TEXT);
+    let textNode;
+
+    while ((textNode = walker.nextNode())) textNodes.push(textNode);
+    textNodes.forEach((node) => {
+      node.nodeValue = node.nodeValue.replace(/telegram/gi, 'MAX');
+    });
+  };
   const placeBirthdayEditorialSection = () => {
     const mensCakeSection = Array.from(document.querySelectorAll('.seo-agent-section')).find((section) => {
       const heading = section.querySelector('h2');
@@ -261,6 +271,7 @@ if (window.location.pathname.replace(/\/+$/, '') === '/birthday-cakes') {
     ));
 
     if (!mensCakeSection || !fillingsHeading) return false;
+    replaceBirthdaySeoTelegramWithMax(mensCakeSection);
     if (mensCakeSection.nextElementSibling !== fillingsHeading) {
       fillingsHeading.before(mensCakeSection);
     }
