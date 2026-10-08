@@ -279,6 +279,16 @@ function antonova_remove_wedding_hero_duplicate($content) {
 }
 add_filter('the_content', 'antonova_remove_wedding_hero_duplicate', 10);
 
+/** Use the current order messenger in the editable text of the cake landings. */
+function antonova_replace_landing_telegram_with_max($content) {
+    if (is_admin() || !is_main_query() || !in_the_loop() || !is_page(array('wedding-cakes', 'birthday-cakes'))) {
+        return $content;
+    }
+
+    return str_ireplace(array('Telegram', 'Телеграм'), 'MAX', $content);
+}
+add_filter('the_content', 'antonova_replace_landing_telegram_with_max', 20);
+
 /**
  * The gallery on the front page keeps using the saved work photos, but the
  * separate catalogue and its detail pages are no longer public destinations.

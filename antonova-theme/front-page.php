@@ -21,7 +21,7 @@
 
     <section id="products" class="section products reveal">
       <div class="section-heading split-heading">
-        <div><p class="eyebrow">Что можно заказать</p><h2><?php echo esc_html(antonova_content('antonova_products_heading', 'Десерты для праздника, подарка или просто особенного дня')); ?></h2><p>Выберите готовое направление или расскажите свою идею —<br>оформление и детали обсудим индивидуально.</p></div>
+        <div><p class="eyebrow">Что можно заказать</p><h2>Десерты для праздника, подарка<br>или просто особенного дня</h2><p>Выберите готовое направление или расскажите свою идею.<br>Оформление и детали обсудим индивидуально.</p></div>
       </div>
       <div class="product-grid">
         <?php foreach (antonova_get_products() as $product) : ?>
