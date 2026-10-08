@@ -282,11 +282,7 @@ add_filter('the_content', 'antonova_remove_wedding_hero_duplicate', 10);
  * The note is injected by the SEO module, so its order is adjusted only after
  * that module has finished building the page content.
  */
-function antonova_move_birthday_mens_cake_section($content) {
-    if (is_admin() || !is_main_query() || !in_the_loop() || !is_page('birthday-cakes')) {
-        return $content;
-    }
-
+function antonova_reposition_birthday_mens_cake_section($content) {
     $section_pattern = '#<section\\b[^>]*\\bseo-agent-section\\b[^>]*>\\s*<h2[^>]*>\\s*Торт на день рождения мужу [–—-] вкусное поздравление\\s*</h2>.*?</section>\\s*#su';
     if (!preg_match($section_pattern, $content, $match)) {
         return $content;
@@ -301,7 +297,15 @@ function antonova_move_birthday_mens_cake_section($content) {
 
     return preg_replace($fillings_heading, $match[0], $content, 1);
 }
-add_filter('the_content', 'antonova_move_birthday_mens_cake_section', 99999);
+
+/** Render birthday content after third-party modules have appended their HTML. */
+function antonova_birthday_page_content() {
+    ob_start();
+    the_content();
+    $content = ob_get_clean();
+
+    echo antonova_reposition_birthday_mens_cake_section($content); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
 
 /**
  * The gallery on the front page keeps using the saved work photos, but the
