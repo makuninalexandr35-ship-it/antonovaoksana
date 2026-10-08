@@ -33,11 +33,26 @@
           </article>
         <?php endforeach; ?>
       </div>
-      <nav class="product-cake-buttons" aria-label="Торты на заказ">
-        <a href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">Торты на день рождения <span aria-hidden="true">→</span></a>
-        <a href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">Свадебные торты на заказ в Москве <span aria-hidden="true">→</span></a>
-        <a href="<?php echo esc_url(home_url('/handmade-chocolate/')); ?>">Шоколад ручной работы <span aria-hidden="true">→</span></a>
-      </nav>
+      <section class="popular-directions" aria-labelledby="popular-directions-title">
+        <h3 id="popular-directions-title">Популярные направления</h3>
+        <nav class="popular-directions-grid" aria-label="Популярные направления">
+          <a class="popular-direction-card" href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">
+            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero4.webp" width="1680" height="945" alt="Торт на день рождения" loading="lazy">
+            <span class="popular-direction-card-label">Торты на день рождения</span>
+            <span class="popular-direction-card-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="popular-direction-card" href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">
+            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero5-ezgif.com-jpg-to-webp-converter.webp" width="1680" height="945" alt="Свадебный торт на заказ" loading="lazy">
+            <span class="popular-direction-card-label">Свадебные торты на заказ</span>
+            <span class="popular-direction-card-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="popular-direction-card" href="<?php echo esc_url(home_url('/handmade-chocolate/')); ?>">
+            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero3.webp" width="1680" height="945" alt="Шоколад ручной работы" loading="lazy">
+            <span class="popular-direction-card-label">Шоколад ручной работы</span>
+            <span class="popular-direction-card-arrow" aria-hidden="true">↗</span>
+          </a>
+        </nav>
+      </section>
     </section>
 
     <section class="custom-cake reveal">
