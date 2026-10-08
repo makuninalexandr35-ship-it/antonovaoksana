@@ -39,7 +39,9 @@ add_filter('rest_pre_serve_request', 'antonova_hide_php_version_from_rest_respon
 function antonova_theme_assets() {
     $theme_version = wp_get_theme()->get('Version');
     $style_path = get_stylesheet_directory() . '/style.css';
+    $script_path = get_template_directory() . '/script.js';
     $style_version = file_exists($style_path) ? (string) filemtime($style_path) : $theme_version;
+    $script_version = file_exists($script_path) ? (string) filemtime($script_path) : $theme_version;
 
     wp_enqueue_style(
         'antonova-local-fonts',
@@ -59,7 +61,7 @@ function antonova_theme_assets() {
         'antonova-script',
         get_template_directory_uri() . '/script.js',
         array(),
-        wp_get_theme()->get('Version'),
+        $script_version,
         true
     );
 }
