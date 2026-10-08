@@ -16,7 +16,7 @@ while (have_posts()) :
         <section class="chocolate-hero">
             <img class="chocolate-hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero2.webp" width="1680" height="945" decoding="async" alt="Свадебный торт с белыми цветами и лебедями" fetchpriority="high">
             <div class="chocolate-hero-copy">
-                <p class="eyebrow">Свадебные торты</p>
+                <p class="eyebrow">Свадебные&nbsp;торты</p>
                 <h1>Свадебные торты<br>на заказ в Москве</h1>
                 <p>Создаю свадебные торты в Москве по индивидуальному дизайну. Обсудим размер, начинку, цвет, декор и оформление торта с учётом стиля вашей свадьбы. Доступны самовывоз в Коптево и доставка по Москве и области.</p>
             </div>
