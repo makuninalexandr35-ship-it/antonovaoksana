@@ -278,6 +278,32 @@ function antonova_remove_wedding_hero_duplicate($content) {
 add_filter('the_content', 'antonova_remove_wedding_hero_duplicate', 10);
 
 /**
+ * Keep the birthday-page editorial note directly before the fillings section.
+ * The note is injected by the SEO module, so its order is adjusted only after
+ * that module has finished building the page content.
+ */
+function antonova_move_birthday_mens_cake_section($content) {
+    if (is_admin() || !is_main_query() || !in_the_loop() || !is_page('birthday-cakes')) {
+        return $content;
+    }
+
+    $section_pattern = '#<section\\b[^>]*\\bseo-agent-section\\b[^>]*>\\s*<h2[^>]*>\\s*Торт на день рождения мужу [–—-] вкусное поздравление\\s*</h2>.*?</section>\\s*#su';
+    if (!preg_match($section_pattern, $content, $match)) {
+        return $content;
+    }
+
+    $fillings_heading = '#(?=<h2\\b[^>]*>\\s*Начинки и размер торта\\s*</h2>)#u';
+    if (!preg_match($fillings_heading, $content)) {
+        return $content;
+    }
+
+    $content = preg_replace($section_pattern, '', $content, 1);
+
+    return preg_replace($fillings_heading, $match[0], $content, 1);
+}
+add_filter('the_content', 'antonova_move_birthday_mens_cake_section', 99999);
+
+/**
  * The gallery on the front page keeps using the saved work photos, but the
  * separate catalogue and its detail pages are no longer public destinations.
  */
@@ -791,7 +817,7 @@ function antonova_theme_asset($path) {
 function antonova_theme_work_captions() {
     return array(
         '1-ezgif.com-jpg-to-webp-converter.webp' => 'Подарочный набор шоколадных пончиков',
-        '12-ezgif.com-jpg-to-webp-converter.webp' => 'Розовый торт с единорогом на 12 лет',
+        '12-ezgif.com-jpg-to-webp-converter.webp' => 'Розовый торт на 12 лет',
         '123-ezgif.com-jpg-to-webp-converter.webp' => 'Набор шоколада с фисташками',
         '19-ezgif.com-jpg-to-webp-converter.webp' => 'Торт «Без паники, ты не старенький»',
         '2-ezgif.com-jpg-to-webp-converter (1).webp' => 'Подарочные наборы шоколада с цветочным декором',
