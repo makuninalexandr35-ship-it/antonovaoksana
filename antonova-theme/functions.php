@@ -307,6 +307,16 @@ function antonova_birthday_page_content() {
     echo antonova_reposition_birthday_mens_cake_section($content); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
+/** Apply the same order after SEO modules finish their final page pass. */
+function antonova_buffer_birthday_page_output() {
+    if (is_admin() || !is_page('birthday-cakes')) {
+        return;
+    }
+
+    ob_start('antonova_reposition_birthday_mens_cake_section');
+}
+add_action('template_redirect', 'antonova_buffer_birthday_page_output', 0);
+
 /**
  * The gallery on the front page keeps using the saved work photos, but the
  * separate catalogue and its detail pages are no longer public destinations.
