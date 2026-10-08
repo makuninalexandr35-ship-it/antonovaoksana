@@ -887,6 +887,17 @@ function antonova_content($key, $default) {
     return $value !== '' ? $value : $default;
 }
 
+/** Keep the editable homepage lead in sync with the approved three-line copy. */
+function antonova_migrate_home_hero_lead_v2() {
+    if (get_option('antonova_home_hero_lead_version') === '2') {
+        return;
+    }
+
+    update_option('antonova_lead', 'Индивидуальные вкусы, оформление и внимание к каждой детали. От идеи и референса до десерта, который станет частью вашего праздника.');
+    update_option('antonova_home_hero_lead_version', '2');
+}
+add_action('init', 'antonova_migrate_home_hero_lead_v2', 20);
+
 function antonova_default_products() {
     return array(
         array('name' => 'Торты', 'price' => 'от 3000 ₽/кг', 'image' => antonova_theme_asset('assets/optimized/38a4229c5821-960.webp')),

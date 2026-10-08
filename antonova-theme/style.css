@@ -161,6 +161,9 @@ html,body{max-width:100%;overflow-x:hidden}
 /* Intentional lines in the homepage copy and more natural text wrapping sitewide. */
 .works-title>span,.works-intro>span{display:block}.works-title>span{white-space:nowrap}.works-intro>span{white-space:nowrap}.works-intro{min-width:290px}.hero h1,.section h1,.section h2,.section h3,.page-content h1,.page-content h2,.page-content h3,.page-content p,.chocolate-hero h1,.chocolate-hero p,.work-single h1,.work-single-description,.footer-identity p{hyphens:none;overflow-wrap:normal;word-break:normal;text-wrap:pretty}@media(min-width:701px) and (max-width:900px){body.home .hero h1{font-size:clamp(46px,7vw,58px);line-height:1.04}}@media(max-width:700px){body.home .hero h1{font-size:clamp(35px,10vw,40px);line-height:1.04}body.home .hero h1 br{display:block}.works-title>span{white-space:normal}.works-intro{min-width:0}.works-intro>span{white-space:normal}}
 
+/* Exact line composition for the homepage first screen. */
+.home-hero-title>span,.home-hero-lead>span{display:block}.home-hero-title>span{white-space:nowrap}.home-hero-lead>span{white-space:nowrap}@media(max-width:700px){body.home .hero h1.home-hero-title{font-size:clamp(31px,9vw,38px)}.home-hero-title>span,.home-hero-lead>span{white-space:normal}}@media(min-width:701px) and (max-width:900px){body.home .hero h1.home-hero-title{font-size:clamp(42px,6.7vw,56px)}}
+
 /* Keep the hero title below the header on tablet-sized screens. */
 @media(min-width:701px) and (max-width:900px){.hero{height:auto;min-height:900px;align-items:flex-start}.hero-content{padding-top:126px}}
 
