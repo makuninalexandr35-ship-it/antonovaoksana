@@ -898,6 +898,16 @@ function antonova_migrate_home_hero_lead_v2() {
 }
 add_action('init', 'antonova_migrate_home_hero_lead_v2', 20);
 
+function antonova_migrate_home_hero_h1_v3() {
+    if (get_option('antonova_home_hero_h1_version') === '3') {
+        return;
+    }
+
+    update_option('antonova_h1', 'Торты на заказ в Москве');
+    update_option('antonova_home_hero_h1_version', '3');
+}
+add_action('init', 'antonova_migrate_home_hero_h1_v3', 20);
+
 function antonova_default_products() {
     return array(
         array('name' => 'Торты', 'price' => 'от 3000 ₽/кг', 'image' => antonova_theme_asset('assets/optimized/38a4229c5821-960.webp')),
@@ -1219,7 +1229,7 @@ function antonova_render_content_page() {
 
     $general_fields = array(
         'antonova_city' => array('Город / строка над заголовком', 'Домашняя кондитерская · Москва', 'text'),
-        'antonova_h1' => array('Главный заголовок', 'Торты и авторские десерты на заказ в Москве', 'text'),
+        'antonova_h1' => array('Главный заголовок', 'Торты на заказ в Москве', 'text'),
         'antonova_lead' => array('Подзаголовок', 'Индивидуальные вкусы, оформление и внимание к каждой детали. От идеи и референса — до десерта, который станет частью вашего праздника.', 'text'),
         'antonova_telegram_url' => array('Ссылка Telegram', 'https://t.me/antonovaov', 'url'),
         'antonova_whatsapp_url' => array('Ссылка WhatsApp', 'https://wa.me/79647281844', 'url'),
