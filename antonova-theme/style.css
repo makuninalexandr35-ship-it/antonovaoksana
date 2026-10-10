@@ -208,3 +208,6 @@ footer .footer-identity{justify-items:center;align-items:center;text-align:cente
 
 /* Fill the wide Hero while preserving the complete wedding cake in front. */
 .wedding-hero{background:#35101f url('assets/hero/Hero5-ezgif.com-jpg-to-webp-converter.webp') center/cover no-repeat}.wedding-hero .chocolate-hero-image{object-fit:contain;object-position:right center;-webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 32%,rgba(0,0,0,.65) 46%,#000 62%,#000 100%);mask-image:linear-gradient(90deg,transparent 0%,transparent 32%,rgba(0,0,0,.65) 46%,#000 62%,#000 100%)}
+
+/* Phone-only landing-page composition: one wedding image and three intentional title lines. */
+.mobile-line-break{display:none}.desktop-space{display:inline}.mobile-hero-title>span{white-space:normal}@media(max-width:700px){.chocolate-hero .mobile-hero-title{font-size:clamp(34px,9.6vw,38px);line-height:1.08}.mobile-line-break{display:block}.desktop-line-break,.desktop-space{display:none}.mobile-hero-title>span{white-space:nowrap}.wedding-hero{background-position:center center;background-size:cover;background-repeat:no-repeat}.wedding-hero .chocolate-hero-image{display:none}}

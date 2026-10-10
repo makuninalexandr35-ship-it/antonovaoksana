@@ -17,7 +17,7 @@ while (have_posts()) :
             <img class="chocolate-hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero5-ezgif.com-jpg-to-webp-converter.webp" width="1680" height="945" decoding="async" alt="Многоярусный свадебный торт с лиловыми цветами" fetchpriority="high">
             <div class="chocolate-hero-copy">
                 <p class="eyebrow">Свадебные&nbsp;торты</p>
-                <h1>Свадебные торты<br>на заказ в Москве</h1>
+                <h1 class="mobile-hero-title"><span>Свадебные</span><span class="desktop-space">&nbsp;</span><br class="mobile-line-break"><span>торты</span> <br class="desktop-line-break"><span>на заказ</span><span class="desktop-space">&nbsp;</span><br class="mobile-line-break"><span>в Москве</span></h1>
                 <p>Создаю <span>свадебные&nbsp;торты</span> в Москве по индивидуальному дизайну. Обсудим размер, начинку, цвет, декор и оформление торта с учётом стиля вашей свадьбы. Доступны самовывоз в Коптево и доставка по Москве и области.</p>
             </div>
         </section>

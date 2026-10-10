@@ -820,6 +820,8 @@ function antonova_theme_work_captions() {
         '4-ezgif.com-jpg-to-webp-converter.webp' => 'Золотой набор шоколадных конфет',
         '5-ezgif.com-jpg-to-webp-converter.webp' => 'Набор геометрического шоколада',
         '51-ezgif.com-jpg-to-webp-converter.webp' => 'Торт с ежевикой на 51 год',
+        'Набор тортов с цветами.webp' => 'Набор тортов с цветами',
+        'Торт с цветами.webp' => 'Торт с цветами',
         'ezgif.com-jpg-to-webp-converter (1).webp' => 'Торт с грушами и виноградом',
         'ezgif.com-jpg-to-webp-converter (10).webp' => 'Безе с малиновой начинкой',
         'ezgif.com-jpg-to-webp-converter (11).webp' => 'Яркий торт с ягодами и шоколадом',
