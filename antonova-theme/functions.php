@@ -1541,3 +1541,8 @@ function antonova_render_content_page() {
     </script>
     <?php
 }
+
+// SEO overrides of the AI SEO Agent: the site is changed only through code (seo/overrides.json in the repository, ADR-086).
+if (file_exists(get_template_directory() . '/inc/seo-agent-overrides.php')) {
+    require_once get_template_directory() . '/inc/seo-agent-overrides.php';
+}

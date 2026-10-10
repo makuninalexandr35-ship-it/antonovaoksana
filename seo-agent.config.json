@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "overrides_file": "seo/overrides.json",
+  "indexnow_key": "oGlEMl9aITs6sKalz4fxQcnEgigd5jyM",
+  "actions": {
+    "TITLE_UPDATE": true,
+    "META_DESCRIPTION_UPDATE": true,
+    "CANONICAL_FIX_SAFE": true,
+    "ALT_TEXT_UPDATE": true,
+    "BROKEN_INTERNAL_LINK_FIX": true,
+    "INTERNAL_LINK_FIX": true,
+    "INTERNAL_LINK_ADD": true,
+    "STRUCTURED_DATA_FIX_SAFE": true,
+    "CONTENT_SECTION_ADD": true,
+    "H1_UPDATE": true
+  }
+}

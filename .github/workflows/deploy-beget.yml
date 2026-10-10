@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "antonova-theme/**"
+      - "seo/**"
+      - "seo-agent.config.json"
       - ".github/workflows/deploy-beget.yml"
   workflow_dispatch:
 
@@ -40,6 +42,7 @@ jobs:
           bundle_dir="$RUNNER_TEMP/antonova-theme-deploy"
           rm -rf "$bundle_dir"
           mkdir -p "$bundle_dir/assets/optimized" "$bundle_dir/assets/fonts" "$bundle_dir/assets/hero" "$bundle_dir/assets/works"
+          mkdir -p "$bundle_dir/inc" "$bundle_dir/seo"
 
           install -m 644 \
             antonova-theme/404.php \
@@ -76,6 +79,12 @@ jobs:
             xargs -0 -r install -m 644 -t "$bundle_dir/assets/hero"
           find antonova-theme/assets/works -maxdepth 1 -type f -print0 |
             xargs -0 -r install -m 644 -t "$bundle_dir/assets/works"
+
+          # SEO overrides written by the AI SEO Agent through code (ADR-086): the module and the two data files, checked as JSON first
+          python3 -c 'import json; json.load(open("seo/overrides.json", encoding="utf-8")); json.load(open("seo-agent.config.json", encoding="utf-8"))'
+          install -m 644 antonova-theme/inc/seo-agent-overrides.php "$bundle_dir/inc/seo-agent-overrides.php"
+          install -m 644 seo/overrides.json "$bundle_dir/seo/overrides.json"
+          install -m 644 seo-agent.config.json "$bundle_dir/seo/config.json"
 
           test -s "$bundle_dir/assets/hero/Hero1.webp"
           test -s "$bundle_dir/assets/hero/Hero2.webp"
