@@ -58,7 +58,7 @@
     <section class="custom-cake reveal">
       <div class="custom-copy">
         <p class="eyebrow">Индивидуальные торты</p>
-        <h2>Ваш торт может быть именно таким, каким вы его представляете</h2>
+        <h2 class="custom-cake-title"><span>Ваш торт может</span> <span>быть именно</span> <span>таким, каким вы</span> <span>его представляете</span></h2>
         <p class="custom-lead">Покажите фотографию, рисунок или референс. Выберите любимый вкус — оформление и детали заказа обсудим индивидуально.</p>
         <ul class="benefits">
           <li><span>◇</span><b>Индивидуальный дизайн</b><small>По вашим идеям и референсам</small></li>
