@@ -295,11 +295,24 @@ add_filter('the_content', 'antonova_replace_landing_telegram_with_max', 20);
  */
 function antonova_redirect_removed_work_catalogue() {
     if (is_post_type_archive('antonova_work') || is_tax('antonova_work_category') || is_singular('antonova_work')) {
+        header('X-Robots-Tag: noindex, follow', true);
         wp_safe_redirect(home_url('/#works'), 301);
         exit;
     }
 }
 add_action('template_redirect', 'antonova_redirect_removed_work_catalogue', 1);
+
+/** Keep removed work URLs out of search if their redirect is ever disabled. */
+function antonova_noindex_removed_work_catalogue($robots) {
+    if (is_post_type_archive('antonova_work') || is_tax('antonova_work_category') || is_singular('antonova_work')) {
+        unset($robots['index']);
+        $robots['noindex'] = true;
+        $robots['follow'] = true;
+    }
+
+    return $robots;
+}
+add_filter('wp_robots', 'antonova_noindex_removed_work_catalogue', 99);
 
 function antonova_exclude_removed_work_catalogue_from_yoast_sitemap($excluded, $object_type) {
     return in_array($object_type, array('antonova_work', 'antonova_work_category'), true) ? true : $excluded;
