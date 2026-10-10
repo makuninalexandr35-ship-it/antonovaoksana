@@ -373,6 +373,21 @@ document.querySelectorAll('[data-thumbnail-gallery]').forEach((gallery) => {
   selectPhoto(triggers[0]);
 });
 
+// The video carousel switches through native HTML radio controls. JavaScript
+// only pauses videos that are no longer selected; there is no autoplay.
+document.querySelectorAll('[data-chocolate-video-slider]').forEach((slider) => {
+  const choices = Array.from(slider.querySelectorAll('.chocolate-video-choice'));
+  const videos = Array.from(slider.querySelectorAll('video'));
+  const pauseHiddenVideos = () => {
+    choices.forEach((choice, index) => {
+      if (!choice.checked && videos[index]) videos[index].pause();
+    });
+  };
+
+  choices.forEach((choice) => choice.addEventListener('change', pauseHiddenVideos));
+  pauseHiddenVideos();
+});
+
 // The SEO module appends this editorial block after the theme has rendered.
 // Watch for it, then place it beneath the custom-design section and before
 // the fillings information.

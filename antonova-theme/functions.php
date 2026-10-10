@@ -1005,16 +1005,83 @@ function antonova_landing_thumbnail_gallery_html($gallery_key) {
     return ob_get_clean();
 }
 
-/** Introductory copy and reserved media slot for the forthcoming chocolate videos. */
+/** Videos placed in this folder are rendered directly in the page HTML. */
+function antonova_handmade_chocolate_video_items() {
+    $directory = trailingslashit(get_template_directory()) . 'assets/videos/handmade-chocolate';
+    $files = glob($directory . '/*.{mp4,webm,ogv,ogg,mov,MP4,WEBM,OGV,OGG,MOV}', GLOB_BRACE);
+    if (!is_array($files)) {
+        return array();
+    }
+
+    natcasesort($files);
+    $mime_types = array(
+        'mp4' => 'video/mp4',
+        'webm' => 'video/webm',
+        'ogv' => 'video/ogg',
+        'ogg' => 'video/ogg',
+        'mov' => 'video/quicktime',
+    );
+    $items = array();
+
+    foreach (array_values($files) as $index => $path) {
+        $filename = wp_basename($path);
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        if (!isset($mime_types[$extension])) {
+            continue;
+        }
+
+        $items[] = array(
+            'src' => antonova_theme_asset('assets/videos/handmade-chocolate/' . rawurlencode($filename)),
+            'type' => $mime_types[$extension],
+            'title' => 'Создание шоколада ручной работы — видео ' . ($index + 1),
+        );
+    }
+
+    return $items;
+}
+
+/** HTML-first video carousel: every source exists in the response without JavaScript. */
+function antonova_handmade_chocolate_video_slider_html() {
+    $videos = antonova_handmade_chocolate_video_items();
+    if (empty($videos)) {
+        return '<div class="chocolate-video-slot" data-chocolate-video-slot role="region" aria-label="Место для видео о создании шоколада"><p>Видео будет добавлено здесь.</p></div>';
+    }
+
+    ob_start();
+    ?>
+    <div class="chocolate-video-slider" data-chocolate-video-slider aria-label="Видео о создании шоколада ручной работы">
+        <div class="chocolate-video-panels">
+            <?php foreach ($videos as $index => $video) : ?>
+                <?php
+                $choice_id = 'chocolate-video-choice-' . ($index + 1);
+                $previous_index = (0 === $index) ? count($videos) - 1 : $index - 1;
+                $next_index = (count($videos) - 1 === $index) ? 0 : $index + 1;
+                ?>
+                <input class="chocolate-video-choice screen-reader-text" type="radio" name="chocolate-video-selection" id="<?php echo esc_attr($choice_id); ?>" aria-label="<?php echo esc_attr('Показать: ' . $video['title']); ?>" <?php checked(0, $index); ?>>
+                <figure class="chocolate-video-panel" data-chocolate-video-panel>
+                    <label class="chocolate-video-arrow" for="<?php echo esc_attr('chocolate-video-choice-' . ($previous_index + 1)); ?>" aria-label="Предыдущее видео"><span aria-hidden="true">←</span></label>
+                    <video controls preload="metadata" playsinline aria-label="<?php echo esc_attr($video['title']); ?>">
+                        <source src="<?php echo esc_url($video['src']); ?>" type="<?php echo esc_attr($video['type']); ?>">
+                        Ваш браузер не поддерживает воспроизведение видео.
+                    </video>
+                    <label class="chocolate-video-arrow" for="<?php echo esc_attr('chocolate-video-choice-' . ($next_index + 1)); ?>" aria-label="Следующее видео"><span aria-hidden="true">→</span></label>
+                    <figcaption class="screen-reader-text"><?php echo esc_html($video['title']); ?></figcaption>
+                </figure>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+
+/** Introductory copy and carousel for the handmade-chocolate videos. */
 function antonova_handmade_chocolate_video_intro_html() {
     return '<section class="chocolate-video-section" aria-labelledby="chocolate-video-title">'
         . '<h2 id="chocolate-video-title">Шоколад ручной работы — с любовью к каждой детали</h2>'
         . '<p>Хотите увидеть, как создаются шоколадные сладости ручной работы? Загляните за кулисы домашней кондитерской! В этом видео мы покажем процесс приготовления шоколадных изделий своими руками — от работы с шоколадом до создания аппетитных лакомств.</p>'
         . '<p>Каждая шоколадная сладость — это немного творчества, вдохновения и любви к своему делу.</p>'
         . '<p class="chocolate-video-callout"><strong>▶ Смотрите видео и узнайте, как рождаются шоколадные вкусности!</strong></p>'
-        . '<div class="chocolate-video-slot" data-chocolate-video-slot role="region" aria-label="Место для видео о создании шоколада">'
-        . '<p>Видео будет добавлено здесь.</p>'
-        . '</div>'
+        . antonova_handmade_chocolate_video_slider_html()
         . '</section>';
 }
 
