@@ -275,6 +275,35 @@ if (workLightbox) {
   });
 }
 
+// The landing galleries render every photograph in HTML first. JavaScript only
+// improves the view by showing one selected image at a time; there is no timer
+// or automatic slide change.
+document.querySelectorAll('[data-thumbnail-gallery]').forEach((gallery) => {
+  const panels = Array.from(gallery.querySelectorAll('[data-thumbnail-panel]'));
+  const triggers = Array.from(gallery.querySelectorAll('[data-thumbnail-trigger]'));
+  if (!panels.length || !triggers.length) return;
+
+  const selectPhoto = (trigger) => {
+    const targetId = trigger.dataset.thumbnailTarget;
+    panels.forEach((panel) => panel.classList.toggle('is-active', panel.id === targetId));
+    triggers.forEach((item) => {
+      const isSelected = item === trigger;
+      item.classList.toggle('is-active', isSelected);
+      item.setAttribute('aria-current', String(isSelected));
+    });
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      selectPhoto(trigger);
+    });
+  });
+
+  gallery.classList.add('is-enhanced');
+  selectPhoto(triggers[0]);
+});
+
 // The SEO module appends this editorial block after the theme has rendered.
 // Watch for it, then place it beneath the custom-design section and before
 // the fillings information.

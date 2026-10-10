@@ -884,6 +884,117 @@ function antonova_get_theme_works() {
     return $works;
 }
 
+/**
+ * Landing-page galleries are file based: adding an approved image to the
+ * relevant folder does not depend on a page builder or a third-party slider.
+ * Every image is rendered in the page HTML for search engines and no-JS users.
+ */
+function antonova_landing_gallery_data($gallery_key) {
+    $galleries = array(
+        'wedding' => array(
+            'id' => 'wedding-cakes-gallery',
+            'label' => 'Фотографии свадебных тортов',
+            'items' => array(
+                array(
+                    'file' => 'wedding-swans.webp',
+                    'alt' => 'Белый многоярусный свадебный торт с фигурками лебедей',
+                    'caption' => 'Свадебный торт с лебедями',
+                ),
+                array(
+                    'file' => 'wedding-pink-flowers.webp',
+                    'alt' => 'Розовый двухъярусный свадебный торт с цветами',
+                    'caption' => 'Розовый свадебный торт с цветами',
+                ),
+                array(
+                    'file' => 'wedding-rings.webp',
+                    'alt' => 'Белый свадебный торт с кольцами и вафельным декором',
+                    'caption' => 'Свадебный торт с кольцами',
+                ),
+                array(
+                    'file' => 'wedding-lace.jpg',
+                    'alt' => 'Многоярусный свадебный торт с кружевным декором и изогнутой опорой',
+                    'caption' => 'Свадебный торт с кружевным декором',
+                ),
+            ),
+        ),
+        'birthday' => array(
+            'id' => 'birthday-cakes-gallery',
+            'label' => 'Фотографии тортов на день рождения',
+            'items' => array(),
+            'empty_message' => 'Фотографии тортов на день рождения будут добавлены скоро.',
+        ),
+        'chocolate' => array(
+            'id' => 'handmade-chocolate-gallery',
+            'label' => 'Фотографии шоколада ручной работы',
+            'items' => array(),
+            'empty_message' => 'Фотографии шоколада ручной работы будут добавлены скоро.',
+        ),
+    );
+
+    if (!isset($galleries[$gallery_key])) {
+        return array();
+    }
+
+    $gallery = $galleries[$gallery_key];
+    foreach ($gallery['items'] as $index => $item) {
+        $gallery['items'][$index]['src'] = antonova_theme_asset(
+            'assets/landing-galleries/' . $gallery_key . '/' . rawurlencode($item['file'])
+        );
+    }
+
+    return $gallery;
+}
+
+/** Render the reusable gallery in the original server HTML. */
+function antonova_landing_thumbnail_gallery_html($gallery_key) {
+    $gallery = antonova_landing_gallery_data($gallery_key);
+    if (empty($gallery)) {
+        return '';
+    }
+
+    ob_start();
+    get_template_part('template-parts/landing-thumbnail-gallery', null, array('gallery' => $gallery));
+    return ob_get_clean();
+}
+
+/**
+ * Place each gallery beneath its introductory text, before the next section.
+ * It happens in PHP rather than JavaScript, so robots and no-JS visitors receive
+ * every photo in the initial response.
+ */
+function antonova_insert_landing_thumbnail_gallery($content) {
+    if (is_admin() || !is_main_query() || !in_the_loop() || false !== strpos($content, 'data-thumbnail-gallery')) {
+        return $content;
+    }
+
+    $placements = array(
+        'wedding-cakes' => array(
+            'gallery' => 'wedding',
+            'pattern' => '#(<h2\\b[^>]*>\\s*Свадебный торт по вашему дизайну\\s*</h2>\\s*<p\\b[^>]*>.*?</p>)#isu',
+        ),
+        'birthday-cakes' => array(
+            'gallery' => 'birthday',
+            'pattern' => '#(<h2\\b[^>]*>\\s*Торты для детей и взрослых\\s*</h2>\\s*<p\\b[^>]*>.*?</p>)#isu',
+        ),
+        'handmade-chocolate' => array(
+            'gallery' => 'chocolate',
+            'pattern' => '#(<h2\\b[^>]*>\\s*Авторский шоколад ручной работы\\s*</h2>\\s*<p\\b[^>]*>.*?</p>\\s*<p\\b[^>]*>.*?</p>)#isu',
+        ),
+    );
+
+    foreach ($placements as $page_slug => $placement) {
+        if (!is_page($page_slug)) {
+            continue;
+        }
+
+        $gallery = antonova_landing_thumbnail_gallery_html($placement['gallery']);
+        return $gallery ? preg_replace($placement['pattern'], '$1' . $gallery, $content, 1) : $content;
+    }
+
+    return $content;
+}
+add_filter('the_content', 'antonova_insert_landing_thumbnail_gallery', 25);
+
 function antonova_content($key, $default) {
     $value = get_option($key, '');
     return $value !== '' ? $value : $default;
