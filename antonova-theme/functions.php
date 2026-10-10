@@ -1005,6 +1005,19 @@ function antonova_landing_thumbnail_gallery_html($gallery_key) {
     return ob_get_clean();
 }
 
+/** Introductory copy and reserved media slot for the forthcoming chocolate videos. */
+function antonova_handmade_chocolate_video_intro_html() {
+    return '<section class="chocolate-video-section" aria-labelledby="chocolate-video-title">'
+        . '<h2 id="chocolate-video-title">Шоколад ручной работы — с любовью к каждой детали</h2>'
+        . '<p>Хотите увидеть, как создаются шоколадные сладости ручной работы? Загляните за кулисы домашней кондитерской! В этом видео мы покажем процесс приготовления шоколадных изделий своими руками — от работы с шоколадом до создания аппетитных лакомств.</p>'
+        . '<p>Каждая шоколадная сладость — это немного творчества, вдохновения и любви к своему делу.</p>'
+        . '<p class="chocolate-video-callout"><strong>▶ Смотрите видео и узнайте, как рождаются шоколадные вкусности!</strong></p>'
+        . '<div class="chocolate-video-slot" data-chocolate-video-slot role="region" aria-label="Место для видео о создании шоколада">'
+        . '<p>Видео будет добавлено здесь.</p>'
+        . '</div>'
+        . '</section>';
+}
+
 /**
  * Place each gallery beneath its introductory text, before the next section.
  * It happens in PHP rather than JavaScript, so robots and no-JS visitors receive
@@ -1036,7 +1049,16 @@ function antonova_insert_landing_thumbnail_gallery($content) {
         }
 
         $gallery = antonova_landing_thumbnail_gallery_html($placement['gallery']);
-        return $gallery ? preg_replace($placement['pattern'], '$1' . $gallery, $content, 1) : $content;
+        if (!$gallery) {
+            return $content;
+        }
+
+        $inserted_content = $gallery;
+        if ('handmade-chocolate' === $page_slug) {
+            $inserted_content .= antonova_handmade_chocolate_video_intro_html();
+        }
+
+        return preg_replace($placement['pattern'], '$1' . $inserted_content, $content, 1);
     }
 
     return $content;

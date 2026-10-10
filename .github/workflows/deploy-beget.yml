@@ -41,7 +41,7 @@ jobs:
           set -euo pipefail
           bundle_dir="$RUNNER_TEMP/antonova-theme-deploy"
           rm -rf "$bundle_dir"
-          mkdir -p "$bundle_dir/assets/optimized" "$bundle_dir/assets/fonts" "$bundle_dir/assets/hero" "$bundle_dir/assets/works" "$bundle_dir/assets/landing-galleries"
+          mkdir -p "$bundle_dir/assets/optimized" "$bundle_dir/assets/fonts" "$bundle_dir/assets/hero" "$bundle_dir/assets/works" "$bundle_dir/assets/landing-galleries" "$bundle_dir/assets/videos/handmade-chocolate"
           mkdir -p "$bundle_dir/inc" "$bundle_dir/seo" "$bundle_dir/template-parts"
 
           install -m 644 \
@@ -83,6 +83,7 @@ jobs:
           find antonova-theme/assets/works -maxdepth 1 -type f -print0 |
             xargs -0 -r install -m 644 -t "$bundle_dir/assets/works"
           cp -a antonova-theme/assets/landing-galleries/. "$bundle_dir/assets/landing-galleries/"
+          cp -a antonova-theme/assets/videos/. "$bundle_dir/assets/videos/"
 
           # SEO overrides written by the AI SEO Agent through code (ADR-086): the module and the two data files, checked as JSON first
           python3 -c 'import json; json.load(open("seo/overrides.json", encoding="utf-8")); json.load(open("seo-agent.config.json", encoding="utf-8"))'

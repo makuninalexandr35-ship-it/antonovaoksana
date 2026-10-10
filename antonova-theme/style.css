@@ -26,6 +26,9 @@ footer{gap:42px}.footer-identity{display:grid;gap:12px;text-align:left}.footer-i
 /* HTML-first fallback: page content remains visible when JavaScript is disabled or unavailable. */
 html:not(.reveal-enabled) .reveal{opacity:1;transform:none}
 
+/* Reserved video area below the handmade-chocolate gallery. */
+.chocolate-video-section{margin:58px auto 68px;text-align:center}.chocolate-page-content .page-content .chocolate-video-section h2{margin:0 0 22px}.chocolate-video-section>p{max-width:720px;margin-left:auto!important;margin-right:auto!important}.chocolate-video-callout{padding-top:6px;color:var(--wine)!important}.chocolate-video-slot{display:grid;place-items:center;width:100%;margin:28px auto 0;aspect-ratio:16/9;border:1px dashed rgba(89,20,44,.38);border-radius:12px;background:linear-gradient(135deg,#f5eee5,#ecdfd2);overflow:hidden}.chocolate-video-slot p{margin:0!important;padding:24px;color:var(--muted)!important;font-size:14px!important}@media(max-width:700px){.chocolate-video-section{margin:46px auto 54px}.chocolate-video-slot{margin-top:22px;border-radius:9px}.chocolate-video-slot p{font-size:13px!important}}
+
 /* Product gallery interactions */
 .product-grid article{position:relative}
 .product-grid img{transition:transform .45s ease}
