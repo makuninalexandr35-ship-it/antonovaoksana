@@ -29,6 +29,7 @@ const protectTypography = (root = document) => {
 protectTypography(document.querySelector('main'));
 protectTypography(document.querySelector('footer'));
 const revealItems = document.querySelectorAll('.reveal');
+document.documentElement.classList.add('reveal-enabled');
 
 if (header) {
   const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 120);
@@ -297,6 +298,8 @@ document.querySelectorAll('[data-thumbnail-gallery]').forEach((gallery) => {
   const selectPhoto = (trigger) => {
     const targetId = trigger.dataset.thumbnailTarget;
     selectedIndex = Math.max(0, triggers.indexOf(trigger));
+    const choice = trigger.htmlFor ? document.getElementById(trigger.htmlFor) : null;
+    if (choice) choice.checked = true;
     panels.forEach((panel) => panel.classList.toggle('is-active', panel.id === targetId));
     triggers.forEach((item) => {
       const isSelected = item === trigger;

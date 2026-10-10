@@ -25,11 +25,25 @@ $items = !empty($gallery['items']) && is_array($gallery['items']) ? $gallery['it
 
             <div class="landing-thumbnail-gallery-panels">
                 <?php foreach ($items as $index => $item) : ?>
-                    <?php $panel_id = $gallery['id'] . '-photo-' . ($index + 1); ?>
+                    <?php
+                    $panel_id = $gallery['id'] . '-photo-' . ($index + 1);
+                    $choice_id = $gallery['id'] . '-choice-' . ($index + 1);
+                    $previous_index = (0 === $index) ? count($items) - 1 : $index - 1;
+                    $next_index = (count($items) - 1 === $index) ? 0 : $index + 1;
+                    $previous_choice_id = $gallery['id'] . '-choice-' . ($previous_index + 1);
+                    $next_choice_id = $gallery['id'] . '-choice-' . ($next_index + 1);
+                    ?>
+                    <input class="landing-thumbnail-gallery-choice screen-reader-text" type="radio" name="<?php echo esc_attr($gallery['id'] . '-selection'); ?>" id="<?php echo esc_attr($choice_id); ?>" aria-label="<?php echo esc_attr('Показать: ' . $item['caption']); ?>" <?php checked(0, $index); ?>>
                     <figure class="landing-thumbnail-gallery-panel<?php echo 0 === $index ? ' is-active' : ''; ?>" id="<?php echo esc_attr($panel_id); ?>" data-thumbnail-panel>
+                        <label class="landing-thumbnail-gallery-html-arrow" for="<?php echo esc_attr($previous_choice_id); ?>" aria-label="Предыдущая фотография">
+                            <span aria-hidden="true">←</span>
+                        </label>
                         <a href="<?php echo esc_url($item['src']); ?>" data-thumbnail-open aria-label="Увеличить: <?php echo esc_attr($item['caption']); ?>">
                             <img src="<?php echo esc_url($item['src']); ?>" alt="<?php echo esc_attr($item['alt']); ?>" loading="lazy" decoding="async">
                         </a>
+                        <label class="landing-thumbnail-gallery-html-arrow" for="<?php echo esc_attr($next_choice_id); ?>" aria-label="Следующая фотография">
+                            <span aria-hidden="true">→</span>
+                        </label>
                         <figcaption class="screen-reader-text"><?php echo esc_html($item['caption']); ?></figcaption>
                     </figure>
                 <?php endforeach; ?>
@@ -43,10 +57,11 @@ $items = !empty($gallery['items']) && is_array($gallery['items']) ? $gallery['it
         <nav class="landing-thumbnail-gallery-thumbnails" aria-label="Выбрать фотографию">
             <?php foreach ($items as $index => $item) : ?>
                 <?php $panel_id = $gallery['id'] . '-photo-' . ($index + 1); ?>
-                <a class="landing-thumbnail-gallery-thumbnail<?php echo 0 === $index ? ' is-active' : ''; ?>" href="#<?php echo esc_attr($panel_id); ?>" data-thumbnail-trigger data-thumbnail-target="<?php echo esc_attr($panel_id); ?>" aria-controls="<?php echo esc_attr($panel_id); ?>" aria-current="<?php echo 0 === $index ? 'true' : 'false'; ?>">
+                <?php $choice_id = $gallery['id'] . '-choice-' . ($index + 1); ?>
+                <label class="landing-thumbnail-gallery-thumbnail<?php echo 0 === $index ? ' is-active' : ''; ?>" for="<?php echo esc_attr($choice_id); ?>" data-thumbnail-trigger data-thumbnail-target="<?php echo esc_attr($panel_id); ?>" aria-controls="<?php echo esc_attr($panel_id); ?>" aria-current="<?php echo 0 === $index ? 'true' : 'false'; ?>">
                     <img src="<?php echo esc_url($item['src']); ?>" alt="<?php echo esc_attr('Миниатюра: ' . $item['alt']); ?>" loading="lazy" decoding="async">
                     <span class="screen-reader-text"><?php echo esc_html('Показать: ' . $item['caption']); ?></span>
-                </a>
+                </label>
             <?php endforeach; ?>
         </nav>
 
