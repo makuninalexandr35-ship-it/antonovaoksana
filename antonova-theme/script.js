@@ -281,10 +281,22 @@ if (workLightbox) {
 document.querySelectorAll('[data-thumbnail-gallery]').forEach((gallery) => {
   const panels = Array.from(gallery.querySelectorAll('[data-thumbnail-panel]'));
   const triggers = Array.from(gallery.querySelectorAll('[data-thumbnail-trigger]'));
+  const previous = gallery.querySelector('[data-thumbnail-previous]');
+  const next = gallery.querySelector('[data-thumbnail-next]');
+  const dialog = gallery.querySelector('[data-thumbnail-dialog]');
+  const dialogImage = gallery.querySelector('[data-thumbnail-dialog-image]');
+  const dialogCaption = gallery.querySelector('[data-thumbnail-dialog-caption]');
+  const dialogPrevious = gallery.querySelector('[data-thumbnail-dialog-previous]');
+  const dialogNext = gallery.querySelector('[data-thumbnail-dialog-next]');
+  const dialogClose = Array.from(gallery.querySelectorAll('[data-thumbnail-dialog-close]'));
   if (!panels.length || !triggers.length) return;
+
+  let selectedIndex = 0;
+  let opener = null;
 
   const selectPhoto = (trigger) => {
     const targetId = trigger.dataset.thumbnailTarget;
+    selectedIndex = Math.max(0, triggers.indexOf(trigger));
     panels.forEach((panel) => panel.classList.toggle('is-active', panel.id === targetId));
     triggers.forEach((item) => {
       const isSelected = item === trigger;
@@ -293,11 +305,65 @@ document.querySelectorAll('[data-thumbnail-gallery]').forEach((gallery) => {
     });
   };
 
+  const selectRelative = (offset) => {
+    const nextIndex = (selectedIndex + offset + triggers.length) % triggers.length;
+    selectPhoto(triggers[nextIndex]);
+  };
+
+  const showDialogPhoto = (index) => {
+    if (!dialog || !dialogImage) return;
+    const panel = panels[index];
+    const image = panel.querySelector('img');
+    const caption = panel.querySelector('figcaption');
+    dialogImage.src = image.currentSrc || image.src;
+    dialogImage.alt = image.alt;
+    if (dialogCaption) dialogCaption.textContent = caption ? caption.textContent : image.alt;
+    selectPhoto(triggers[index]);
+  };
+
+  const openDialog = (index, trigger) => {
+    if (!dialog) return;
+    opener = trigger;
+    showDialogPhoto(index);
+    dialog.hidden = false;
+    document.body.classList.add('landing-gallery-lightbox-open');
+    const closeButton = dialog.querySelector('[data-thumbnail-dialog-close]');
+    if (closeButton) closeButton.focus();
+  };
+
+  const closeDialog = () => {
+    if (!dialog) return;
+    dialog.hidden = true;
+    document.body.classList.remove('landing-gallery-lightbox-open');
+    if (opener) opener.focus();
+  };
+
   triggers.forEach((trigger) => {
     trigger.addEventListener('click', (event) => {
       event.preventDefault();
       selectPhoto(trigger);
     });
+  });
+
+  if (previous) previous.addEventListener('click', () => selectRelative(-1));
+  if (next) next.addEventListener('click', () => selectRelative(1));
+
+  panels.forEach((panel, index) => {
+    const open = panel.querySelector('[data-thumbnail-open]');
+    if (open) open.addEventListener('click', (event) => {
+      event.preventDefault();
+      openDialog(index, open);
+    });
+  });
+
+  if (dialogPrevious) dialogPrevious.addEventListener('click', () => showDialogPhoto((selectedIndex + triggers.length - 1) % triggers.length));
+  if (dialogNext) dialogNext.addEventListener('click', () => showDialogPhoto((selectedIndex + 1) % triggers.length));
+  dialogClose.forEach((button) => button.addEventListener('click', closeDialog));
+  document.addEventListener('keydown', (event) => {
+    if (!dialog || dialog.hidden) return;
+    if (event.key === 'Escape') closeDialog();
+    if (event.key === 'ArrowLeft') showDialogPhoto((selectedIndex + triggers.length - 1) % triggers.length);
+    if (event.key === 'ArrowRight') showDialogPhoto((selectedIndex + 1) % triggers.length);
   });
 
   gallery.classList.add('is-enhanced');

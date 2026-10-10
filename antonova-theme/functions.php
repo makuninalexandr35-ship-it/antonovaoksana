@@ -936,6 +936,41 @@ function antonova_landing_gallery_data($gallery_key) {
     }
 
     $gallery = $galleries[$gallery_key];
+    $gallery_dir = trailingslashit(get_template_directory()) . 'assets/landing-galleries/' . $gallery_key;
+    $files = glob($gallery_dir . '/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}', GLOB_BRACE);
+    $known_files = array();
+
+    foreach ($gallery['items'] as $item) {
+        $known_files[$item['file']] = true;
+    }
+
+    if (is_array($files)) {
+        natcasesort($files);
+        foreach ($files as $path) {
+            $filename = wp_basename($path);
+            if (isset($known_files[$filename])) {
+                continue;
+            }
+
+            $name = pathinfo($filename, PATHINFO_FILENAME);
+            $name = preg_replace('/[-_]+/u', ' ', $name);
+            $name = preg_replace('/\s+/u', ' ', trim($name));
+            $has_human_name = !preg_match('/^(?:\d+|ezgif|converter|#u)/iu', $name);
+            $fallback = array(
+                'birthday' => 'Авторский торт на день рождения',
+                'chocolate' => 'Шоколад ручной работы',
+                'wedding' => 'Авторский свадебный торт',
+            );
+            $description = $has_human_name ? $name : $fallback[$gallery_key];
+
+            $gallery['items'][] = array(
+                'file' => $filename,
+                'alt' => $description,
+                'caption' => $description,
+            );
+        }
+    }
+
     foreach ($gallery['items'] as $index => $item) {
         $gallery['items'][$index]['src'] = antonova_theme_asset(
             'assets/landing-galleries/' . $gallery_key . '/' . rawurlencode($item['file'])
