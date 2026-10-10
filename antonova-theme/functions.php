@@ -1013,7 +1013,6 @@ function antonova_handmade_chocolate_video_items() {
         return array();
     }
 
-    natcasesort($files);
     $mime_types = array(
         'mp4' => 'video/mp4',
         'webm' => 'video/webm',
@@ -1021,14 +1020,43 @@ function antonova_handmade_chocolate_video_items() {
         'ogg' => 'video/ogg',
         'mov' => 'video/quicktime',
     );
-    $items = array();
+    $format_priority = array(
+        'mp4' => 1,
+        'webm' => 2,
+        'ogv' => 3,
+        'ogg' => 3,
+        'mov' => 4,
+    );
+    $preferred_files = array();
 
-    foreach (array_values($files) as $index => $path) {
+    // Keep the uploaded original, but render only the best browser-ready copy
+    // when two files share a name (for example IMG_3132.MOV + IMG_3132.mp4).
+    foreach ($files as $path) {
         $filename = wp_basename($path);
         $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        $basename = strtolower(pathinfo($filename, PATHINFO_FILENAME));
         if (!isset($mime_types[$extension])) {
             continue;
         }
+
+        if (
+            !isset($preferred_files[$basename])
+            || $format_priority[$extension] < $preferred_files[$basename]['priority']
+        ) {
+            $preferred_files[$basename] = array(
+                'path' => $path,
+                'priority' => $format_priority[$extension],
+            );
+        }
+    }
+
+    ksort($preferred_files, SORT_NATURAL | SORT_FLAG_CASE);
+    $items = array();
+
+    foreach (array_values($preferred_files) as $index => $preferred_file) {
+        $path = $preferred_file['path'];
+        $filename = wp_basename($path);
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
         $items[] = array(
             'src' => antonova_theme_asset('assets/videos/handmade-chocolate/' . rawurlencode($filename)),
