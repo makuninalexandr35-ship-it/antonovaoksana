@@ -583,7 +583,7 @@ function antonova_seo_context() {
     }
 
     if (is_page('birthday-cakes')) {
-        $context['title'] = 'Торты на день рождения в Москве | Oksana Antonova';
+        $context['title'] = 'Торт на день рождения на заказ в Москве | Oksana Antonova';
         $context['description'] = 'Торт на день рождения в Москве по индивидуальному дизайну. Выбор начинки и оформления, самовывоз в Коптево и доставка по Москве и области.';
         $context['url'] = get_permalink();
         return $context;
