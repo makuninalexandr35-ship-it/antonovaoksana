@@ -7,6 +7,7 @@
  * title, meta description, canonical, image alt texts, internal link fixes and additions, one JSON-LD block, the text of the one H1, owner text sections.
  * ADR-112: the home page entry "/" may also carry "robots" ({line: present|absent}, applied to the robots.txt WordPress serves) and "sitemap"
  * ({page url: listed|absent}, applied to the Yoast sitemaps). The agent never closes a page: a Disallow line can only be removed.
+ * ADR-123: a page entry may carry "noindex": true, written only on the owner's order: the page gets robots "noindex, nofollow" and leaves the sitemap.
  * It never edits posts, options or files; removing an entry from the file restores the page. While the connector plugin is active this file does nothing,
  * so the two can never apply the same change twice.
  */
@@ -344,6 +345,14 @@ function antonova_seo_render($html, $overrides) {
     if (!empty($overrides['sections']) && is_array($overrides['sections'])) {
         $html = antonova_seo_add_sections($html, $overrides['sections']);
     }
+    // ADR-123, only on the owner's order: the page is closed from search (the general robots meta is set or inserted, the robot-specific ones are set).
+    if (isset($overrides['noindex']) && $overrides['noindex'] === true) {
+        $html = antonova_seo_put_head_tag($html, '~<meta\s+name=(["\'])robots\1[^>]*>~i', '<meta name="robots" content="noindex, nofollow" />');
+        $result = preg_replace_callback('~<meta\s+name=(["\'])(googlebot|yandex)\1[^>]*>~i', function ($match) {
+            return '<meta name="' . strtolower($match[2]) . '" content="noindex, nofollow" />';
+        }, $html);
+        $html = is_string($result) ? $result : $html;
+    }
     if (!empty($overrides['links']) && is_array($overrides['links'])) {
         foreach ($overrides['links'] as $from => $to) {
             if (!is_string($from) || !is_string($to) || $to === '') {
@@ -525,6 +534,12 @@ add_filter('wpseo_sitemap_entry', function ($url, $type, $object) {
     $key = antonova_seo_url_key($url['loc']);
     $absent = antonova_seo_sitemap_wanted('absent');
     if (isset($absent[$key])) {
+        return false;
+    }
+    // ADR-123: a page the owner closed from search leaves the sitemap.
+    $all = antonova_seo_file('overrides.json');
+    $path = antonova_seo_path_key($url['loc']);
+    if ($path !== '/' && is_array($all) && isset($all[$path]['noindex']) && $all[$path]['noindex'] === true) {
         return false;
     }
     $GLOBALS['antonova_seo_sitemap_seen'][$key] = true;
