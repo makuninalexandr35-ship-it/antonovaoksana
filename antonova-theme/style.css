@@ -230,4 +230,8 @@ footer .footer-identity{justify-items:center;align-items:center;text-align:cente
    fully visible inside the stable viewing area. */
 .landing-thumbnail-gallery-arrow-previous{grid-column:1;grid-row:1}.landing-thumbnail-gallery-panels{grid-column:2;grid-row:1;width:100%}.landing-thumbnail-gallery-arrow-next{grid-column:3;grid-row:1}.landing-thumbnail-gallery-panel>a{display:grid;width:100%;height:min(72svh,760px);place-items:center}.landing-thumbnail-gallery-panel img{max-height:100%;object-fit:contain}.landing-thumbnail-gallery.is-enhanced .landing-thumbnail-gallery-panel.is-active{display:grid;grid-template-columns:minmax(0,1fr)}
 
+/* Keep the three internal landing galleries compact on desktop. The full-size
+   image remains available through the existing click-to-open lightbox. */
+@media(min-width:701px){.chocolate-page-content .landing-thumbnail-gallery{max-width:640px}.chocolate-page-content .landing-thumbnail-gallery-panel>a{height:min(58svh,560px)}}
+
 .custom-cake-title>span{display:inline}@media(max-width:700px){.custom-cake-title>span{display:block;white-space:nowrap}}
