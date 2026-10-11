@@ -5,6 +5,8 @@
  * The site is changed only through code: the agent writes seo/overrides.json in this repository, the deploy workflow copies it into the theme as
  * seo/overrides.json, and this file applies it to the rendered page exactly like the SEO Agent Connector plugin 1.4.0 did (same fields, same rules):
  * title, meta description, canonical, image alt texts, internal link fixes and additions, one JSON-LD block, the text of the one H1, owner text sections.
+ * ADR-112: the home page entry "/" may also carry "robots" ({line: present|absent}, applied to the robots.txt WordPress serves) and "sitemap"
+ * ({page url: listed|absent}, applied to the Yoast sitemaps). The agent never closes a page: a Disallow line can only be removed.
  * It never edits posts, options or files; removing an entry from the file restores the page. While the connector plugin is active this file does nothing,
  * so the two can never apply the same change twice.
  */
@@ -359,3 +361,190 @@ function antonova_seo_render($html, $overrides) {
     }
     return $html;
 }
+
+// ADR-112: robots.txt and the sitemap, from the home page entry "/" of the overrides file. -----------------------------------------------------
+
+function antonova_seo_site_entry() {
+    $all = antonova_seo_file('overrides.json');
+    return (is_array($all) && isset($all['/']) && is_array($all['/'])) ? $all['/'] : array();
+}
+
+// "disallow:/x " -> "Disallow: /x"; null for a comment, an empty or an unknown line (the agent writes lines in this form).
+function antonova_seo_robots_norm($raw) {
+    $line = trim((string) preg_replace('/#.*$/', '', (string) $raw));
+    $at = strpos($line, ':');
+    if ($at === false || $at === 0) {
+        return null;
+    }
+    $names = array('user-agent' => 'User-agent', 'allow' => 'Allow', 'disallow' => 'Disallow', 'sitemap' => 'Sitemap', 'crawl-delay' => 'Crawl-delay', 'clean-param' => 'Clean-param', 'host' => 'Host');
+    $key = strtolower(trim(substr($line, 0, $at)));
+    if (!isset($names[$key])) {
+        return null;
+    }
+    return $names[$key] . ': ' . trim(substr($line, $at + 1));
+}
+
+// The same rules as the agent and the static-site kit: Sitemap lines of this site and Allow lines may come and go, Disallow lines may only go.
+function antonova_seo_robots_ok($line, $want, $host) {
+    if (!is_string($line) || strlen($line) > 300 || preg_match('/[\r\n]/', $line) || antonova_seo_robots_norm($line) !== $line) {
+        return false;
+    }
+    if ($want !== 'present' && $want !== 'absent') {
+        return false;
+    }
+    $key = strtolower(substr($line, 0, strpos($line, ':')));
+    $value = trim(substr($line, strpos($line, ':') + 1));
+    if ($key === 'sitemap') {
+        if ($want === 'absent') {
+            return true;
+        }
+        $parts = wp_parse_url($value);
+        return is_array($parts) && isset($parts['scheme'], $parts['host']) && $parts['scheme'] === 'https' && strtolower($parts['host']) === strtolower((string) $host);
+    }
+    if ($key === 'allow') {
+        return strpos($value, '/') === 0;
+    }
+    if ($key === 'disallow') {
+        return $want === 'absent' && strpos($value, '/') === 0;
+    }
+    return false;
+}
+
+function antonova_seo_apply_robots($text, $robots, $host) {
+    $entries = array();
+    foreach ((array) $robots as $line => $want) {
+        if (antonova_seo_robots_ok($line, $want, $host)) {
+            $entries[$line] = $want;
+        }
+    }
+    if (count($entries) === 0) {
+        return $text;
+    }
+    $absent = array();
+    foreach ($entries as $line => $want) {
+        if ($want === 'absent') {
+            $absent[strtolower($line)] = true;
+        }
+    }
+    $lines = array();
+    foreach (preg_split('/\r?\n/', (string) $text) as $raw) {
+        $norm = antonova_seo_robots_norm($raw);
+        if ($norm !== null && isset($absent[strtolower($norm)])) {
+            continue;
+        }
+        $lines[] = $raw;
+    }
+    foreach ($entries as $line => $want) {
+        if ($want !== 'present') {
+            continue;
+        }
+        $present = false;
+        foreach ($lines as $raw) {
+            if (strtolower((string) antonova_seo_robots_norm($raw)) === strtolower($line)) {
+                $present = true;
+                break;
+            }
+        }
+        if ($present) {
+            continue;
+        }
+        if (strpos($line, 'Allow: ') === 0) {
+            $at = null;
+            foreach ($lines as $index => $raw) {
+                if (strtolower((string) antonova_seo_robots_norm($raw)) === 'user-agent: *') {
+                    $at = $index;
+                    break;
+                }
+            }
+            if ($at === null) {
+                array_push($lines, '', 'User-agent: *', $line);
+            } else {
+                array_splice($lines, $at + 1, 0, array($line));
+            }
+        } else {
+            while (count($lines) > 0 && trim(end($lines)) === '') {
+                array_pop($lines);
+            }
+            $lines[] = $line;
+        }
+    }
+    while (count($lines) > 0 && trim(end($lines)) === '') {
+        array_pop($lines);
+    }
+    while (count($lines) > 0 && trim($lines[0]) === '') {
+        array_shift($lines);
+    }
+    return implode("\n", $lines) . "\n";
+}
+
+// The robots.txt WordPress serves (with the core and Yoast lines already in it) gets the agent's entries last.
+add_filter('robots_txt', function ($output, $public) {
+    if (function_exists('seo_agent_connector_render')) {
+        return $output;
+    }
+    $entry = antonova_seo_site_entry();
+    if (empty($entry['robots']) || !is_array($entry['robots'])) {
+        return $output;
+    }
+    return antonova_seo_apply_robots((string) $output, $entry['robots'], wp_parse_url(home_url('/'), PHP_URL_HOST));
+}, PHP_INT_MAX, 2);
+
+// One page address for comparisons: host without www, lower-case path without the trailing slash, the query kept (as the agent compares).
+function antonova_seo_url_key($url) {
+    $parts = wp_parse_url((string) $url);
+    if (!is_array($parts) || empty($parts['host'])) {
+        return strtolower(trim((string) $url));
+    }
+    $host = preg_replace('/^www\./', '', strtolower($parts['host']));
+    $path = isset($parts['path']) ? strtolower(rtrim($parts['path'], '/')) : '';
+    return $host . $path . (isset($parts['query']) ? '?' . $parts['query'] : '');
+}
+
+function antonova_seo_sitemap_wanted($want) {
+    $entry = antonova_seo_site_entry();
+    $out = array();
+    if (empty($entry['sitemap']) || !is_array($entry['sitemap'])) {
+        return $out;
+    }
+    $host = strtolower((string) wp_parse_url(home_url('/'), PHP_URL_HOST));
+    foreach ($entry['sitemap'] as $url => $value) {
+        $parts = wp_parse_url((string) $url);
+        if ($value === $want && is_array($parts) && isset($parts['scheme'], $parts['host']) && $parts['scheme'] === 'https' && strtolower($parts['host']) === $host && !preg_match('/[\s"<>]/', (string) $url)) {
+            $out[antonova_seo_url_key($url)] = $url;
+        }
+    }
+    return $out;
+}
+
+// Yoast: an "absent" address leaves its sitemap; every address Yoast lists is remembered, so a "listed" one is added only when Yoast did not list it.
+$GLOBALS['antonova_seo_sitemap_seen'] = array();
+add_filter('wpseo_sitemap_entry', function ($url, $type, $object) {
+    if (function_exists('seo_agent_connector_render') || !is_array($url) || empty($url['loc'])) {
+        return $url;
+    }
+    $key = antonova_seo_url_key($url['loc']);
+    $absent = antonova_seo_sitemap_wanted('absent');
+    if (isset($absent[$key])) {
+        return false;
+    }
+    $GLOBALS['antonova_seo_sitemap_seen'][$key] = true;
+    return $url;
+}, 10, 3);
+
+add_filter('wpseo_sitemap_page_content', function ($content) {
+    if (function_exists('seo_agent_connector_render')) {
+        return $content;
+    }
+    foreach (antonova_seo_sitemap_wanted('listed') as $key => $url) {
+        if (empty($GLOBALS['antonova_seo_sitemap_seen'][$key])) {
+            $content .= "\t<url>\n\t\t<loc>" . esc_url($url) . "</loc>\n\t</url>\n";
+        }
+    }
+    return $content;
+});
+
+// The agent checks its sitemap change right after the deployment: Yoast must not serve a cached sitemap while it has entries.
+add_filter('wpseo_enable_xml_sitemap_transient_caching', function ($enabled) {
+    $entry = antonova_seo_site_entry();
+    return empty($entry['sitemap']) ? $enabled : false;
+});
