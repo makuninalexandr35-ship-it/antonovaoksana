@@ -88,6 +88,7 @@ jobs:
           # SEO overrides written by the AI SEO Agent through code (ADR-086): the module and the two data files, checked as JSON first
           python3 -c 'import json; json.load(open("seo/overrides.json", encoding="utf-8")); json.load(open("seo-agent.config.json", encoding="utf-8"))'
           install -m 644 antonova-theme/inc/seo-agent-overrides.php "$bundle_dir/inc/seo-agent-overrides.php"
+          install -m 644 antonova-theme/inc/contextual-links.php "$bundle_dir/inc/contextual-links.php"
           install -m 644 seo/overrides.json "$bundle_dir/seo/overrides.json"
           install -m 644 seo-agent.config.json "$bundle_dir/seo/config.json"
 
