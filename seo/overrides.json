@@ -10,7 +10,8 @@
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "RU",
-        "addressLocality": "Москва"
+        "addressLocality": "Москва",
+        "streetAddress": "Коптевская улица"
       },
       "areaServed": [
         {
@@ -19,8 +20,30 @@
         }
       ],
       "description": "Торты на заказ в Москве",
+      "hasMap": "https://yandex.ru/profile/134953366795",
       "image": "https://antonovaoksana.ru/wp-content/themes/antonova-theme/assets/og-cake.jpg",
       "name": "Oksana Antonova",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "closes": "20:00",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "08:00"
+        }
+      ],
+      "priceRange": "₽₽",
+      "sameAs": [
+        "https://yandex.ru/profile/134953366795",
+        "https://vk.ru/candy_chef_aov"
+      ],
       "telephone": "+79647281844",
       "url": "https://antonovaoksana.ru/"
     },
