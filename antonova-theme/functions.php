@@ -849,6 +849,27 @@ function antonova_theme_asset($path) {
 }
 
 /**
+ * Serve optimized theme copies for selected legacy Media Library images.
+ * The replacement happens while rendering HTML, so images remain available
+ * when JavaScript is disabled.
+ */
+function antonova_optimized_media_url($url) {
+    if (!is_string($url) || '' === $url) {
+        return $url;
+    }
+
+    $path = wp_parse_url($url, PHP_URL_PATH);
+    $filename = is_string($path) ? rawurldecode(wp_basename($path)) : '';
+    $replacements = array(
+        'Изображение-ChatGPT-27-сент.-2026-г.-21_45_36.png' => 'assets/optimized/wp-medovik-classic.webp',
+        'Изображение-ChatGPT-27-сент.-2026-г.-21_43_14.png' => 'assets/optimized/wp-medovik-author.webp',
+        'Изображение-ChatGPT-27-сент.-2026-г.-18_34_09.png' => 'assets/optimized/wp-oksana-about.webp',
+    );
+
+    return isset($replacements[$filename]) ? antonova_theme_asset($replacements[$filename]) : $url;
+}
+
+/**
  * Human-readable captions for the photos supplied in assets/works.
  * Keep the technical file name as the array key; it makes replacing a photo
  * possible without changing its public URL or the gallery markup.

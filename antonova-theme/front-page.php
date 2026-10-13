@@ -77,8 +77,9 @@
       <div class="section-heading flavors-heading"><div><p class="eyebrow">10 вкусов на выбор</p><h2><?php echo esc_html(antonova_content('antonova_flavors_heading', 'Какой будет ваш торт?')); ?></h2></div><p class="flavors-prompt"><b>Не знаете, что выбрать?</b><br>Расскажите, какие вкусы вам нравятся — поможем определиться.</p></div>
       <div class="flavor-grid">
         <?php foreach (antonova_get_flavors() as $flavor) : ?>
+          <?php $flavor_image = antonova_optimized_media_url($flavor['image']); ?>
           <article>
-            <img src="<?php echo esc_url($flavor['image']); ?>" alt="<?php echo esc_attr(str_replace("\n", " ", $flavor['name'])); ?>" loading="lazy">
+            <img src="<?php echo esc_url($flavor_image); ?>" alt="<?php echo esc_attr(str_replace("\n", " ", $flavor['name'])); ?>" loading="lazy">
             <p><?php echo nl2br(esc_html($flavor['name'])); ?><?php if (!empty($flavor['subtitle'])) : ?><br><small><?php echo esc_html($flavor['subtitle']); ?></small><?php endif; ?><?php if (!empty($flavor['price'])) : ?><br><small><?php echo esc_html($flavor['price']); ?></small><?php endif; ?></p>
           </article>
         <?php endforeach; ?>
@@ -173,7 +174,7 @@
       <ol class="steps"><li><span>01</span><b>Напишите в MAX</b><p>Расскажите, что хотите заказать и к какой дате.</p></li><li><span>02</span><b>Обсудим детали</b><p>Количество гостей, вес, начинку и оформление.</p></li><li><span>03</span><b>Согласуем стоимость</b><p>Рассчитаем декор и при необходимости доставку.</p></li><li><span>04</span><b>Получите заказ</b><p>Самовывозом или удобной курьерской доставкой.</p></li></ol>
     </section>
 
-    <?php $about_image = antonova_content('antonova_about_image', ''); ?>
+    <?php $about_image = antonova_optimized_media_url(antonova_content('antonova_about_image', '')); ?>
     <section id="about" class="section about-section reveal<?php echo $about_image ? ' has-about-image' : ''; ?>">
       <div class="about-mobile-heading">
         <p class="eyebrow">Кондитер — по любви</p>
