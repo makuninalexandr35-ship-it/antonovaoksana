@@ -40,7 +40,7 @@ function antonova_theme_assets() {
     $theme_version = wp_get_theme()->get('Version');
     $style_path = get_stylesheet_directory() . '/style.css';
     $script_path = get_template_directory() . '/script.js';
-    $style_version = file_exists($style_path) ? (string) filemtime($style_path) : $theme_version;
+    $style_version = file_exists($style_path) ? $theme_version . '-' . (string) filemtime($style_path) : $theme_version;
     $script_version = file_exists($script_path) ? (string) filemtime($script_path) : $theme_version;
 
     wp_enqueue_style(
