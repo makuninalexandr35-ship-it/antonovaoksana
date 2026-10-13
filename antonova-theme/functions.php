@@ -772,6 +772,46 @@ function antonova_render_handmade_chocolate_breadcrumb_schema() {
 }
 add_action('wp_head', 'antonova_render_handmade_chocolate_breadcrumb_schema', 30);
 
+/** Render FAQPage schema from the same code-defined questions shown on the homepage. */
+function antonova_render_faq_schema() {
+    if (!is_front_page()) {
+        return;
+    }
+
+    $main_entity = array();
+    foreach (antonova_get_faq() as $item) {
+        $question = sanitize_text_field($item['question'] ?? '');
+        $answer = sanitize_textarea_field($item['answer'] ?? '');
+        if ('' === $question || '' === $answer) {
+            continue;
+        }
+
+        $main_entity[] = array(
+            '@type' => 'Question',
+            'name' => $question,
+            'acceptedAnswer' => array(
+                '@type' => 'Answer',
+                'text' => $answer,
+            ),
+        );
+    }
+
+    if (empty($main_entity)) {
+        return;
+    }
+
+    $schema = array(
+        '@context' => 'https://schema.org',
+        '@type' => 'FAQPage',
+        '@id' => home_url('/#faq'),
+        'url' => home_url('/'),
+        'mainEntity' => $main_entity,
+    );
+
+    echo '<script type="application/ld+json" id="antonova-faq-schema">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . '</script>' . "\n";
+}
+add_action('wp_head', 'antonova_render_faq_schema', 31);
+
 function antonova_enable_core_sitemap($enabled) {
     return true;
 }
@@ -1297,7 +1337,7 @@ function antonova_default_faq() {
         array('question' => 'Можно заказать срочно?', 'answer' => 'Да, если есть свободное время. Заказ за 2–3 дня рассчитывается с доплатой 20%.'),
         array('question' => 'Сколько торта нужно на человека?', 'answer' => 'Ориентировочно 150–200 г на одного гостя.'),
         array('question' => 'Можно сделать оформление по моей фотографии?', 'answer' => 'Конечно. Пришлите фотографию или референс, и мы обсудим желаемое оформление.'),
-        array('question' => 'Сколько стоит торт и есть ли доставка?', 'answer' => 'Стоимость — 3000 ₽ за килограмм, декор рассчитывается отдельно. Возможны курьерская доставка и самовывоз.'),
+        array('question' => 'Сколько стоит торт и есть ли доставка?', 'answer' => 'Стоимость торта — от 3000 ₽ за килограмм, декор рассчитывается отдельно. Возможны курьерская доставка и самовывоз.'),
     );
 }
 
@@ -1362,7 +1402,7 @@ function antonova_get_price_points() {
     return antonova_merge_rows(get_option('antonova_price_points', array()), antonova_default_price_points());
 }
 function antonova_get_faq() {
-    return antonova_merge_rows(get_option('antonova_faq', array()), antonova_default_faq());
+    return antonova_default_faq();
 }
 
 function antonova_sanitize_products($rows) {
