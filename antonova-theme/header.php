@@ -8,6 +8,18 @@ $antonova_home = home_url('/');
 $antonova_section = static function ($fragment) use ($antonova_is_front_page, $antonova_home) {
     return $antonova_is_front_page ? '#' . $fragment : $antonova_home . '#' . $fragment;
 };
+$antonova_category_pages = array(
+    'birthday-cakes' => array('label' => 'День рождения', 'url' => '/birthday-cakes/'),
+    'wedding-cakes' => array('label' => 'Свадьба', 'url' => '/wedding-cakes/'),
+    'handmade-chocolate' => array('label' => 'Шоколад', 'url' => '/handmade-chocolate/'),
+);
+$antonova_current_category = null;
+foreach (array_keys($antonova_category_pages) as $antonova_category_slug) {
+    if (is_page($antonova_category_slug)) {
+        $antonova_current_category = $antonova_category_slug;
+        break;
+    }
+}
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -31,9 +43,13 @@ $antonova_section = static function ($fragment) use ($antonova_is_front_page, $a
       <details class="nav-categories">
         <summary>Категории <span aria-hidden="true">⌄</span></summary>
         <div class="nav-categories-menu">
-          <a href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">День рождения</a>
-          <a href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">Свадьба</a>
-          <a href="<?php echo esc_url(home_url('/handmade-chocolate/')); ?>">Шоколад</a>
+          <?php if (null !== $antonova_current_category) : ?>
+            <a href="<?php echo esc_url($antonova_home); ?>">Главная</a>
+          <?php endif; ?>
+          <?php foreach ($antonova_category_pages as $antonova_category_slug => $antonova_category_page) : ?>
+            <?php if ($antonova_category_slug === $antonova_current_category) { continue; } ?>
+            <a href="<?php echo esc_url(home_url($antonova_category_page['url'])); ?>"><?php echo esc_html($antonova_category_page['label']); ?></a>
+          <?php endforeach; ?>
         </div>
       </details>
       <a href="<?php echo esc_url($antonova_section('products')); ?>">Продукция</a><a href="<?php echo esc_url($antonova_section('flavors')); ?>">Начинки</a><a href="<?php echo esc_url($antonova_section('works')); ?>">Работы</a><a href="<?php echo esc_url($antonova_section('price')); ?>">Цены</a><a href="<?php echo esc_url($antonova_section('order')); ?>">Как заказать</a><a href="<?php echo esc_url($antonova_section('about')); ?>">О себе</a><a href="<?php echo esc_url($antonova_section('faq')); ?>">FAQ</a>
