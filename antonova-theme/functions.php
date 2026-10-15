@@ -786,7 +786,15 @@ function antonova_social_image_url() {
     if (is_page('handmade-chocolate')) {
         $page_id = get_queried_object_id();
         $featured_image = $page_id ? get_the_post_thumbnail_url($page_id, 'full') : '';
-        return $featured_image ? $featured_image : '';
+        if ($featured_image) {
+            return $featured_image;
+        }
+
+        // This page is file-based, so it may deliberately have no WordPress
+        // featured image. Keep a stable, relevant social preview in that case.
+        return antonova_theme_asset(
+            'assets/landing-galleries/chocolate/' . rawurlencode('#U0415#U043b#U043e#U0447#U043a#U0430.jpg')
+        );
     }
 
     return antonova_theme_asset('assets/og-cake.jpg');
@@ -875,25 +883,6 @@ function antonova_render_seo_meta() {
     }
 }
 add_action('wp_head', 'antonova_render_seo_meta', 2);
-
-/** The breadcrumb schema mirrors the visible trail on the chocolate page. */
-function antonova_render_handmade_chocolate_breadcrumb_schema() {
-    if (!is_page('handmade-chocolate')) {
-        return;
-    }
-
-    $schema = array(
-        '@context' => 'https://schema.org',
-        '@type' => 'BreadcrumbList',
-        'itemListElement' => array(
-            array('@type' => 'ListItem', 'position' => 1, 'name' => 'Главная', 'item' => home_url('/')),
-            array('@type' => 'ListItem', 'position' => 2, 'name' => 'Шоколад ручной работы', 'item' => home_url('/handmade-chocolate/')),
-        ),
-    );
-
-    echo '<script type="application/ld+json">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
-}
-add_action('wp_head', 'antonova_render_handmade_chocolate_breadcrumb_schema', 30);
 
 /** Render FAQPage schema from the same code-defined questions shown on the homepage. */
 function antonova_render_faq_schema() {

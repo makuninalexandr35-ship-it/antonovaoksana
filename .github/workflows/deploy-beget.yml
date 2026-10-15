@@ -99,6 +99,15 @@ jobs:
           test -s "$bundle_dir/template-parts/landing-thumbnail-gallery.php"
           test -s "$bundle_dir/assets/landing-galleries/wedding/wedding-swans.webp"
 
+          # Public images must stay below 500 KiB. Source originals outside the
+          # deploy bundle are not served; this checks every raster image that
+          # can actually be requested from the production theme.
+          if find "$bundle_dir/assets" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.avif' \) -size +500k -print -quit | grep -q .; then
+            echo 'A public theme image is larger than 500 KiB.' >&2
+            find "$bundle_dir/assets" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.avif' \) -size +500k -printf '%s bytes %p\n' >&2
+            exit 1
+          fi
+
           test "$(find "$bundle_dir" -type f | wc -l)" -gt 10
           printf 'DEPLOY_BUNDLE=%s\n' "$bundle_dir" >> "$GITHUB_ENV"
 

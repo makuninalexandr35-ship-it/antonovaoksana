@@ -32,6 +32,53 @@ function antonova_seo_path_key($url) {
     return $path === '/' ? '/' : $path . '/';
 }
 
+/**
+ * Returns the active code-defined SEO Agent entry for the current public URL.
+ * Native WordPress and Yoast filters use this before the document is printed,
+ * keeping title, description, canonical and Open Graph values synchronized.
+ */
+function antonova_seo_current_entry() {
+    if (function_exists('seo_agent_connector_render') || is_admin()) {
+        return array();
+    }
+
+    $all = antonova_seo_file('overrides.json');
+    if (!is_array($all)) {
+        return array();
+    }
+
+    $request_uri = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '/';
+    $key = antonova_seo_path_key(home_url($request_uri));
+    return isset($all[$key]) && is_array($all[$key]) ? $all[$key] : array();
+}
+
+function antonova_seo_native_head_value($value, $field) {
+    $entry = antonova_seo_current_entry();
+    return isset($entry[$field]) && is_string($entry[$field]) && $entry[$field] !== '' ? $entry[$field] : $value;
+}
+
+// The AI SEO Agent remains active. These filters merely apply its ordinary
+// head fields before Yoast renders the page instead of relying on a late HTML
+// rewrite, which prevents title/Open Graph mismatches.
+add_filter('pre_get_document_title', function ($title) {
+    return antonova_seo_native_head_value($title, 'title');
+}, 99);
+add_filter('wpseo_title', function ($title) {
+    return antonova_seo_native_head_value($title, 'title');
+}, 99);
+add_filter('wpseo_opengraph_title', function ($title) {
+    return antonova_seo_native_head_value($title, 'title');
+}, 99);
+add_filter('wpseo_metadesc', function ($description) {
+    return antonova_seo_native_head_value($description, 'meta_description');
+}, 99);
+add_filter('wpseo_opengraph_desc', function ($description) {
+    return antonova_seo_native_head_value($description, 'meta_description');
+}, 99);
+add_filter('wpseo_canonical', function ($canonical) {
+    return antonova_seo_native_head_value($canonical, 'canonical_url');
+}, 99);
+
 // The IndexNow key file /<key>.txt (the key comes from seo/config.json, the repository's seo-agent.config.json).
 add_action('init', function () {
     if (function_exists('seo_agent_connector_render')) {
@@ -293,10 +340,32 @@ function antonova_seo_replace_h1($html, $text) {
     return is_string($result) ? $result : $html;
 }
 
+/**
+ * A conservative safety net for the remaining HTML-level Agent operations.
+ * If an invalid override would create duplicate critical head tags, the exact
+ * original page is served instead of a partially rewritten document.
+ */
+function antonova_seo_head_is_consistent($html) {
+    if (!is_string($html) || !preg_match('~<head\b[^>]*>(.*?)</head>~is', $html, $match)) {
+        return false;
+    }
+
+    $head = $match[1];
+    $counts = array(
+        'title' => preg_match_all('~<title\b[^>]*>.*?</title>~is', $head),
+        'description' => preg_match_all('~<meta\b[^>]*\bname=(?:["\'])description(?:["\'])[^>]*>~is', $head),
+        'canonical' => preg_match_all('~<link\b[^>]*\brel=(?:["\'])canonical(?:["\'])[^>]*>~is', $head),
+        'robots' => preg_match_all('~<meta\b[^>]*\bname=(?:["\'])robots(?:["\'])[^>]*>~is', $head),
+    );
+
+    return $counts['title'] === 1 && $counts['description'] <= 1 && $counts['canonical'] <= 1 && $counts['robots'] <= 1;
+}
+
 function antonova_seo_render($html, $overrides) {
     if (!is_string($html) || stripos($html, '</head>') === false) {
         return $html;
     }
+    $original_html = $html;
     if (!empty($overrides['title']) && is_string($overrides['title'])) {
         $html = antonova_seo_put_head_tag($html, '~<title\b[^>]*>.*?</title>~is', '<title>' . esc_html($overrides['title']) . '</title>');
     }
@@ -368,7 +437,7 @@ function antonova_seo_render($html, $overrides) {
             }
         }
     }
-    return $html;
+    return antonova_seo_head_is_consistent($html) ? $html : $original_html;
 }
 
 // ADR-112: robots.txt and the sitemap, from the home page entry "/" of the overrides file. -----------------------------------------------------
