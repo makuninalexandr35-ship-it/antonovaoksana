@@ -412,3 +412,26 @@ document.querySelectorAll('[data-birthday-accordion-button]').forEach((button) =
     content.hidden = isExpanded;
   });
 });
+
+// Chocolate landing follows the same progressive-enhancement pattern: all
+// text is in server HTML, then optional H3 sections become collapsible.
+document.querySelectorAll('[data-chocolate-accordion-button]').forEach((button) => {
+  const contentId = button.getAttribute('aria-controls');
+  const content = contentId ? document.getElementById(contentId) : null;
+  if (!content) return;
+  button.setAttribute('aria-expanded', 'false');
+  content.hidden = true;
+  button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    content.hidden = expanded;
+    if (!expanded) document.dispatchEvent(new CustomEvent('chocolate_accordion_open', { detail: { section: contentId } }));
+  });
+});
+
+document.querySelectorAll('[data-chocolate-max],[data-chocolate-phone]').forEach((link) => {
+  link.addEventListener('click', () => {
+    const placement = link.getAttribute('data-chocolate-max') || link.getAttribute('data-chocolate-phone');
+    document.dispatchEvent(new CustomEvent(link.hasAttribute('data-chocolate-max') ? 'chocolate_max_click' : 'chocolate_phone_click', { detail: { placement } }));
+  });
+});
