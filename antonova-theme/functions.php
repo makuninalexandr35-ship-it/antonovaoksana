@@ -783,6 +783,10 @@ function antonova_yoast_opengraph_description($description) {
 add_filter('wpseo_opengraph_desc', 'antonova_yoast_opengraph_description');
 
 function antonova_social_image_url() {
+    if (is_page('wedding-cakes')) {
+        return antonova_theme_asset('assets/landing-galleries/wedding/wedding-swans-og.jpg');
+    }
+
     if (is_page('handmade-chocolate')) {
         $page_id = get_queried_object_id();
         $featured_image = $page_id ? get_the_post_thumbnail_url($page_id, 'full') : '';
