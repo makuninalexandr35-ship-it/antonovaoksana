@@ -68,6 +68,7 @@
     "title": "Торт на день рождения на заказ в Москве | Oksana Antonova"
   },
   "/wedding-cakes/": {
+    "meta_description": "Индивидуальные свадебные торты в Москве от Оксаны Антоновой: одно- и многоярусные, любой дизайн и начинка, доставка по городу и области.",
     "sections": {
       "773bf1d4-6b7c-4400-a3f5-6bc6b7d71c28": {
         "items": [
@@ -91,6 +92,7 @@
       "title": "Торты купить в Москве | Oksana Antonova"
     },
     "/wedding-cakes/": {
+      "meta_description": null,
       "sections": {
         "773bf1d4-6b7c-4400-a3f5-6bc6b7d71c28": null
       }
