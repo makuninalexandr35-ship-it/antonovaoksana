@@ -38,7 +38,7 @@ function antonova_seo_path_key($url) {
  * keeping title, description, canonical and Open Graph values synchronized.
  */
 function antonova_seo_current_entry() {
-    if (function_exists('seo_agent_connector_render') || is_admin()) {
+    if (is_admin()) {
         return array();
     }
 

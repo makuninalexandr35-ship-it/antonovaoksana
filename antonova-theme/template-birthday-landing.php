@@ -24,8 +24,15 @@ while (have_posts()) :
             <div class="chocolate-hero-copy">
                 <p class="eyebrow">Торты на день рождения</p>
                 <h1 class="mobile-hero-title"><span>Торты на день</span><br><span>рождения на</span><br class="mobile-line-break"> <span>заказ</span><br class="desktop-line-break"> <span>в Москве</span></h1>
-                <p>Детские и взрослые торты с индивидуальным оформлением для вашего праздника. Доступны самовывоз в Коптево и доставка по Москве и области.</p>
-                <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать торт</a>
+                <div class="birthday-hero-intro">
+                    <p>Меня зовут Оксана Антонова. Я создаю торты для детей и взрослых с оформлением по вашим пожеланиям: с любимыми персонажами, цветами, цифрами, тематическими украшениями и необычными поздравлениями.</p>
+                    <p>Вы можете выбрать дизайн из моего портфолио или прислать фотографию понравившегося торта. Я помогу подобрать начинку, рассчитать вес по количеству гостей и согласовать детали оформления.</p>
+                    <p>Заказы принимаю в Москве. Готовый торт можно забрать самостоятельно в Коптево или заказать доставку по Москве и Московской области.</p>
+                </div>
+                <div class="wedding-cta-group wedding-hero-actions">
+                    <a class="button button-light" href="<?php echo esc_url($birthday_max_url); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить заказ в MAX</a>
+                    <a class="button button-secondary" href="tel:<?php echo esc_attr($birthday_phone); ?>" aria-label="Позвонить Оксане Антоновой">Позвонить</a>
+                </div>
             </div>
         </section>
 
@@ -38,6 +45,7 @@ while (have_posts()) :
                     <p>Посмотрите фотографии, чтобы выбрать подходящий стиль. Например, для тематического праздника можно взять за основу оформление с любимым персонажем или увлечением, а для семейного торжества — торт с именем, возрастом или коротким поздравлением.</p>
                     <p>Каждую идею мы обсуждаем индивидуально. Можно изменить цветовую гамму, подобрать другие декоративные детали или предложить собственный вариант. Возможность изготовления выбранного оформления зависит от конструкции и особенностей заказа.</p>
                     <?php get_template_part('template-parts/landing-thumbnail-gallery', null, array('gallery' => $birthday_gallery)); ?>
+                    <p class="birthday-gallery-note">Цены под фотографиями указаны как предварительный ориентир за торт. Точную стоимость рассчитываю индивидуально с учётом веса, начинки и оформления.</p>
                     <p class="birthday-copy-action"><a class="button" href="<?php echo esc_url($birthday_max_url); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить оформление торта</a></p>
                 </section>
 
@@ -119,10 +127,17 @@ while (have_posts()) :
                     <p>Для этого можно использовать цветовые сочетания, фигурки, символы или небольшие декоративные композиции. Важно, чтобы детали сочетались друг с другом и подходили по размеру.</p>
                     <p>Если вам нравится определённая тематика, расскажите о ней. Я уточню возможность изготовления нужных элементов и помогу определить, как расположить их на торте.</p>
 
-                    <h3>Оформление по фотографии</h3>
+                    <h3>Торт по фотографии-образцу</h3>
                     <p>Вы можете прислать фотографию понравившегося торта, рисунок или эскиз.</p>
                     <p>Сначала мы обсудим, какие детали вы хотите сохранить: форму, оттенки, украшения или общий стиль. Затем определим подходящий вес, начинку и возможность изготовления выбранного дизайна.</p>
                     <p>Фотография будет ориентиром для обсуждения, а окончательный вариант мы согласуем индивидуально.</p>
+
+                    <h3>Торт с фотографией на день рождения</h3>
+                    <p>Если вы хотите сделать поздравление более личным, можно заказать торт с фотографией именинника, семейным снимком или другим изображением.</p>
+                    <p>В моём портфолио есть тематический торт для рыбака, в оформлении которого использована фотография. Это пример сочетания личного изображения с декоративными элементами, связанными с увлечением именинника.</p>
+                    <p>Вы можете прислать фотографию, выбрать начинку и рассказать о пожеланиях к оформлению. Мы обсудим размер изображения, его расположение, цветовую гамму, поздравительную надпись и другие детали декора.</p>
+                    <p>Возможность использования выбранной фотографии, способ её нанесения и стоимость оформления я уточню при согласовании заказа.</p>
+                    <p>Фотографию лучше отправить заранее, чтобы мы смогли проверить её качество и согласовать оформление до изготовления торта.</p>
                 </section>
 
                 <section class="birthday-copy-section" aria-labelledby="birthday-price-title">
@@ -215,9 +230,6 @@ while (have_posts()) :
 
                 <?php echo antonova_landing_faq_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                 <?php echo antonova_landing_page_cross_links_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            </div>
-            <div class="chocolate-page-actions">
-                <a class="button" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить заказ</a>
             </div>
         </article>
     </main>
