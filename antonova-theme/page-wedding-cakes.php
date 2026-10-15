@@ -19,6 +19,10 @@ while (have_posts()) :
                 <p class="eyebrow">Свадебные&nbsp;торты</p>
                 <h1 class="mobile-hero-title"><span>Свадебные</span><span class="desktop-space">&nbsp;</span><br class="mobile-line-break"><span>торты</span> <br class="desktop-line-break"><span>на заказ</span><span class="desktop-space">&nbsp;</span><br class="mobile-line-break"><span>в Москве</span></h1>
                 <p>Создаю <span>свадебные&nbsp;торты</span> в Москве по индивидуальному дизайну. Обсудим размер, начинку, цвет, декор и оформление торта с учётом стиля вашей свадьбы. Доступны самовывоз в Коптево и доставка по Москве и области.</p>
+                <div class="wedding-cta-group wedding-hero-actions">
+                    <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить заказ в MAX</a>
+                    <a class="button button-secondary" href="tel:<?php echo esc_attr(antonova_content('antonova_phone_tel', '+79647281844')); ?>" aria-label="Позвонить Оксане Антоновой">Позвонить</a>
+                </div>
             </div>
         </section>
 
@@ -54,6 +58,7 @@ while (have_posts()) :
                     'class' => 'wedding-tier-gallery',
                 );
                 $wedding_max_url = antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo');
+                $wedding_phone_tel = antonova_content('antonova_phone_tel', '+79647281844');
                 ?>
 
                 <section class="wedding-copy-section" aria-labelledby="wedding-portfolio-title">
@@ -121,7 +126,10 @@ while (have_posts()) :
                     <p>На сайте указана стоимость тортов <strong>от 3 000 ₽ за килограмм</strong>. Это общий ценовой ориентир для тортов. Итоговую стоимость свадебного заказа я рассчитываю индивидуально после согласования деталей.</p>
                     <p>Декор рассчитывается отдельно. Дополнительные элементы, сложные украшения и особенности многоярусной конструкции могут влиять на общую цену. Возможность и стоимость доставки также обсудим заранее.</p>
                     <p>Для расчёта понадобятся дата свадьбы, примерное количество гостей, пожелания к начинке и оформлению. Если у вас есть фотография понравившегося торта, приложите её к сообщению.</p>
-                    <p class="wedding-copy-action"><a class="button" href="<?php echo esc_url($wedding_max_url); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Узнать стоимость свадебного торта</a></p>
+                    <div class="wedding-copy-action wedding-cta-group">
+                        <a class="button" href="<?php echo esc_url($wedding_max_url); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Узнать стоимость свадебного торта</a>
+                        <a class="button button-secondary" href="tel:<?php echo esc_attr($wedding_phone_tel); ?>" aria-label="Позвонить Оксане Антоновой и уточнить стоимость свадебного торта">Позвонить и уточнить стоимость</a>
+                    </div>
                 </section>
 
                 <section class="wedding-copy-section" aria-labelledby="wedding-weight-title">
@@ -182,10 +190,16 @@ while (have_posts()) :
                         <li><strong>Согласуйте стоимость.</strong> После обсуждения я рассчитаю изготовление, оформление и доставку.</li>
                         <li><strong>Получите готовый торт.</strong> После подтверждения заказа согласуем способ получения и удобное время.</li>
                     </ol>
+                    <h3>За сколько дней заказывать свадебный торт</h3>
+                    <p>Рекомендую обращаться за свадебным тортом примерно за две недели до торжества. Это позволит спокойно согласовать начинку, вес, оформление и детали доставки.</p>
+                    <p>Если до свадьбы осталось меньше времени, напишите мне и сообщите дату. Я проверю возможность изготовления с учётом сложности оформления и текущей загруженности.</p>
                     <h3>Самовывоз и доставка</h3>
                     <p>Забрать готовый торт самостоятельно можно в Москве, в районе Коптево. Также возможна доставка по Москве и Московской области.</p>
                     <p>Если торт необходим к определённому времени в ресторане или загородном свадебном комплексе, укажите адрес при оформлении заказа. Возможность, время и стоимость доставки согласуем заранее.</p>
-                    <p class="wedding-copy-action"><a class="button" href="<?php echo esc_url($wedding_max_url); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать свадебный торт в MAX</a></p>
+                    <div class="wedding-copy-action wedding-cta-group">
+                        <a class="button" href="<?php echo esc_url($wedding_max_url); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать свадебный торт в MAX</a>
+                        <a class="button button-secondary" href="tel:<?php echo esc_attr($wedding_phone_tel); ?>" aria-label="Позвонить Оксане Антоновой">Позвонить</a>
+                    </div>
                 </section>
 
                 <?php echo antonova_landing_faq_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
