@@ -197,10 +197,10 @@
       <?php endif; ?>
     </section>
 
-    <section class="review-section reveal" aria-label="Отзывы">
+    <section id="reviews" class="review-section reveal" aria-label="Отзывы">
       <p>Ваш отзыв — лучшая благодарность за мою работу</p>
       <div class="review-links">
-        <a class="review-yandex-link" href="https://yandex.ru/profile/134953366795?intent=reviews" target="_blank" rel="noopener noreferrer">Оставить отзыв на Яндекс Картах <span aria-hidden="true">↗</span></a>
+        <a class="review-yandex-link" href="https://yandex.ru/profile/134953366795?intent=reviews" target="_blank" rel="noopener noreferrer"><span class="review-yandex-label">Оставить отзыв на Яндекс Картах <span aria-hidden="true">↗</span></span><span class="review-yandex-rating" aria-label="Рейтинг 5 из 5 на основе 2 отзывов"><span aria-hidden="true">★</span> 5,0 · 2 отзыва</span></a>
       </div>
     </section>
 
