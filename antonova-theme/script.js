@@ -394,3 +394,21 @@ document.querySelectorAll('[data-chocolate-video-slider]').forEach((slider) => {
   choices.forEach((choice) => choice.addEventListener('change', pauseHiddenVideos));
   pauseHiddenVideos();
 });
+
+// Birthday landing: the full SEO copy is server-rendered and stays readable
+// without JavaScript. When JavaScript is available, only its visual state is
+// enhanced into independent, keyboard-accessible accordions.
+document.querySelectorAll('[data-birthday-accordion-button]').forEach((button) => {
+  const contentId = button.getAttribute('aria-controls');
+  const content = contentId ? document.getElementById(contentId) : null;
+  if (!content) return;
+
+  button.setAttribute('aria-expanded', 'false');
+  content.hidden = true;
+
+  button.addEventListener('click', () => {
+    const isExpanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!isExpanded));
+    content.hidden = isExpanded;
+  });
+});
