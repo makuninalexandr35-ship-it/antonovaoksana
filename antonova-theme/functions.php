@@ -792,7 +792,11 @@ add_filter('wpseo_opengraph_desc', 'antonova_yoast_opengraph_description');
 
 function antonova_social_image_url() {
     if (is_page('wedding-cakes')) {
-        return antonova_theme_asset('assets/landing-galleries/wedding/wedding-swans-preview-square.jpg');
+        return antonova_theme_asset('assets/landing-galleries/wedding/wedding-swans-social-preview.jpg');
+    }
+
+    if (is_page('birthday-cakes')) {
+        return antonova_theme_asset('assets/landing-galleries/birthday/birthday-cake-social-preview.jpg');
     }
 
     if (is_page('handmade-chocolate')) {
@@ -865,8 +869,9 @@ function antonova_render_social_image_meta() {
     echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
     echo '<meta property="og:image:secure_url" content="' . esc_url($image) . '">' . "\n";
     echo '<meta property="og:image:type" content="image/jpeg">' . "\n";
-    echo '<meta property="og:image:width" content="' . (is_page('wedding-cakes') ? '1200' : '675') . '">' . "\n";
-    echo '<meta property="og:image:height" content="1200">' . "\n";
+    $is_square_landing_preview = is_page('wedding-cakes') || is_page('birthday-cakes');
+    echo '<meta property="og:image:width" content="' . ($is_square_landing_preview ? '1254' : '675') . '">' . "\n";
+    echo '<meta property="og:image:height" content="' . ($is_square_landing_preview ? '1254' : '1200') . '">' . "\n";
     echo '<meta name="twitter:image" content="' . esc_url($image) . '">' . "\n";
 }
 add_action('wp_head', 'antonova_render_social_image_meta', 99);
@@ -1246,6 +1251,10 @@ function antonova_landing_gallery_data($gallery_key) {
         natcasesort($files);
         foreach ($files as $path) {
             $filename = wp_basename($path);
+            // Social previews are intentionally outside visitor-facing galleries.
+            if (preg_match('/-social-preview\\.jpe?g$/i', $filename)) {
+                continue;
+            }
             if (isset($known_files[$filename])) {
                 continue;
             }
