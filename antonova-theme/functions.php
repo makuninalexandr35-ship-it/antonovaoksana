@@ -784,7 +784,7 @@ add_filter('wpseo_opengraph_desc', 'antonova_yoast_opengraph_description');
 
 function antonova_social_image_url() {
     if (is_page('wedding-cakes')) {
-        return antonova_theme_asset('assets/landing-galleries/wedding/wedding-swans-og.jpg');
+        return antonova_theme_asset('assets/landing-galleries/wedding/wedding-swans-preview-square.jpg');
     }
 
     if (is_page('handmade-chocolate')) {
@@ -857,7 +857,7 @@ function antonova_render_social_image_meta() {
     echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
     echo '<meta property="og:image:secure_url" content="' . esc_url($image) . '">' . "\n";
     echo '<meta property="og:image:type" content="image/jpeg">' . "\n";
-    echo '<meta property="og:image:width" content="675">' . "\n";
+    echo '<meta property="og:image:width" content="' . (is_page('wedding-cakes') ? '1200' : '675') . '">' . "\n";
     echo '<meta property="og:image:height" content="1200">' . "\n";
     echo '<meta name="twitter:image" content="' . esc_url($image) . '">' . "\n";
 }

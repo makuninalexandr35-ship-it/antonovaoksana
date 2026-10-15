@@ -9,9 +9,9 @@ $antonova_section = static function ($fragment) use ($antonova_is_front_page, $a
     return $antonova_is_front_page ? '#' . $fragment : $antonova_home . '#' . $fragment;
 };
 $antonova_category_pages = array(
-    'birthday-cakes' => array('label' => 'День рождения', 'url' => '/birthday-cakes/'),
-    'wedding-cakes' => array('label' => 'Свадьба', 'url' => '/wedding-cakes/'),
-    'handmade-chocolate' => array('label' => 'Шоколад', 'url' => '/handmade-chocolate/'),
+    'birthday-cakes' => array('label' => 'Торты на день рождения', 'url' => '/birthday-cakes/'),
+    'wedding-cakes' => array('label' => 'Свадебные торты', 'url' => '/wedding-cakes/'),
+    'handmade-chocolate' => array('label' => 'Шоколад ручной работы', 'url' => '/handmade-chocolate/'),
 );
 $antonova_current_category = null;
 foreach (array_keys($antonova_category_pages) as $antonova_category_slug) {
