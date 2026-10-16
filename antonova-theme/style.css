@@ -110,6 +110,7 @@ html,body{max-width:100%;overflow-x:hidden}
 .work-card:hover button:after,.work-card:hover .work-card-caption{opacity:1}
 .work-card:hover .work-card-caption{transform:none}
 .works-more{display:flex;align-items:center;justify-content:center;gap:10px;min-height:44px;margin:25px auto 0;padding:0 22px;border:1px solid #b05a6b;border-radius:100px;background:transparent;color:var(--wine);font:600 11px var(--sans);cursor:pointer}
+.works-more[hidden]{display:none}
 .works-more:hover{background:#fff}
 .works-catalogue-link{text-align:center;margin:18px 0 0}.works-catalogue-link a{font-size:12px;font-weight:600;color:var(--wine);border-bottom:1px solid currentColor}
 .works-catalogue-page,.work-single{max-width:1180px;margin:0 auto;padding:60px 24px}
