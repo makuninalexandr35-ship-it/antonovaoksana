@@ -86,6 +86,7 @@ if ('IntersectionObserver' in window) {
 
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener('click', (event) => {
+    if (link.matches('[data-work-category-link], [data-work-filter]')) return;
     const target = document.querySelector(link.getAttribute('href'));
     if (target) {
       event.preventDefault();
@@ -103,6 +104,19 @@ document.querySelectorAll('[data-work-grid]').forEach((grid) => {
   let activeFilter = 'all';
   let visibleCount = pageSize;
 
+  const activateFilter = (filterName) => {
+    if (!filters.some((filter) => filter.dataset.workFilter === filterName)) return;
+    activeFilter = filterName;
+    visibleCount = pageSize;
+    filters.forEach((item) => {
+      const isActive = item.dataset.workFilter === activeFilter;
+      item.classList.toggle('is-active', isActive);
+      item.setAttribute('aria-pressed', String(isActive));
+    });
+    refreshWorks();
+    document.dispatchEvent(new CustomEvent('home_gallery_filter_click', { detail: { category: activeFilter } }));
+  };
+
   const refreshWorks = () => {
     const matchingCards = cards.filter((card) => activeFilter === 'all' || card.dataset.categories.split(' ').includes(activeFilter));
 
@@ -119,11 +133,18 @@ document.querySelectorAll('[data-work-grid]').forEach((grid) => {
   filters.forEach((filter) => {
     filter.addEventListener('click', (event) => {
       event.preventDefault();
-      activeFilter = filter.dataset.workFilter;
-      visibleCount = pageSize;
-      filters.forEach((item) => item.classList.toggle('is-active', item === filter));
-      refreshWorks();
+      activateFilter(filter.dataset.workFilter);
     });
+    filter.addEventListener('keydown', (event) => {
+      if (event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault();
+        filter.click();
+      }
+    });
+  });
+
+  grid.addEventListener('antonova:work-filter', (event) => {
+    if (event.detail && event.detail.category) activateFilter(event.detail.category);
   });
 
   if (moreButton) {
@@ -134,6 +155,20 @@ document.querySelectorAll('[data-work-grid]').forEach((grid) => {
   }
 
   refreshWorks();
+});
+
+document.querySelectorAll('[data-work-category-link]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const category = link.dataset.workCategoryLink;
+    const grid = document.querySelector('#works [data-work-grid]');
+    const worksHeading = document.getElementById('works-heading');
+    if (!category || !grid || !worksHeading) return;
+    event.preventDefault();
+    grid.dispatchEvent(new CustomEvent('antonova:work-filter', { detail: { category } }));
+    worksHeading.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    worksHeading.focus({ preventScroll: true });
+    document.dispatchEvent(new CustomEvent('home_cake_category_click', { detail: { category } }));
+  });
 });
 
 const workLightbox = document.querySelector('[data-work-lightbox-dialog]');

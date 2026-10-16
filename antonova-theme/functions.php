@@ -584,6 +584,58 @@ function antonova_work_categories($work_id) {
     return wp_get_post_terms($work_id, 'antonova_work_category', array('fields' => 'slugs'));
 }
 
+/**
+ * Homepage portfolio filters are editorial groupings, independent from the
+ * WordPress catalogue taxonomy. This keeps the existing 56 works and their
+ * URLs intact while giving visitors clear, service-oriented choices.
+ */
+function antonova_home_work_categories($title) {
+    $title = trim(wp_strip_all_tags((string) $title));
+    $thematic = array(
+        'Авторский тематический торт',
+        'Тематический торт для любителя тенниса',
+        'Торт в виде корабля',
+        'Торт-карусель',
+        'Торт с футбольными мячами',
+        'Торт с мишкой и макарунами',
+    );
+    $wedding = array(
+        'Свадебный торт с цветами',
+        'Розовый свадебный торт с цветами',
+        'Белый двухъярусный торт с золотом',
+    );
+
+    if (in_array($title, $thematic, true)) {
+        return array('thematic_cakes');
+    }
+    if (in_array($title, $wedding, true)) {
+        return array('wedding_cakes');
+    }
+    if (preg_match('/шоколад|конфет|макарун|безе|десерт|кекс|чизкейк|печень|ёлка|пончиков/ui', $title)) {
+        return array('chocolate_desserts');
+    }
+    if (preg_match('/торт/ui', $title)) {
+        return array('classic_cakes');
+    }
+
+    // Works without a confirmed narrow category remain available under "Все
+    // работы"; they are deliberately not guessed into a themed selection.
+    return array();
+}
+
+/** Uses clearer captions for the approved thematic selection on the homepage. */
+function antonova_home_work_display_title($title) {
+    $title = trim(wp_strip_all_tags((string) $title));
+    $titles = array(
+        'Авторский тематический торт' => 'Торт в виде пня',
+        'Тематический торт для любителя тенниса' => 'Торт по тематике настольного тенниса',
+        'Торт с футбольными мячами' => 'Футбольный торт',
+        'Торт с мишкой и макарунами' => 'Торт с мишкой',
+    );
+
+    return isset($titles[$title]) ? $titles[$title] : $title;
+}
+
 function antonova_migrate_legacy_gallery_to_works() {
     if (get_option('antonova_work_catalogue_seeded')) {
         return;

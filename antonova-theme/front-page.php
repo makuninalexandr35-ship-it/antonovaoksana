@@ -55,21 +55,29 @@
       </section>
     </section>
 
-    <section class="custom-cake reveal">
+    <section class="custom-cake reveal" aria-labelledby="custom-cake-title">
+      <?php $classic_card_image = antonova_theme_asset('assets/works/30-ezgif.com-jpg-to-webp-converter.webp'); ?>
+      <?php $thematic_card_image = antonova_theme_asset('assets/works/' . rawurlencode('ezgif.com-jpg-to-webp-converter (15).webp')); ?>
       <div class="custom-copy">
-        <p class="eyebrow">Индивидуальные торты</p>
-        <h2 class="custom-cake-title"><span>Ваш торт может</span> <span>быть именно</span> <span>таким, каким вы</span> <span>его представляете</span></h2>
-        <p class="custom-lead">Покажите фотографию, рисунок или референс. Выберите любимый вкус — оформление и детали заказа обсудим индивидуально.</p>
-        <ul class="benefits">
-          <li><span>◇</span><b>Индивидуальный дизайн</b><small>По вашим идеям и референсам</small></li>
-          <li><span>♡</span><b>Начинка на ваш вкус</b><small>10 вариантов вкусов</small></li>
-          <li><span>♙</span><b>Размер под количество гостей</b><small>Ориентируемся на 150–200 г</small></li>
-        </ul>
-        <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить идею в MAX</a>
-      </div>
-      <div class="custom-photo">
-        <div class="custom-photo-media"><img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/323e56724d61-852.webp" srcset="<?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/323e56724d61-400.webp 400w, <?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/323e56724d61-800.webp 800w, <?php echo esc_url(get_template_directory_uri()); ?>/assets/optimized/323e56724d61-852.webp 852w" sizes="(max-width: 700px) 100vw, 52vw" width="852" height="1280" decoding="async" alt="Белый многоярусный торт с декором в виде лебедей" loading="lazy"></div>
-        <span>Индивидуальный декор<br>для вашей истории <b aria-hidden="true">♡</b></span>
+        <p class="eyebrow">Торты на заказ</p>
+        <h2 id="custom-cake-title">Торты с классическим и тематическим оформлением</h2>
+        <p class="custom-lead">Создаю индивидуальные торты на заказ в Москве — с классическим декором или тематическим оформлением. Выберите понравившуюся работу из моего портфолио или пришлите фотографию, эскиз или референс. Мы обсудим начинку, размер и детали оформления.</p>
+        <div class="custom-cake-grid">
+          <article class="custom-cake-card">
+            <div class="custom-cake-card-image"><img src="<?php echo esc_url($classic_card_image); ?>" width="1200" height="1200" decoding="async" loading="lazy" alt="Белый торт с розами на 30 лет"></div>
+            <h3>Классические торты</h3>
+            <p>Праздничные торты с цветами, ягодами, кремовым декором, цифрами и поздравительными надписями. Лаконичное или более нарядное оформление на ваш выбор.</p>
+            <a class="custom-cake-card-action" href="#works" data-work-category-link="classic_cakes">Посмотреть классические торты</a>
+          </article>
+          <article class="custom-cake-card">
+            <div class="custom-cake-card-image"><img src="<?php echo esc_url($thematic_card_image); ?>" width="1200" height="1200" decoding="async" loading="lazy" alt="Торт в виде корабля"></div>
+            <h3>Тематические торты</h3>
+            <p>Торты по увлечениям и интересам: спорт, путешествия, любимые персонажи, необычные формы и праздничные сюжеты. Оформление можно обсудить по вашей идее.</p>
+            <a class="custom-cake-card-action" href="#works" data-work-category-link="thematic_cakes">Посмотреть тематические торты</a>
+          </article>
+        </div>
+        <p class="custom-cake-promise">Ваш торт может быть именно таким, каким вы его представляете.</p>
+        <a class="button custom-cake-max" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить идею в MAX</a>
       </div>
     </section>
 
@@ -92,28 +100,36 @@
     </section>
 
     <section id="works" class="section works reveal">
-      <?php $works_heading = antonova_content('antonova_works_heading', 'Сладкие шедевры для ваших торжеств'); ?>
-      <div class="section-heading split-heading"><div><p class="eyebrow">Наши работы</p><h2 class="works-title"><?php if (trim($works_heading) === 'Сладкие шедевры для ваших торжеств') : ?><span>Сладкие шедевры</span><span>для ваших торжеств</span><?php else : ?><?php echo esc_html($works_heading); ?><?php endif; ?></h2></div><p class="works-intro"><span>Каждый заказ&nbsp;— отдельная</span><span>история, созданная вручную.</span></p></div>
+      <div class="section-heading works-heading"><p class="eyebrow">Наши работы</p><h2 id="works-heading" class="works-title" tabindex="-1">Фото тортов и авторских десертов — мои работы</h2><p class="works-intro">Здесь представлены мои выполненные заказы: классические и тематические торты, свадебные работы, шоколад ручной работы и другие десерты.</p></div>
       <?php $catalogue_works = antonova_get_catalogue_works(); ?>
       <?php $theme_works = antonova_get_theme_works(); ?>
       <?php if ($catalogue_works->have_posts() || !empty($theme_works)) : ?>
+        <nav class="work-filters home-work-filters" aria-label="Фильтры фотогалереи">
+          <a class="work-filter is-active" href="#works" role="button" data-work-filter="all" aria-pressed="true">Все работы</a>
+          <a class="work-filter" href="#works" role="button" data-work-filter="classic_cakes" aria-pressed="false">Классические торты</a>
+          <a class="work-filter" href="#works" role="button" data-work-filter="thematic_cakes" aria-pressed="false">Тематические торты</a>
+          <a class="work-filter" href="#works" role="button" data-work-filter="wedding_cakes" aria-pressed="false">Свадебные торты</a>
+          <a class="work-filter" href="#works" role="button" data-work-filter="chocolate_desserts" aria-pressed="false">Шоколад и десерты</a>
+        </nav>
         <div class="work-grid" data-work-grid>
           <?php while ($catalogue_works->have_posts()) : $catalogue_works->the_post(); ?>
             <?php $work_image = antonova_work_image_url(get_the_ID()); ?>
             <?php if ($work_image) : ?>
-              <article class="work-card" data-work-card data-categories="<?php echo esc_attr(implode(' ', antonova_work_categories(get_the_ID()))); ?>">
-                <a href="<?php echo esc_url($work_image); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work_image); ?>" data-work-title="<?php echo esc_attr(get_the_title()); ?>" aria-label="Увеличить: <?php echo esc_attr(get_the_title()); ?>">
-                  <img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr(get_the_title() ?: 'Авторская работа'); ?>" loading="lazy">
-                  <span class="work-card-caption"><b><?php the_title(); ?></b><span>Увеличить фото →</span></span>
+              <?php $home_work_title = antonova_home_work_display_title(get_the_title()); ?>
+              <article class="work-card" data-work-card data-categories="<?php echo esc_attr(implode(' ', antonova_home_work_categories(get_the_title()))); ?>">
+                <a href="<?php echo esc_url($work_image); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work_image); ?>" data-work-title="<?php echo esc_attr($home_work_title); ?>" aria-label="Увеличить: <?php echo esc_attr($home_work_title); ?>">
+                  <img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr($home_work_title ?: 'Авторская работа'); ?>" loading="lazy">
+                  <span class="work-card-caption"><b><?php echo esc_html($home_work_title); ?></b><span>Увеличить фото →</span></span>
                 </a>
               </article>
             <?php endif; ?>
           <?php endwhile; ?>
           <?php foreach ($theme_works as $work) : ?>
-            <article class="work-card" data-work-card data-categories="<?php echo esc_attr($work['categories']); ?>">
-              <a href="<?php echo esc_url($work['image']); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work['image']); ?>" data-work-title="<?php echo esc_attr($work['title']); ?>" aria-label="Увеличить: <?php echo esc_attr($work['title']); ?>">
-                <img src="<?php echo esc_url($work['image']); ?>" alt="<?php echo esc_attr($work['alt']); ?>" loading="lazy">
-                <span class="work-card-caption"><b><?php echo esc_html($work['title']); ?></b><span>Увеличить фото →</span></span>
+            <?php $home_work_title = antonova_home_work_display_title($work['title']); ?>
+            <article class="work-card" data-work-card data-categories="<?php echo esc_attr(implode(' ', antonova_home_work_categories($work['title']))); ?>">
+              <a href="<?php echo esc_url($work['image']); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work['image']); ?>" data-work-title="<?php echo esc_attr($home_work_title); ?>" aria-label="Увеличить: <?php echo esc_attr($home_work_title); ?>">
+                <img src="<?php echo esc_url($work['image']); ?>" alt="<?php echo esc_attr($home_work_title); ?>" loading="lazy">
+                <span class="work-card-caption"><b><?php echo esc_html($home_work_title); ?></b><span>Увеличить фото →</span></span>
               </a>
             </article>
           <?php endforeach; ?>
