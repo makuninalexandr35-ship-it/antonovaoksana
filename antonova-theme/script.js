@@ -435,3 +435,26 @@ document.querySelectorAll('[data-chocolate-max],[data-chocolate-phone]').forEach
     document.dispatchEvent(new CustomEvent(link.hasAttribute('data-chocolate-max') ? 'chocolate_max_click' : 'chocolate_phone_click', { detail: { placement } }));
   });
 });
+
+// Wedding landing uses the same server-rendered, progressive pattern: the six
+// panels are in the initial HTML, while JavaScript only makes them collapsible.
+document.querySelectorAll('[data-wedding-accordion-button]').forEach((button) => {
+  const contentId = button.getAttribute('aria-controls');
+  const content = contentId ? document.getElementById(contentId) : null;
+  if (!content) return;
+  button.setAttribute('aria-expanded', 'false');
+  content.hidden = true;
+  button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    content.hidden = expanded;
+    if (!expanded) document.dispatchEvent(new CustomEvent('wedding_accordion_open', { detail: { section: contentId } }));
+  });
+});
+
+document.querySelectorAll('[data-wedding-max],[data-wedding-phone]').forEach((link) => {
+  link.addEventListener('click', () => {
+    const placement = link.getAttribute('data-wedding-max') || link.getAttribute('data-wedding-phone');
+    document.dispatchEvent(new CustomEvent(link.hasAttribute('data-wedding-max') ? 'wedding_max_click' : 'wedding_phone_click', { detail: { placement } }));
+  });
+});
