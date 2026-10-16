@@ -49,6 +49,8 @@ while (have_posts()) :
                     <p class="birthday-copy-action"><a class="button" href="<?php echo esc_url($birthday_max_url); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Обсудить оформление торта</a></p>
                 </section>
 
+                <?php echo antonova_landing_page_cross_links_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+
                 <section class="birthday-copy-section birthday-seo-accordion" aria-labelledby="birthday-children-title">
                     <h2 id="birthday-children-title"><button class="birthday-accordion-button" type="button" data-birthday-accordion-button aria-expanded="true" aria-controls="birthday-children-content">Детские торты на день рождения<span aria-hidden="true">+</span></button></h2>
                     <div class="birthday-accordion-content" id="birthday-children-content" data-birthday-accordion-content>
@@ -226,7 +228,6 @@ while (have_posts()) :
                 </section>
 
                 <?php echo antonova_landing_faq_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                <?php echo antonova_landing_page_cross_links_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             </div>
         </article>
     </main>

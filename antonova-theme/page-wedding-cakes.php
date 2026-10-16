@@ -38,6 +38,8 @@ while (have_posts()) : the_post();
                 </div>
             </section>
 
+            <?php echo antonova_landing_page_cross_links_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+
             <section class="wedding-copy-section" aria-labelledby="wedding-price-title">
                 <h2 id="wedding-price-title">Сколько стоит свадебный торт на заказ</h2>
                 <p>Стоимость свадебного торта начинается от <strong>3 000 ₽ за килограмм</strong>. Итоговая цена зависит от веса, начинки, количества ярусов, конструкции и сложности оформления.</p>
@@ -76,7 +78,6 @@ while (have_posts()) : the_post();
 
             <section class="wedding-copy-section wedding-order-steps" aria-labelledby="wedding-order-title"><h2 id="wedding-order-title">Как заказать свадебный торт и оформить доставку</h2><p>Чтобы заказать свадебный торт, напишите мне в MAX. Мы последовательно обсудим основные детали, чтобы вы заранее понимали, каким будет торт и сколько он будет стоить.</p><ol><li><strong>Сообщите дату свадьбы.</strong> Я уточню возможность выполнения заказа к этой дате.</li><li><strong>Укажите количество гостей.</strong> Это поможет рассчитать необходимый вес и размер торта.</li><li><strong>Выберите начинку.</strong> Можно заранее посмотреть доступные вкусы или рассказать о предпочтениях.</li><li><strong>Расскажите об оформлении.</strong> Пришлите фотографию, эскиз или описание идеи.</li><li><strong>Согласуйте стоимость.</strong> После обсуждения я рассчитаю изготовление, оформление и доставку.</li><li><strong>Получите готовый торт.</strong> После подтверждения заказа согласуем способ получения и удобное время.</li></ol><h3>За сколько дней заказывать свадебный торт</h3><p>Рекомендую обращаться за свадебным тортом примерно за две недели до торжества. Это позволит спокойно согласовать начинку, вес, оформление и детали доставки.</p><p>Если до свадьбы осталось меньше времени, напишите мне и сообщите дату. Я проверю возможность изготовления с учётом сложности оформления и текущей загруженности.</p><h3>Самовывоз и доставка</h3><p>Забрать готовый торт самостоятельно можно в Москве, в районе Коптево. Также возможна доставка по Москве и Московской области.</p><p>Если торт необходим к определённому времени в ресторане или свадебном зале, укажите адрес, дату и время при оформлении заказа. Возможность и стоимость доставки согласуем заранее.</p><div class="wedding-copy-action wedding-cta-group"><a class="button" href="<?php echo esc_url($max_url); ?>" target="_blank" rel="noopener noreferrer" data-wedding-max="order"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать свадебный торт в MAX</a><a class="button button-secondary" href="tel:<?php echo esc_attr($phone_tel); ?>" aria-label="Позвонить Оксане Антоновой" data-wedding-phone="order">Позвонить</a></div></section>
             <?php echo antonova_landing_faq_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo antonova_landing_page_cross_links_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         </div>
     </article>
 </main>
