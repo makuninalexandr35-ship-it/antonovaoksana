@@ -598,6 +598,12 @@ function antonova_home_work_categories($title) {
         'Торт-карусель',
         'Торт с футбольными мячами',
         'Авторский праздничный торт',
+        'Торт с тыквой',
+        'Тематический торт для рыбака с фотографией',
+        'Торт для любимых',
+        'Яркий торт с ягодами и шоколадом',
+        'Торт с печеньем и драже',
+        'Белый двухъярусный торт с золотом',
     );
     $birthday = array(
         'Торт с мишкой и макарунами',
@@ -614,11 +620,13 @@ function antonova_home_work_categories($title) {
         'Новогодний торт с Дедом Морозом',
         'Торт с цветами',
         'Набор тортов с цветами',
+        'Подарочный десерт Oksana Antonova',
     );
     $wedding = array(
         'Свадебный торт с цветами',
         'Розовый свадебный торт с цветами',
-        'Белый двухъярусный торт с золотом',
+        'Белый трехъярусный свадебный торт с лебедями',
+        'Белый трехъярусный свадебный торт с кружевом',
     );
 
     if (in_array($title, $thematic, true)) {
@@ -657,6 +665,46 @@ function antonova_home_work_display_title($title) {
     );
 
     return isset($titles[$title]) ? $titles[$title] : $title;
+}
+
+/**
+ * Selected existing works from the specialised galleries that also belong in
+ * the homepage portfolio. They remain server-rendered and use their original
+ * files; no duplicate uploads or new records are created.
+ */
+function antonova_home_additional_works() {
+    return array(
+        array(
+            'image' => antonova_theme_asset('assets/landing-galleries/wedding/wedding-swans.webp'),
+            'title' => 'Белый трехъярусный свадебный торт с лебедями',
+            'alt' => 'Белый трехъярусный свадебный торт с лебедями',
+        ),
+        array(
+            'image' => antonova_theme_asset('assets/landing-galleries/wedding/wedding-lace.jpg'),
+            'title' => 'Белый трехъярусный свадебный торт с кружевом',
+            'alt' => 'Белый трехъярусный свадебный торт с кружевом',
+        ),
+        array(
+            'image' => antonova_theme_asset('assets/' . rawurlencode('#U0422#U043e#U0440#U0442 #U0434#U043b#U044f #U043b#U044e#U0431#U0438#U043c#U044b#U0445.jpg')),
+            'title' => 'Торт для любимых',
+            'alt' => 'Торт для любимых',
+        ),
+        array(
+            'image' => antonova_theme_asset('assets/landing-galleries/birthday/' . rawurlencode('Торт на 50 лет.webp')),
+            'title' => 'Торт на 50 лет',
+            'alt' => 'Торт на 50 лет с золотистыми свечами и зелёным декором',
+        ),
+        array(
+            'image' => antonova_theme_asset('assets/' . rawurlencode('#U0422#U044b#U043a#U0432#U0430.jpg')),
+            'title' => 'Торт с тыквой',
+            'alt' => 'Тематический торт с тыквой',
+        ),
+        array(
+            'image' => antonova_theme_asset('assets/landing-galleries/birthday/' . rawurlencode('Торт на день рождения с фотографией.webp')),
+            'title' => 'Тематический торт для рыбака с фотографией',
+            'alt' => 'Тематический торт для рыбака с фотографией',
+        ),
+    );
 }
 
 function antonova_migrate_legacy_gallery_to_works() {

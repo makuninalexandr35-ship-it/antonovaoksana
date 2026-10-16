@@ -102,7 +102,7 @@
     <section id="works" class="section works reveal">
       <div class="section-heading works-heading"><p class="eyebrow">Наши работы</p><h2 id="works-heading" class="works-title" tabindex="-1">Фото тортов и авторских десертов — мои работы</h2><p class="works-intro">Здесь представлены мои выполненные заказы: классические и тематические торты, свадебные работы, шоколад ручной работы и другие десерты.</p></div>
       <?php $catalogue_works = antonova_get_catalogue_works(); ?>
-      <?php $theme_works = antonova_get_theme_works(); ?>
+      <?php $theme_works = array_merge(antonova_get_theme_works(), antonova_home_additional_works()); ?>
       <?php if ($catalogue_works->have_posts() || !empty($theme_works)) : ?>
         <nav class="work-filters home-work-filters" aria-label="Фильтры фотогалереи">
           <a class="work-filter is-active" href="#works" role="button" data-work-filter="all" aria-pressed="true">Все работы</a>
