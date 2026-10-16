@@ -1138,6 +1138,64 @@ function antonova_theme_asset($path) {
 }
 
 /**
+ * Build a responsive srcset for Media Library images and optimized theme
+ * variants that share the "name-width.ext" file convention.
+ */
+function antonova_responsive_image_srcset($url) {
+    static $cache = array();
+
+    if (!is_string($url) || '' === $url) {
+        return '';
+    }
+    if (isset($cache[$url])) {
+        return $cache[$url];
+    }
+
+    $attachment_id = attachment_url_to_postid($url);
+    if ($attachment_id) {
+        $srcset = wp_get_attachment_image_srcset($attachment_id, 'full');
+        $cache[$url] = is_string($srcset) ? $srcset : '';
+        return $cache[$url];
+    }
+
+    $theme_uri = trailingslashit(get_template_directory_uri());
+    if (0 !== strpos($url, $theme_uri)) {
+        $cache[$url] = '';
+        return '';
+    }
+
+    $relative_path = rawurldecode(substr($url, strlen($theme_uri)));
+    $local_path = trailingslashit(get_template_directory()) . ltrim($relative_path, '/');
+    $path_info = pathinfo($local_path);
+    if (empty($path_info['filename']) || empty($path_info['extension']) || !preg_match('/^(.+)-\d+$/', $path_info['filename'], $matches)) {
+        $cache[$url] = '';
+        return '';
+    }
+
+    $pattern = trailingslashit($path_info['dirname']) . $matches[1] . '-[0-9]*.' . $path_info['extension'];
+    $sources = array();
+    foreach ((array) glob($pattern) as $candidate) {
+        $dimensions = wp_getimagesize($candidate);
+        if (empty($dimensions[0])) {
+            continue;
+        }
+
+        $candidate_relative = str_replace('\\', '/', substr($candidate, strlen(trailingslashit(get_template_directory()))));
+        $candidate_url = $theme_uri . implode('/', array_map('rawurlencode', explode('/', $candidate_relative)));
+        $sources[(int) $dimensions[0]] = esc_url_raw($candidate_url) . ' ' . (int) $dimensions[0] . 'w';
+    }
+
+    if (count($sources) < 2) {
+        $cache[$url] = '';
+        return '';
+    }
+
+    ksort($sources, SORT_NUMERIC);
+    $cache[$url] = implode(', ', $sources);
+    return $cache[$url];
+}
+
+/**
  * Serve optimized theme copies for selected legacy Media Library images.
  * The replacement happens while rendering HTML, so images remain available
  * when JavaScript is disabled.

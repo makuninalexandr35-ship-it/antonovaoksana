@@ -25,8 +25,9 @@
       </div>
       <div class="product-grid">
         <?php foreach (antonova_get_products() as $product) : ?>
+          <?php $product_srcset = antonova_responsive_image_srcset($product['image']); ?>
           <article>
-            <img src="<?php echo esc_url($product['image']); ?>" alt="<?php echo esc_attr(str_replace("\n", " ", $product['name'])); ?>" loading="lazy">
+            <img src="<?php echo esc_url($product['image']); ?>"<?php if ($product_srcset) : ?> srcset="<?php echo esc_attr($product_srcset); ?>"<?php endif; ?> alt="<?php echo esc_attr(str_replace("\n", " ", $product['name'])); ?>" loading="lazy" decoding="async" sizes="(max-width: 700px) 170px, (max-width: 1100px) 25vw, 14vw">
             <div>
               <h3><?php echo nl2br(esc_html($product['name'])); ?></h3>
             </div>
@@ -58,19 +59,20 @@
     <section class="custom-cake reveal" aria-labelledby="custom-cake-title">
       <?php $classic_card_image = antonova_theme_asset('assets/optimized/c6097e4cd88b-2268.webp'); ?>
       <?php $thematic_card_image = antonova_theme_asset('assets/works/' . rawurlencode('ezgif.com-jpg-to-webp-converter (15).webp')); ?>
+      <?php $classic_card_srcset = antonova_responsive_image_srcset($classic_card_image); ?>
       <div class="custom-copy">
         <p class="eyebrow">Торты на заказ</p>
         <h2 id="custom-cake-title">Торты с классическим и тематическим оформлением</h2>
         <p class="custom-lead">Создаю индивидуальные торты на заказ в Москве — с классическим декором или тематическим оформлением. Выберите понравившуюся работу из моего портфолио или пришлите фотографию, эскиз или референс. Мы обсудим начинку, размер и детали оформления.</p>
         <div class="custom-cake-grid">
           <article class="custom-cake-card">
-            <div class="custom-cake-card-image"><img src="<?php echo esc_url($classic_card_image); ?>" width="1200" height="1200" decoding="async" loading="lazy" alt="Торт с малиновым декором"></div>
+            <div class="custom-cake-card-image"><img src="<?php echo esc_url($classic_card_image); ?>"<?php if ($classic_card_srcset) : ?> srcset="<?php echo esc_attr($classic_card_srcset); ?>"<?php endif; ?> decoding="async" loading="lazy" sizes="(max-width: 700px) calc(100vw - 52px), 340px" alt="Торт с малиновым декором"></div>
             <h3>Классические торты</h3>
             <p>Праздничные торты с цветами, ягодами, кремовым декором, цифрами и поздравительными надписями. Лаконичное или более нарядное оформление на ваш выбор.</p>
             <a class="custom-cake-card-action" href="#works" data-work-category-link="classic_cakes">Посмотреть классические торты</a>
           </article>
           <article class="custom-cake-card">
-            <div class="custom-cake-card-image"><img src="<?php echo esc_url($thematic_card_image); ?>" width="1200" height="1200" decoding="async" loading="lazy" alt="Торт в виде корабля"></div>
+            <div class="custom-cake-card-image"><img src="<?php echo esc_url($thematic_card_image); ?>" decoding="async" loading="lazy" sizes="(max-width: 700px) calc(100vw - 52px), 340px" alt="Торт в виде корабля"></div>
             <h3>Тематические торты</h3>
             <p>Торты по увлечениям и интересам: спорт, путешествия, любимые персонажи, необычные формы и праздничные сюжеты. Оформление можно обсудить по вашей идее.</p>
             <a class="custom-cake-card-action" href="#works" data-work-category-link="thematic_cakes">Посмотреть тематические торты</a>
@@ -116,11 +118,14 @@
         <div class="work-grid" data-work-grid>
           <?php while ($catalogue_works->have_posts()) : $catalogue_works->the_post(); ?>
             <?php $work_image = antonova_work_image_url(get_the_ID()); ?>
+            <?php $work_full_image = antonova_work_image_url(get_the_ID(), 'full'); ?>
+            <?php $work_attachment_id = get_post_thumbnail_id(get_the_ID()); ?>
+            <?php $work_srcset = $work_attachment_id ? wp_get_attachment_image_srcset($work_attachment_id, 'large') : ''; ?>
             <?php if ($work_image) : ?>
               <?php $home_work_title = antonova_home_work_display_title(get_the_title()); ?>
               <article class="work-card" data-work-card data-categories="<?php echo esc_attr(implode(' ', antonova_home_work_categories(get_the_title()))); ?>">
-                <a href="<?php echo esc_url($work_image); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work_image); ?>" data-work-title="<?php echo esc_attr($home_work_title); ?>" aria-label="Увеличить: <?php echo esc_attr($home_work_title); ?>">
-                  <img src="<?php echo esc_url($work_image); ?>" alt="<?php echo esc_attr($home_work_title ?: 'Авторская работа'); ?>" loading="lazy">
+                <a href="<?php echo esc_url($work_full_image ?: $work_image); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work_full_image ?: $work_image); ?>" data-work-title="<?php echo esc_attr($home_work_title); ?>" aria-label="Увеличить: <?php echo esc_attr($home_work_title); ?>">
+                  <img src="<?php echo esc_url($work_image); ?>"<?php if ($work_srcset) : ?> srcset="<?php echo esc_attr($work_srcset); ?>"<?php endif; ?> alt="<?php echo esc_attr($home_work_title ?: 'Авторская работа'); ?>" loading="lazy" decoding="async" sizes="(max-width: 700px) 50vw, 17vw">
                   <span class="work-card-caption"><b><?php echo esc_html($home_work_title); ?></b><span>Увеличить фото →</span></span>
                 </a>
               </article>
@@ -130,7 +135,7 @@
             <?php $home_work_title = antonova_home_work_display_title($work['title']); ?>
             <article class="work-card" data-work-card data-categories="<?php echo esc_attr(implode(' ', antonova_home_work_categories($work['title']))); ?>">
               <a href="<?php echo esc_url($work['image']); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work['image']); ?>" data-work-title="<?php echo esc_attr($home_work_title); ?>" aria-label="Увеличить: <?php echo esc_attr($home_work_title); ?>">
-                <img src="<?php echo esc_url($work['image']); ?>" alt="<?php echo esc_attr($home_work_title); ?>" loading="lazy">
+                <img src="<?php echo esc_url($work['image']); ?>" alt="<?php echo esc_attr($home_work_title); ?>" loading="lazy" decoding="async" sizes="(max-width: 700px) 50vw, 17vw">
                 <span class="work-card-caption"><b><?php echo esc_html($home_work_title); ?></b><span>Увеличить фото →</span></span>
               </a>
             </article>
@@ -152,11 +157,13 @@
       <div class="work-lightbox-content" role="document">
         <button class="work-lightbox-close" type="button" data-work-lightbox-close aria-label="Закрыть">×</button>
         <div class="work-lightbox-viewer" data-work-lightbox-viewer>
+          <button class="work-lightbox-arrow work-lightbox-previous" type="button" data-work-lightbox-previous aria-label="Предыдущая фотография">←</button>
           <div class="work-lightbox-source" data-work-lightbox-source>
             <img src="" alt="Увеличенное фото работы" data-work-lightbox-image>
             <span class="work-lightbox-lens" data-work-lightbox-lens hidden aria-hidden="true"></span>
           </div>
           <div class="work-lightbox-zoom" data-work-lightbox-zoom hidden aria-hidden="true"></div>
+          <button class="work-lightbox-arrow work-lightbox-next" type="button" data-work-lightbox-next aria-label="Следующая фотография">→</button>
         </div>
         <p data-work-lightbox-title></p>
       </div>

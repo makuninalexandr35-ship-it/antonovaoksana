@@ -180,12 +180,26 @@ if (workLightbox) {
   const source = workLightbox.querySelector('[data-work-lightbox-source]');
   const lens = workLightbox.querySelector('[data-work-lightbox-lens]');
   const zoom = workLightbox.querySelector('[data-work-lightbox-zoom]');
+  const previousButton = workLightbox.querySelector('[data-work-lightbox-previous]');
+  const nextButton = workLightbox.querySelector('[data-work-lightbox-next]');
+  const lightboxTriggers = Array.from(document.querySelectorAll('[data-work-lightbox]'));
   const touchPoints = new Map();
   const zoomFactor = 3;
   let trigger = null;
   let touchScale = 1;
   let pinchDistance = 0;
   let pinchScale = touchScale;
+  let currentIndex = -1;
+
+  const showWork = (index) => {
+    if (!lightboxTriggers.length) return;
+    currentIndex = (index + lightboxTriggers.length) % lightboxTriggers.length;
+    const item = lightboxTriggers[currentIndex];
+    image.src = item.dataset.workImage;
+    image.alt = item.dataset.workTitle;
+    title.textContent = item.dataset.workTitle;
+    resetZoom();
+  };
 
   const resetZoom = () => {
     viewer.classList.remove('is-desktop-zooming', 'is-touch-zooming');
@@ -295,19 +309,24 @@ if (workLightbox) {
     if (trigger) trigger.focus();
   };
 
-  document.querySelectorAll('[data-work-lightbox]').forEach((button) => {
+  lightboxTriggers.forEach((button, index) => {
     button.addEventListener('click', (event) => {
       event.preventDefault();
       trigger = button;
-      image.src = button.dataset.workImage;
-      image.alt = button.dataset.workTitle;
-      title.textContent = button.dataset.workTitle;
-      resetZoom();
+      showWork(index);
       workLightbox.hidden = false;
       document.body.classList.add('work-lightbox-open');
       workLightbox.querySelector('.work-lightbox-close').focus();
     });
   });
+
+  if (previousButton) {
+    previousButton.addEventListener('click', () => showWork(currentIndex - 1));
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', () => showWork(currentIndex + 1));
+  }
 
   workLightbox.querySelectorAll('[data-work-lightbox-close]').forEach((button) => {
     button.addEventListener('click', closeLightbox);
@@ -315,6 +334,8 @@ if (workLightbox) {
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !workLightbox.hidden) closeLightbox();
+    if (event.key === 'ArrowLeft' && !workLightbox.hidden) showWork(currentIndex - 1);
+    if (event.key === 'ArrowRight' && !workLightbox.hidden) showWork(currentIndex + 1);
   });
 }
 
