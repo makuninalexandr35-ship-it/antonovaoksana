@@ -147,6 +147,9 @@ document.querySelectorAll('[data-work-grid]').forEach((grid) => {
     if (event.detail && event.detail.category) activateFilter(event.detail.category);
   });
 
+  const requestedFilter = new URLSearchParams(window.location.search).get('work_category');
+  if (requestedFilter) activateFilter(requestedFilter);
+
   if (moreButton) {
     moreButton.addEventListener('click', () => {
       visibleCount += pageSize;

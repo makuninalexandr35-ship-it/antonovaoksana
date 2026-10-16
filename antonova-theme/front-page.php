@@ -52,6 +52,11 @@
             <span class="popular-direction-card-label">Шоколад ручной работы</span>
             <span class="popular-direction-card-arrow" aria-hidden="true">↗</span>
           </a>
+          <a class="popular-direction-card" href="<?php echo esc_url(home_url('/postcard-cakes/')); ?>">
+            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/works/<?php echo rawurlencode('Торт с цветами.webp'); ?>" alt="Торт-открытка с цветочным оформлением" loading="lazy">
+            <span class="popular-direction-card-label">Торты-открытки</span>
+            <span class="popular-direction-card-arrow" aria-hidden="true">↗</span>
+          </a>
         </nav>
       </section>
     </section>
@@ -106,6 +111,16 @@
       <?php $catalogue_works = antonova_get_catalogue_works(); ?>
       <?php $theme_works = array_merge(antonova_get_theme_works(), antonova_home_additional_works()); ?>
       <?php if ($catalogue_works->have_posts() || !empty($theme_works)) : ?>
+        <?php
+        $antonova_requested_work_category = isset($_GET['work_category']) ? sanitize_key(wp_unslash($_GET['work_category'])) : '';
+        $antonova_work_filter_names = array('classic_cakes', 'thematic_cakes', 'wedding_cakes', 'birthday_cakes', 'cake_cards', 'chocolate_desserts');
+        if (!in_array($antonova_requested_work_category, $antonova_work_filter_names, true)) {
+            $antonova_requested_work_category = '';
+        }
+        ?>
+        <?php if ($antonova_requested_work_category) : ?>
+          <noscript><style>#works [data-work-card]{display:none}#works [data-work-card][data-categories~="<?php echo esc_attr($antonova_requested_work_category); ?>"]{display:block}</style></noscript>
+        <?php endif; ?>
         <nav class="work-filters home-work-filters" aria-label="Фильтры фотогалереи">
           <a class="work-filter is-active" href="#works" role="button" data-work-filter="all" aria-pressed="true">Все работы</a>
           <a class="work-filter" href="#works" role="button" data-work-filter="classic_cakes" aria-pressed="false">Классические торты</a>

@@ -162,6 +162,37 @@ HTML;
 }
 add_action('init', 'antonova_seed_handmade_chocolate_page', 23);
 
+/** Create the postcard-cake landing page once. Its body stays intentionally empty until copy is approved. */
+function antonova_seed_postcard_cakes_page() {
+    $page = get_page_by_path('postcard-cakes');
+
+    if (!$page) {
+        $page_id = wp_insert_post(array(
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'post_name' => 'postcard-cakes',
+            'post_title' => 'Торт открытка на заказ в Москве',
+            'post_content' => '',
+            'meta_input' => array('_wp_page_template' => 'page-postcard-cakes.php'),
+        ));
+
+        if (!$page_id || is_wp_error($page_id)) {
+            return;
+        }
+
+        $page = get_post($page_id);
+    }
+
+    if ($page && !get_option('antonova_postcard_cakes_seo_seeded')) {
+        update_post_meta($page->ID, '_yoast_wpseo_focuskw', 'торт открытка на заказ в Москве');
+        update_post_meta($page->ID, '_yoast_wpseo_title', 'Торт-открытка на заказ в Москве | Оксана Антонова');
+        update_post_meta($page->ID, '_yoast_wpseo_metadesc', 'Торт-открытка: красивый торт-открытка для праздников и любимых людей. Заказ в Москве.');
+        update_post_meta($page->ID, '_yoast_wpseo_canonical', home_url('/postcard-cakes/'));
+        update_option('antonova_postcard_cakes_seo_seeded', '1');
+    }
+}
+add_action('init', 'antonova_seed_postcard_cakes_page', 24);
+
 /** The existing wedding page keeps its WordPress content but uses the shared landing layout. */
 function antonova_wedding_cakes_template($template) {
     if (!is_page('wedding-cakes')) {
@@ -239,15 +270,23 @@ function antonova_landing_page_cross_links_html() {
     $page_links = array(
         'birthday-cakes' => array(
             array('url' => '/wedding-cakes/', 'label' => 'Свадебные торты на заказ в Москве'),
+            array('url' => '/postcard-cakes/', 'label' => 'Торты-открытки'),
             array('url' => '/handmade-chocolate/', 'label' => 'Шоколад ручной работы'),
         ),
         'wedding-cakes' => array(
             array('url' => '/birthday-cakes/', 'label' => 'Торты на день рождения на заказ'),
+            array('url' => '/postcard-cakes/', 'label' => 'Торты-открытки'),
             array('url' => '/handmade-chocolate/', 'label' => 'Шоколад ручной работы'),
         ),
         'handmade-chocolate' => array(
             array('url' => '/birthday-cakes/', 'label' => 'Торты на день рождения на заказ'),
             array('url' => '/wedding-cakes/', 'label' => 'Свадебные торты на заказ в Москве'),
+            array('url' => '/postcard-cakes/', 'label' => 'Торты-открытки'),
+        ),
+        'postcard-cakes' => array(
+            array('url' => '/birthday-cakes/', 'label' => 'Торты на день рождения на заказ'),
+            array('url' => '/wedding-cakes/', 'label' => 'Свадебные торты на заказ в Москве'),
+            array('url' => '/handmade-chocolate/', 'label' => 'Шоколад ручной работы'),
         ),
     );
 
@@ -858,6 +897,13 @@ function antonova_seo_context() {
         return $context;
     }
 
+    if (is_page('postcard-cakes')) {
+        $context['title'] = 'Торт-открытка на заказ в Москве | Оксана Антонова';
+        $context['description'] = 'Торт-открытка: красивый торт-открытка для праздников и любимых людей. Заказ в Москве.';
+        $context['url'] = home_url('/postcard-cakes/');
+        return $context;
+    }
+
     if (is_page()) {
         $page_title = get_the_title();
         $context['title'] = antonova_seo_limit($page_title . ' | Oksana Antonova', 60);
@@ -1100,6 +1146,60 @@ function antonova_render_faq_schema() {
     echo '<script type="application/ld+json" id="antonova-faq-schema">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . '</script>' . "\n";
 }
 add_action('wp_head', 'antonova_render_faq_schema', 31);
+
+/**
+ * The page currently has no visible FAQ content. Keeping its questions in one
+ * function lets a future editor add matching on-page FAQ and valid FAQPage
+ * schema together, without publishing hidden or invented structured data.
+ */
+function antonova_postcard_cakes_faq() {
+    return apply_filters('antonova_postcard_cakes_faq', array());
+}
+
+/** Render server-side breadcrumb and future FAQ schema for /postcard-cakes/. */
+function antonova_render_postcard_cakes_schema() {
+    if (!is_page('postcard-cakes')) {
+        return;
+    }
+
+    $url = home_url('/postcard-cakes/');
+    $graph = array(
+        array(
+            '@type' => 'BreadcrumbList',
+            '@id' => $url . '#breadcrumb',
+            'itemListElement' => array(
+                array('@type' => 'ListItem', 'position' => 1, 'name' => 'Главная', 'item' => home_url('/')),
+                array('@type' => 'ListItem', 'position' => 2, 'name' => 'Торты-открытки', 'item' => $url),
+            ),
+        ),
+    );
+
+    $main_entity = array();
+    foreach (antonova_postcard_cakes_faq() as $item) {
+        $question = sanitize_text_field($item['question'] ?? '');
+        $answer = sanitize_textarea_field($item['answer'] ?? '');
+        if ('' === $question || '' === $answer) {
+            continue;
+        }
+        $main_entity[] = array(
+            '@type' => 'Question',
+            'name' => $question,
+            'acceptedAnswer' => array('@type' => 'Answer', 'text' => $answer),
+        );
+    }
+
+    if (!empty($main_entity)) {
+        $graph[] = array(
+            '@type' => 'FAQPage',
+            '@id' => $url . '#faq',
+            'mainEntity' => $main_entity,
+        );
+    }
+
+    $schema = array('@context' => 'https://schema.org', '@graph' => $graph);
+    echo '<script type="application/ld+json" id="antonova-postcard-cakes-schema">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . '</script>' . "\n";
+}
+add_action('wp_head', 'antonova_render_postcard_cakes_schema', 32);
 
 function antonova_enable_core_sitemap($enabled) {
     return true;
