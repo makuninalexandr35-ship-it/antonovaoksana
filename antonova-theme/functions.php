@@ -686,7 +686,7 @@ function antonova_home_additional_works() {
             'alt' => 'Белый трехъярусный свадебный торт с кружевом',
         ),
         array(
-            'image' => antonova_theme_asset('assets/cake-for-loved-ones.jpg'),
+            'image' => antonova_theme_asset('assets/optimized/cake-for-loved-ones.webp'),
             'title' => 'Торт для любимых',
             'alt' => 'Торт для любимых',
         ),
@@ -696,7 +696,7 @@ function antonova_home_additional_works() {
             'alt' => 'Торт на 50 лет с золотистыми свечами и зелёным декором',
         ),
         array(
-            'image' => antonova_theme_asset('assets/pumpkin-cake.jpg'),
+            'image' => antonova_theme_asset('assets/optimized/pumpkin-cake.webp'),
             'title' => 'Торт с тыквой',
             'alt' => 'Тематический торт с тыквой',
         ),
