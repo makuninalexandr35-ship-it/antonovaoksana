@@ -9,7 +9,7 @@
       </picture>
       <div class="hero-shade"></div>
       <div class="hero-content reveal">
-        <h1 class="home-hero-title"><span>Торты и</span> <span>авторские десерты</span> <span>на заказ в Москве</span></h1>
+        <h1 class="home-hero-title"><span>Торты и авторские</span> <span>десерты на заказ</span> <span>в Москве</span></h1>
         <p class="lead home-hero-lead"><span>Индивидуальные вкусы, оформление и внимание к каждой детали.</span><span>От идеи и референса до десерта, который станет частью вашего</span><span>праздника.</span></p>
         <div class="actions">
           <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать в MAX</a>
@@ -109,7 +109,7 @@
     </section>
 
     <section id="works" class="section works reveal">
-      <div class="section-heading works-heading"><p class="eyebrow">Наши работы</p><h2 id="works-heading" class="works-title" tabindex="-1">Фото тортов и авторских десертов — мои работы</h2><p class="works-intro">Здесь представлены мои выполненные заказы: классические и тематические торты, свадебные работы, шоколад ручной работы и другие десерты.</p></div>
+      <div class="section-heading works-heading"><p class="eyebrow">Мои работы</p><h2 id="works-heading" class="works-title" tabindex="-1">Фото тортов и авторских десертов</h2><p class="works-intro">Здесь представлены мои заказы: классические и тематические торты, <a href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">свадебные торты</a>, <a href="<?php echo esc_url(home_url('/handmade-chocolate/')); ?>">шоколад ручной работы</a>, <a href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">торты на день рождения</a> и другие десерты.</p></div>
       <?php $theme_works = antonova_home_file_based_works(); ?>
       <?php if (!empty($theme_works)) : ?>
         <?php

@@ -103,7 +103,7 @@ jobs:
           test -s "$bundle_dir/assets/hero/Дизайн без названия (76).webp"
           test -s "$bundle_dir/assets/homepage-category-covers/Классические торты/Дизайн без названия (71).webp"
           test -s "$bundle_dir/assets/homepage-category-covers/Тематические торты/Дизайн без названия (72).webp"
-          test "$(find "$bundle_dir/assets/homepage-all-works" -type f | wc -l)" -eq 71
+          test "$(find "$bundle_dir/assets/homepage-all-works" -type f | wc -l)" -ge 75
           test -s "$bundle_dir/template-parts/landing-thumbnail-gallery.php"
           test -s "$bundle_dir/assets/landing-galleries/wedding/wedding-swans.webp"
 
