@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
 }
 
 $antonova_is_front_page = is_front_page();
-$antonova_has_overlay_header = is_page('postcard-cakes');
+$antonova_has_overlay_header = $antonova_is_front_page || is_page('postcard-cakes');
 $antonova_home = home_url('/');
 $antonova_section = static function ($fragment) use ($antonova_is_front_page, $antonova_home) {
     return $antonova_is_front_page ? '#' . $fragment : $antonova_home . '#' . $fragment;

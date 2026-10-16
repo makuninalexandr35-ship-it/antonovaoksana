@@ -1246,6 +1246,89 @@ function antonova_theme_asset($path) {
 }
 
 /**
+ * Read image files directly from a theme folder. The homepage portfolio is
+ * deliberately code-driven and does not depend on Media Library records or
+ * client-side JavaScript, so every image is present in the initial HTML.
+ */
+function antonova_theme_folder_images($relative_directory) {
+    $relative_directory = trim(str_replace('\\', '/', (string) $relative_directory), '/');
+    if ('' === $relative_directory || false !== strpos($relative_directory, '..')) {
+        return array();
+    }
+
+    $directory = trailingslashit(get_template_directory()) . str_replace('/', DIRECTORY_SEPARATOR, $relative_directory);
+    if (!is_dir($directory)) {
+        return array();
+    }
+
+    $files = glob($directory . '/*.{webp,WEBP,jpg,JPG,jpeg,JPEG,png,PNG,avif,AVIF}', GLOB_BRACE);
+    if (empty($files)) {
+        return array();
+    }
+
+    usort($files, static function ($left, $right) {
+        return strnatcasecmp(wp_basename($left), wp_basename($right));
+    });
+
+    $images = array();
+    foreach ($files as $file) {
+        $filename = wp_basename($file);
+        $relative_file = $relative_directory . '/' . $filename;
+        $encoded_file = implode('/', array_map('rawurlencode', explode('/', $relative_file)));
+        $dimensions = wp_getimagesize($file);
+        $title = trim(pathinfo($filename, PATHINFO_FILENAME));
+
+        $images[] = array(
+            'image' => antonova_theme_asset($encoded_file),
+            'title' => '' !== $title ? $title : 'Авторская работа',
+            'alt' => '' !== $title ? $title : 'Авторская работа',
+            'filename' => $filename,
+            'width' => !empty($dimensions[0]) ? (int) $dimensions[0] : 1200,
+            'height' => !empty($dimensions[1]) ? (int) $dimensions[1] : 1600,
+        );
+    }
+
+    return $images;
+}
+
+/** Return every homepage work from its category folder as one portfolio. */
+function antonova_home_file_based_works() {
+    $categories = array(
+        'classic_cakes' => 'Классические торты',
+        'thematic_cakes' => 'Тематические торты',
+        'wedding_cakes' => 'Свадебные торты',
+        'birthday_cakes' => 'Торты на день рождения',
+        'cake_cards' => 'Торты-открытки',
+        'chocolate_desserts' => 'Шоколад и десерты',
+    );
+
+    $works = array();
+    foreach ($categories as $category => $folder) {
+        $images = antonova_theme_folder_images('assets/homepage-all-works/' . $folder);
+        foreach ($images as $image) {
+            $image['category'] = $category;
+            $works[] = $image;
+        }
+    }
+
+    usort($works, static function ($left, $right) {
+        return strnatcasecmp($left['filename'], $right['filename']);
+    });
+
+    return $works;
+}
+
+/** Return the first image from a code-managed homepage cover folder. */
+function antonova_home_category_cover($folder, $fallback) {
+    $images = antonova_theme_folder_images('assets/homepage-category-covers/' . $folder);
+    return !empty($images) ? $images[0] : array(
+        'image' => $fallback,
+        'width' => 1200,
+        'height' => 1800,
+    );
+}
+
+/**
  * Build a responsive srcset for Media Library images and optimized theme
  * variants that share the "name-width.ext" file convention.
  */
