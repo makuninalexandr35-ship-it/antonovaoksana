@@ -2,26 +2,9 @@
 <?php $price_cards = antonova_get_product_price_cards(); ?>
 
   <main id="top">
-    <section class="hero">
-      <img class="hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero1.webp" width="1680" height="945" decoding="async" alt="Шоколадная плитка с цветочным декором в подарочной коробке" fetchpriority="high" loading="eager">
-      <div class="hero-shade"></div>
-      <div class="hero-content reveal">
-        <h1 class="home-hero-title"><span>Торты и</span> <span>авторские десерты</span> <span>на заказ в Москве</span></h1>
-        <p class="lead home-hero-lead"><span>Индивидуальные вкусы, оформление и внимание к каждой детали.</span><span>От идеи и референса до десерта, который станет частью вашего</span><span>праздника.</span></p>
-        <div class="actions">
-          <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать в MAX</a>
-        </div>
-        <ul class="hero-facts" aria-label="Краткая информация">
-          <li><span class="fact-icon">♨</span><span><b>Торты</b><?php echo esc_html($price_cards[0]['price'] ?? 'от 3000 ₽/кг'); ?></span></li>
-          <li><span class="fact-icon">◇</span><span><b>10 вариантов</b>начинок</span></li>
-          <li><span class="fact-icon">□</span><span><b>Оптимальный заказ</b>за 2 недели</span></li>
-        </ul>
-      </div>
-    </section>
-
     <section id="products" class="section products reveal">
       <div class="section-heading split-heading">
-        <div><p class="eyebrow">Что можно заказать</p><h2>Десерты для праздника, подарка<br>или просто особенного дня</h2><p>Выберите готовое направление или расскажите свою идею.<br>Оформление и детали обсудим индивидуально.</p></div>
+        <div><p class="eyebrow">Что можно заказать</p><h1>Десерты для праздника, подарка<br>или просто особенного дня</h1><p>Выберите готовое направление или расскажите свою идею.<br>Оформление и детали обсудим индивидуально.</p></div>
       </div>
       <div class="product-grid">
         <?php foreach (antonova_get_products() as $product) : ?>

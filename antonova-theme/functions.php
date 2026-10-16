@@ -272,21 +272,29 @@ function antonova_landing_page_cross_links_html() {
             array('url' => '/wedding-cakes/', 'label' => 'Свадебные торты на заказ в Москве'),
             array('url' => '/postcard-cakes/', 'label' => 'Торты-открытки'),
             array('url' => '/handmade-chocolate/', 'label' => 'Шоколад ручной работы'),
+            array('url' => '/?work_category=classic_cakes#works', 'label' => 'Классические торты'),
+            array('url' => '/?work_category=thematic_cakes#works', 'label' => 'Тематические торты'),
         ),
         'wedding-cakes' => array(
             array('url' => '/birthday-cakes/', 'label' => 'Торты на день рождения на заказ'),
             array('url' => '/postcard-cakes/', 'label' => 'Торты-открытки'),
             array('url' => '/handmade-chocolate/', 'label' => 'Шоколад ручной работы'),
+            array('url' => '/?work_category=classic_cakes#works', 'label' => 'Классические торты'),
+            array('url' => '/?work_category=thematic_cakes#works', 'label' => 'Тематические торты'),
         ),
         'handmade-chocolate' => array(
             array('url' => '/birthday-cakes/', 'label' => 'Торты на день рождения на заказ'),
             array('url' => '/wedding-cakes/', 'label' => 'Свадебные торты на заказ в Москве'),
             array('url' => '/postcard-cakes/', 'label' => 'Торты-открытки'),
+            array('url' => '/?work_category=classic_cakes#works', 'label' => 'Классические торты'),
+            array('url' => '/?work_category=thematic_cakes#works', 'label' => 'Тематические торты'),
         ),
         'postcard-cakes' => array(
             array('url' => '/birthday-cakes/', 'label' => 'Торты на день рождения на заказ'),
             array('url' => '/wedding-cakes/', 'label' => 'Свадебные торты на заказ в Москве'),
             array('url' => '/handmade-chocolate/', 'label' => 'Шоколад ручной работы'),
+            array('url' => '/?work_category=classic_cakes#works', 'label' => 'Классические торты'),
+            array('url' => '/?work_category=thematic_cakes#works', 'label' => 'Тематические торты'),
         ),
     );
 
