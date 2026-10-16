@@ -56,7 +56,7 @@
     </section>
 
     <section class="custom-cake reveal" aria-labelledby="custom-cake-title">
-      <?php $classic_card_image = antonova_theme_asset('assets/works/30-ezgif.com-jpg-to-webp-converter.webp'); ?>
+      <?php $classic_card_image = antonova_theme_asset('assets/optimized/c6097e4cd88b-2268.webp'); ?>
       <?php $thematic_card_image = antonova_theme_asset('assets/works/' . rawurlencode('ezgif.com-jpg-to-webp-converter (15).webp')); ?>
       <div class="custom-copy">
         <p class="eyebrow">Торты на заказ</p>
@@ -64,7 +64,7 @@
         <p class="custom-lead">Создаю индивидуальные торты на заказ в Москве — с классическим декором или тематическим оформлением. Выберите понравившуюся работу из моего портфолио или пришлите фотографию, эскиз или референс. Мы обсудим начинку, размер и детали оформления.</p>
         <div class="custom-cake-grid">
           <article class="custom-cake-card">
-            <div class="custom-cake-card-image"><img src="<?php echo esc_url($classic_card_image); ?>" width="1200" height="1200" decoding="async" loading="lazy" alt="Белый торт с розами на 30 лет"></div>
+            <div class="custom-cake-card-image"><img src="<?php echo esc_url($classic_card_image); ?>" width="1200" height="1200" decoding="async" loading="lazy" alt="Торт с малиновым декором"></div>
             <h3>Классические торты</h3>
             <p>Праздничные торты с цветами, ягодами, кремовым декором, цифрами и поздравительными надписями. Лаконичное или более нарядное оформление на ваш выбор.</p>
             <a class="custom-cake-card-action" href="#works" data-work-category-link="classic_cakes">Посмотреть классические торты</a>
@@ -111,7 +111,7 @@
           <a class="work-filter" href="#works" role="button" data-work-filter="wedding_cakes" aria-pressed="false">Свадебные торты</a>
           <a class="work-filter" href="#works" role="button" data-work-filter="birthday_cakes" aria-pressed="false">Торты на день рождения</a>
           <a class="work-filter" href="#works" role="button" data-work-filter="cake_cards" aria-pressed="false">Торты-открытки</a>
-          <a class="work-filter" href="#works" role="button" data-work-filter="gift_dessert" aria-pressed="false">Подарочный десерт</a>
+          <a class="work-filter" href="#works" role="button" data-work-filter="chocolate_desserts" aria-pressed="false">Шоколад и десерты</a>
         </nav>
         <div class="work-grid" data-work-grid>
           <?php while ($catalogue_works->have_posts()) : $catalogue_works->the_post(); ?>

@@ -612,7 +612,6 @@ function antonova_home_work_categories($title) {
     );
     $cake_card = array(
         'Новогодний торт с Дедом Морозом',
-        'Торт с цветочным декором',
         'Торт с цветами',
         'Набор тортов с цветами',
     );
@@ -634,9 +633,6 @@ function antonova_home_work_categories($title) {
     if (in_array($title, $wedding, true)) {
         return array('wedding_cakes');
     }
-    if ($title === 'Подарочный десерт Oksana Antonova') {
-        return array('gift_dessert');
-    }
     if (preg_match('/шоколад|конфет|макарун|безе|десерт|кекс|чизкейк|печень|ёлка|пончиков/ui', $title)) {
         return array('chocolate_desserts');
     }
@@ -657,6 +653,7 @@ function antonova_home_work_display_title($title) {
         'Тематический торт для любителя тенниса' => 'Торт по тематике настольного тенниса',
         'Торт с футбольными мячами' => 'Футбольный торт',
         'Торт с мишкой и макарунами' => 'Торт с мишкой',
+        'Торт с цветочным декором' => 'Торт с малиновым декором',
     );
 
     return isset($titles[$title]) ? $titles[$title] : $title;
