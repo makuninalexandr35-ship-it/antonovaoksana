@@ -109,7 +109,9 @@
           <a class="work-filter" href="#works" role="button" data-work-filter="classic_cakes" aria-pressed="false">Классические торты</a>
           <a class="work-filter" href="#works" role="button" data-work-filter="thematic_cakes" aria-pressed="false">Тематические торты</a>
           <a class="work-filter" href="#works" role="button" data-work-filter="wedding_cakes" aria-pressed="false">Свадебные торты</a>
-          <a class="work-filter" href="#works" role="button" data-work-filter="chocolate_desserts" aria-pressed="false">Шоколад и десерты</a>
+          <a class="work-filter" href="#works" role="button" data-work-filter="birthday_cakes" aria-pressed="false">Торты на день рождения</a>
+          <a class="work-filter" href="#works" role="button" data-work-filter="cake_cards" aria-pressed="false">Торты-открытки</a>
+          <a class="work-filter" href="#works" role="button" data-work-filter="gift_dessert" aria-pressed="false">Подарочный десерт</a>
         </nav>
         <div class="work-grid" data-work-grid>
           <?php while ($catalogue_works->have_posts()) : $catalogue_works->the_post(); ?>

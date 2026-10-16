@@ -597,7 +597,24 @@ function antonova_home_work_categories($title) {
         'Торт в виде корабля',
         'Торт-карусель',
         'Торт с футбольными мячами',
+        'Авторский праздничный торт',
+    );
+    $birthday = array(
         'Торт с мишкой и макарунами',
+        'Торт с поздравлением ко дню рождения',
+        'Черничный юбилейный торт на 50 лет',
+        'Розовый торт на 12 лет',
+        'Торт «Без паники, ты не старенький»',
+        'Белый торт с розами на 30 лет',
+        'Торт с ежевикой на 51 год',
+        'Зелёный двухъярусный торт на день рождения',
+        'Торт с клубникой и фигурками',
+    );
+    $cake_card = array(
+        'Новогодний торт с Дедом Морозом',
+        'Торт с цветочным декором',
+        'Торт с цветами',
+        'Набор тортов с цветами',
     );
     $wedding = array(
         'Свадебный торт с цветами',
@@ -608,8 +625,17 @@ function antonova_home_work_categories($title) {
     if (in_array($title, $thematic, true)) {
         return array('thematic_cakes');
     }
+    if (in_array($title, $birthday, true)) {
+        return array('birthday_cakes');
+    }
+    if (in_array($title, $cake_card, true)) {
+        return array('cake_cards');
+    }
     if (in_array($title, $wedding, true)) {
         return array('wedding_cakes');
+    }
+    if ($title === 'Подарочный десерт Oksana Antonova') {
+        return array('gift_dessert');
     }
     if (preg_match('/шоколад|конфет|макарун|безе|десерт|кекс|чизкейк|печень|ёлка|пончиков/ui', $title)) {
         return array('chocolate_desserts');
