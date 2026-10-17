@@ -385,10 +385,28 @@ document.querySelectorAll('[data-thumbnail-gallery]').forEach((gallery) => {
     if (!dialog || !dialogImage) return;
     const panel = panels[index];
     const image = panel.querySelector('img');
-    const caption = panel.querySelector('figcaption');
+    const open = panel.querySelector('[data-thumbnail-open]');
+    const caption = open ? open.dataset.thumbnailCaption : '';
+    const description = open ? open.dataset.thumbnailDescription : '';
+    const panelCaption = panel.querySelector('figcaption');
     dialogImage.src = image.currentSrc || image.src;
     dialogImage.alt = image.alt;
-    if (dialogCaption) dialogCaption.textContent = caption ? caption.textContent : image.alt;
+    if (dialogCaption) {
+      if (!gallery.hasAttribute('data-thumbnail-dialog-details')) {
+        dialogCaption.textContent = panelCaption ? panelCaption.textContent : image.alt;
+        selectPhoto(triggers[index]);
+        return;
+      }
+      dialogCaption.replaceChildren();
+      const title = document.createElement('strong');
+      title.textContent = caption || image.alt;
+      dialogCaption.appendChild(title);
+      if (description) {
+        const details = document.createElement('span');
+        details.textContent = description;
+        dialogCaption.appendChild(details);
+      }
+    }
     selectPhoto(triggers[index]);
   };
 
@@ -487,6 +505,21 @@ document.querySelectorAll('[data-chocolate-accordion-button]').forEach((button) 
     button.setAttribute('aria-expanded', String(!expanded));
     content.hidden = expanded;
     if (!expanded) document.dispatchEvent(new CustomEvent('chocolate_accordion_open', { detail: { section: contentId } }));
+  });
+});
+
+// Postcard-cake accordions follow progressive enhancement: all copy remains in
+// the server HTML without JavaScript, while JavaScript starts each panel closed.
+document.querySelectorAll('[data-postcard-accordion-button]').forEach((button) => {
+  const contentId = button.getAttribute('aria-controls');
+  const content = contentId ? document.getElementById(contentId) : null;
+  if (!content) return;
+  button.setAttribute('aria-expanded', 'false');
+  content.hidden = true;
+  button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    content.hidden = expanded;
   });
 });
 

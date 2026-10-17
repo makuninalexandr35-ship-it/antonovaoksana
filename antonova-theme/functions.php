@@ -162,7 +162,7 @@ HTML;
 }
 add_action('init', 'antonova_seed_handmade_chocolate_page', 23);
 
-/** Create the postcard-cake landing page once. Its body stays intentionally empty until copy is approved. */
+/** Create the postcard-cake landing page and keep its page-specific SEO metadata current. */
 function antonova_seed_postcard_cakes_page() {
     $page = get_page_by_path('postcard-cakes');
 
@@ -183,12 +183,17 @@ function antonova_seed_postcard_cakes_page() {
         $page = get_post($page_id);
     }
 
-    if ($page && !get_option('antonova_postcard_cakes_seo_seeded')) {
-        update_post_meta($page->ID, '_yoast_wpseo_focuskw', 'торт открытка на заказ в Москве');
-        update_post_meta($page->ID, '_yoast_wpseo_title', 'Торт-открытка на заказ в Москве | Оксана Антонова');
-        update_post_meta($page->ID, '_yoast_wpseo_metadesc', 'Торт-открытка: красивый торт-открытка для праздников и любимых людей. Заказ в Москве.');
+    if ($page && !get_option('antonova_postcard_cakes_seo_v2')) {
+        wp_update_post(array(
+            'ID' => $page->ID,
+            'post_title' => 'Торты-открытки на заказ в Москве',
+        ));
+        update_post_meta($page->ID, '_wp_page_template', 'page-postcard-cakes.php');
+        update_post_meta($page->ID, '_yoast_wpseo_focuskw', 'торты-открытки на заказ в Москве');
+        update_post_meta($page->ID, '_yoast_wpseo_title', 'Торты-открытки на заказ в Москве — фото и цены | Оксана Антонова');
+        update_post_meta($page->ID, '_yoast_wpseo_metadesc', 'Торты-открытки с вашей картинкой на заказ в Москве. Изображение переносится на шоколад с помощью шокотрансферной бумаги. Реальные фото работ, начинки, стоимость и доставка.');
         update_post_meta($page->ID, '_yoast_wpseo_canonical', home_url('/postcard-cakes/'));
-        update_option('antonova_postcard_cakes_seo_seeded', '1');
+        update_option('antonova_postcard_cakes_seo_v2', '1');
     }
 }
 add_action('init', 'antonova_seed_postcard_cakes_page', 24);
@@ -906,8 +911,8 @@ function antonova_seo_context() {
     }
 
     if (is_page('postcard-cakes')) {
-        $context['title'] = 'Торт-открытка на заказ в Москве | Оксана Антонова';
-        $context['description'] = 'Торт-открытка: красивый торт-открытка для праздников и любимых людей. Заказ в Москве.';
+        $context['title'] = 'Торты-открытки на заказ в Москве — фото и цены | Оксана Антонова';
+        $context['description'] = 'Торты-открытки с вашей картинкой на заказ в Москве. Изображение переносится на шоколад с помощью шокотрансферной бумаги. Реальные фото работ, начинки, стоимость и доставка.';
         $context['url'] = home_url('/postcard-cakes/');
         return $context;
     }
@@ -1024,6 +1029,12 @@ function antonova_social_image_url() {
         // featured image. Keep a stable, relevant social preview in that case.
         return antonova_theme_asset(
             'assets/landing-galleries/chocolate/' . rawurlencode('#U0415#U043b#U043e#U0447#U043a#U0430.jpg')
+        );
+    }
+
+    if (is_page('postcard-cakes')) {
+        return antonova_theme_asset(
+            'assets/homepage-all-works/' . rawurlencode('Торты-открытки') . '/' . rawurlencode('Торт-открытка с розовыми георгинами.webp')
         );
     }
 
@@ -1157,13 +1168,37 @@ function antonova_render_faq_schema() {
 }
 add_action('wp_head', 'antonova_render_faq_schema', 31);
 
-/**
- * The page currently has no visible FAQ content. Keeping its questions in one
- * function lets a future editor add matching on-page FAQ and valid FAQPage
- * schema together, without publishing hidden or invented structured data.
- */
 function antonova_postcard_cakes_faq() {
-    return apply_filters('antonova_postcard_cakes_faq', array());
+    return apply_filters('antonova_postcard_cakes_faq', array(
+        array(
+            'question' => 'Можно ли заказать торт-открытку со своей картинкой?',
+            'answer' => 'Да. Вы можете прислать фотографию, рисунок, поздравление или другую подходящую картинку. Перед изготовлением мы согласуем размер и расположение изображения на шоколадной поверхности.',
+        ),
+        array(
+            'question' => 'Как наносится картинка на торт?',
+            'answer' => 'Изображение переносится на шоколад с помощью шокотрансферной бумаги. После переноса технологическую основу снимают, а рисунок остаётся на шоколадной поверхности.',
+        ),
+        array(
+            'question' => 'Съедобная ли картинка на торте-открытке?',
+            'answer' => 'Да. Изображение выполняется пищевыми материалами и переносится на шоколадную поверхность. Временная технологическая основа после переноса снимается и не остаётся частью торта.',
+        ),
+        array(
+            'question' => 'Сколько стоит торт с картинкой?',
+            'answer' => 'Предварительная стоимость составляет <strong>3 000–5 000 ₽ за торт</strong> при минимальном весе от 1 кг. Изображение входит в стоимость. Итоговая цена зависит от веса, начинки и размера торта. Для более крупных заказов она может быть выше.',
+        ),
+        array(
+            'question' => 'Какой минимальный вес торта-открытки?',
+            'answer' => 'Минимальный вес — 1 кг. Для расчёта необходимого количества можно ориентироваться на 150–200 г торта на одного человека.',
+        ),
+        array(
+            'question' => 'За сколько дней нужно делать заказ?',
+            'answer' => 'Лучше обращаться примерно за две недели до праздника. Минимальный рекомендуемый срок — одна неделя. При наличии свободного времени возможен срочный заказ за 2–3 дня с доплатой 20%.',
+        ),
+        array(
+            'question' => 'Можно ли заказать доставку торта-открытки по Москве?',
+            'answer' => 'Да. Курьерская доставка возможна по Москве и Московской области. Также торт можно забрать самостоятельно в районе Коптево. Стоимость доставки рассчитывается индивидуально.',
+        ),
+    ));
 }
 
 /** Render server-side breadcrumb and future FAQ schema for /postcard-cakes/. */
@@ -1674,6 +1709,61 @@ function antonova_landing_gallery_data($gallery_key) {
             'items' => array(),
             'empty_message' => 'Фотографии шоколада ручной работы будут добавлены скоро.',
         ),
+        'postcard' => array(
+            'id' => 'postcard-cakes-gallery',
+            'label' => 'Фотографии тортов-открыток',
+            'class' => 'postcard-portfolio-gallery',
+            'asset_directory' => 'assets/homepage-all-works/Торты-открытки',
+            'discover_files' => false,
+            'show_details' => true,
+            'show_description' => false,
+            'show_price' => false,
+            'show_dialog_description' => true,
+            'items' => array(
+                array(
+                    'file' => 'Торт-открытка с сиреневыми цветами (2).webp',
+                    'caption' => 'Торт-открытка с сиреневыми цветами',
+                    'description' => 'Прямоугольный торт-открытка с изображением сиреневых цветов и светлых бутонов. В композиции видны раскрытые цветы, небольшие бутоны и зелёные стебли. Изделие представлено в белой подарочной коробке с прозрачным окном.',
+                    'alt' => 'Прямоугольный торт-открытка с сиреневыми цветами и светлыми бутонами в белой коробке.',
+                ),
+                array(
+                    'file' => 'Торт-открытка с сиреневыми цветами.webp',
+                    'caption' => 'Торт-открытка с сиренево-розовыми цветами',
+                    'description' => 'Прямоугольный торт-открытка с крупным цветочным изображением в сиреневых и розовых оттенках. На светлом фоне расположены распустившиеся цветы и бутоны. Работа сфотографирована под углом в белой коробке.',
+                    'alt' => 'Прямоугольный торт-открытка с крупными сиренево-розовыми цветами в белой коробке.',
+                ),
+                array(
+                    'file' => 'Торт-открытка с сиренью.webp',
+                    'caption' => 'Торт-открытка с цветущей сиренью',
+                    'description' => 'На поверхности торта размещено изображение цветущих ветвей сирени. Композицию составляют многочисленные небольшие цветы розового и сиреневого оттенков, собранные в пышные соцветия. Изделие находится в белой коробке с прозрачным окном.',
+                    'alt' => 'Торт-открытка с изображением цветущих ветвей розовой и сиреневой сирени.',
+                ),
+                array(
+                    'file' => 'Новогодний торт-открытка с Дедом Морозом.webp',
+                    'caption' => 'Новогодний торт-открытка с Дедом Морозом',
+                    'description' => 'Торт-открытка с зимним праздничным изображением. На рисунке Дед Мороз едет на санях, запряжённых двумя белыми лошадьми, рядом расположены подарки. Сюжет дополняет заснеженный пейзаж.',
+                    'alt' => 'Новогодний торт-открытка с Дедом Морозом на санях, двумя белыми лошадьми и подарками.',
+                ),
+                array(
+                    'file' => 'Торт-открытка с букетом розовых цветов.webp',
+                    'caption' => 'Торт-открытка с цветочным букетом',
+                    'description' => 'Прямоугольный торт-открытка с изображением букета в розовых и сиреневых оттенках. В центре композиции — крупные распустившиеся цветы, дополненные небольшими бутонами. Торт представлен в белой подарочной коробке с фирменным оформлением.',
+                    'alt' => 'Торт-открытка с изображением букета розовых и сиреневых цветов в подарочной коробке.',
+                ),
+                array(
+                    'file' => 'Торт-открытка с розовыми георгинами.webp',
+                    'caption' => 'Торт-открытка с розовыми георгинами',
+                    'description' => 'На поверхности торта изображены крупные георгины в розовых и сиреневых оттенках. Хорошо различимы многочисленные лепестки, придающие цветам объём на рисунке. Работа находится в белой коробке с прозрачным окном.',
+                    'alt' => 'Торт-открытка с изображением крупных розовых георгинов в белой коробке.',
+                ),
+                array(
+                    'file' => 'Торт-открытка с розовыми цветами и сиренью.webp',
+                    'caption' => 'Торт-открытка с розовыми цветами и сиренью',
+                    'description' => 'Торт-открытка с изображением крупных розовых цветов и небольших сиреневых соцветий. На рисунке сочетаются раскрытые многолепестковые цветы, бутоны и цветущие веточки.',
+                    'alt' => 'Торт-открытка с изображением крупных розовых цветов, бутонов и сиреневых соцветий.',
+                ),
+            ),
+        ),
     );
 
     if (!isset($galleries[$gallery_key])) {
@@ -1701,7 +1791,10 @@ function antonova_landing_gallery_data($gallery_key) {
             'Шоколадные конфеты шахматная доска.webp' => array('Шахматная композиция', 'Шахматная композиция со светлыми и коричневыми фигурами и золотистым декором'),
         ),
     );
-    $gallery_dir = trailingslashit(get_template_directory()) . 'assets/landing-galleries/' . $gallery_key;
+    $asset_directory = isset($gallery['asset_directory'])
+        ? trim(str_replace('\\', '/', $gallery['asset_directory']), '/')
+        : 'assets/landing-galleries/' . $gallery_key;
+    $gallery_dir = trailingslashit(get_template_directory()) . str_replace('/', DIRECTORY_SEPARATOR, $asset_directory);
     $files = glob($gallery_dir . '/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG,WEBP,AVIF}', GLOB_BRACE);
     $known_files = array();
 
@@ -1709,7 +1802,7 @@ function antonova_landing_gallery_data($gallery_key) {
         $known_files[$item['file']] = true;
     }
 
-    if (is_array($files)) {
+    if ((!isset($gallery['discover_files']) || $gallery['discover_files']) && is_array($files)) {
         natcasesort($files);
         foreach ($files as $path) {
             $filename = wp_basename($path);
@@ -1729,6 +1822,7 @@ function antonova_landing_gallery_data($gallery_key) {
                 'birthday' => 'Авторский торт на день рождения',
                 'chocolate' => 'Шоколад ручной работы',
                 'wedding' => 'Авторский свадебный торт',
+                'postcard' => 'Авторский торт-открытка',
             );
             $description = $has_human_name ? $name : $fallback[$gallery_key];
 
@@ -1742,9 +1836,18 @@ function antonova_landing_gallery_data($gallery_key) {
     }
 
     foreach ($gallery['items'] as $index => $item) {
+        $encoded_directory = implode('/', array_map('rawurlencode', explode('/', $asset_directory)));
         $gallery['items'][$index]['src'] = antonova_theme_asset(
-            'assets/landing-galleries/' . $gallery_key . '/' . rawurlencode($item['file'])
+            $encoded_directory . '/' . rawurlencode($item['file'])
         );
+        if ('postcard' === $gallery_key) {
+            $image_path = $gallery_dir . DIRECTORY_SEPARATOR . $item['file'];
+            $image_size = file_exists($image_path) ? getimagesize($image_path) : false;
+            if ($image_size) {
+                $gallery['items'][$index]['width'] = (int) $image_size[0];
+                $gallery['items'][$index]['height'] = (int) $image_size[1];
+            }
+        }
     }
 
     return $gallery;

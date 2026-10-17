@@ -17,13 +17,16 @@ if (empty($gallery['id']) || empty($gallery['label'])) {
 $items = !empty($gallery['items']) && is_array($gallery['items']) ? $gallery['items'] : array();
 $show_thumbnails = !array_key_exists('show_thumbnails', $gallery) || (bool) $gallery['show_thumbnails'];
 $show_details = !empty($gallery['show_details']);
+$show_description = !array_key_exists('show_description', $gallery) || (bool) $gallery['show_description'];
+$show_price = !array_key_exists('show_price', $gallery) || (bool) $gallery['show_price'];
+$show_dialog_description = !empty($gallery['show_dialog_description']);
 $has_multiple_items = count($items) > 1;
 $gallery_classes = 'landing-thumbnail-gallery';
 if (!empty($gallery['class'])) {
     $gallery_classes .= ' ' . sanitize_html_class($gallery['class']);
 }
 ?>
-<section class="<?php echo esc_attr($gallery_classes); ?>" aria-label="<?php echo esc_attr($gallery['label']); ?>" data-thumbnail-gallery>
+<section class="<?php echo esc_attr($gallery_classes); ?>" aria-label="<?php echo esc_attr($gallery['label']); ?>" data-thumbnail-gallery<?php if ($show_dialog_description) : ?> data-thumbnail-dialog-details<?php endif; ?>>
     <?php if (!empty($items)) : ?>
         <div class="landing-thumbnail-gallery-stage">
             <?php if ($has_multiple_items) : ?>
@@ -49,8 +52,8 @@ if (!empty($gallery['class'])) {
                                 <span aria-hidden="true">←</span>
                             </label>
                         <?php endif; ?>
-                        <a href="<?php echo esc_url($item['src']); ?>" data-thumbnail-open aria-label="Увеличить: <?php echo esc_attr($item['caption']); ?>">
-                            <img src="<?php echo esc_url($item['src']); ?>" alt="<?php echo esc_attr($item['alt']); ?>" loading="lazy" decoding="async">
+                        <a href="<?php echo esc_url($item['src']); ?>" data-thumbnail-open data-thumbnail-caption="<?php echo esc_attr($item['caption']); ?>" data-thumbnail-description="<?php echo esc_attr($item['description'] ?? ''); ?>" aria-label="Увеличить: <?php echo esc_attr($item['caption']); ?>">
+                            <img src="<?php echo esc_url($item['src']); ?>" alt="<?php echo esc_attr($item['alt']); ?>"<?php if (!empty($item['width']) && !empty($item['height'])) : ?> width="<?php echo esc_attr($item['width']); ?>" height="<?php echo esc_attr($item['height']); ?>"<?php endif; ?> loading="lazy" decoding="async">
                         </a>
                         <?php if ($has_multiple_items) : ?>
                             <label class="landing-thumbnail-gallery-html-arrow" for="<?php echo esc_attr($next_choice_id); ?>" aria-label="Следующая фотография">
@@ -60,8 +63,8 @@ if (!empty($gallery['class'])) {
                         <?php if ($show_details) : ?>
                             <figcaption class="landing-thumbnail-gallery-caption">
                                 <strong><?php echo esc_html($item['caption']); ?></strong>
-                                <?php if (!empty($item['description'])) : ?><span><?php echo esc_html($item['description']); ?></span><?php endif; ?>
-                                <?php if (!empty($item['price'])) : ?><span class="landing-thumbnail-gallery-price"><?php echo esc_html($item['price']); ?></span><?php endif; ?>
+                                <?php if ($show_description && !empty($item['description'])) : ?><span><?php echo esc_html($item['description']); ?></span><?php endif; ?>
+                                <?php if ($show_price && !empty($item['price'])) : ?><span class="landing-thumbnail-gallery-price"><?php echo esc_html($item['price']); ?></span><?php endif; ?>
                             </figcaption>
                         <?php else : ?>
                             <figcaption class="screen-reader-text"><?php echo esc_html($item['caption']); ?></figcaption>
@@ -83,7 +86,7 @@ if (!empty($gallery['class'])) {
                     <?php $panel_id = $gallery['id'] . '-photo-' . ($index + 1); ?>
                     <?php $choice_id = $gallery['id'] . '-choice-' . ($index + 1); ?>
                     <label class="landing-thumbnail-gallery-thumbnail<?php echo 0 === $index ? ' is-active' : ''; ?>" for="<?php echo esc_attr($choice_id); ?>" data-thumbnail-trigger data-thumbnail-target="<?php echo esc_attr($panel_id); ?>" aria-controls="<?php echo esc_attr($panel_id); ?>" aria-current="<?php echo 0 === $index ? 'true' : 'false'; ?>">
-                        <img src="<?php echo esc_url($item['src']); ?>" alt="<?php echo esc_attr('Миниатюра: ' . $item['alt']); ?>" loading="lazy" decoding="async">
+                        <img src="<?php echo esc_url($item['src']); ?>" alt="<?php echo esc_attr('Миниатюра: ' . $item['alt']); ?>"<?php if (!empty($item['width']) && !empty($item['height'])) : ?> width="<?php echo esc_attr($item['width']); ?>" height="<?php echo esc_attr($item['height']); ?>"<?php endif; ?> loading="lazy" decoding="async">
                         <span class="screen-reader-text"><?php echo esc_html('Показать: ' . $item['caption']); ?></span>
                     </label>
                 <?php endforeach; ?>
