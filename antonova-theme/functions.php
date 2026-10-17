@@ -815,8 +815,8 @@ function antonova_seo_limit($value, $limit) {
 
 function antonova_seo_context() {
     $context = array(
-        'title' => 'Торты на заказ в Москве | Oksana Antonova',
-        'description' => 'Авторские торты на заказ в Москве: детские, свадебные, праздничные и ко дню рождения. Самовывоз в Коптево, доставка по Москве и области.',
+        'title' => 'Торты на заказ в Москве — авторские десерты | Оксана Антонова',
+        'description' => 'Торты и авторские десерты на заказ в Москве от Оксаны Антоновой. Классические и тематические торты, шоколад и домашние сладости. Фото, цены, самовывоз в Коптево и доставка по Москве и области.',
         'url' => home_url('/'),
         'type' => 'website',
     );
@@ -1044,7 +1044,7 @@ add_filter('wpseo_opengraph_type', 'antonova_yoast_opengraph_type');
 function antonova_yoast_schema_webpage($data) {
     if (is_front_page()) {
         $data['@type'] = 'WebPage';
-        $data['name'] = 'Торты на заказ в Москве | Oksana Antonova';
+        $data['name'] = 'Торты на заказ в Москве — авторские десерты | Оксана Антонова';
     }
 
     if (is_page('handmade-chocolate')) {
@@ -1098,16 +1098,18 @@ function antonova_render_seo_meta() {
 
     $context = antonova_seo_context();
     $image = antonova_social_image_url();
-    echo '<meta name="description" content="' . esc_attr(antonova_seo_limit($context['description'], 160)) . '">' . "\n";
+    $meta_title = is_front_page() ? $context['title'] : antonova_seo_limit($context['title'], 60);
+    $meta_description = is_front_page() ? $context['description'] : antonova_seo_limit($context['description'], 160);
+    echo '<meta name="description" content="' . esc_attr($meta_description) . '">' . "\n";
     echo '<link rel="canonical" href="' . esc_url($context['url']) . '">' . "\n";
     echo '<meta property="og:type" content="' . esc_attr($context['type']) . '">' . "\n";
     echo '<meta property="og:locale" content="ru_RU">' . "\n";
-    echo '<meta property="og:title" content="' . esc_attr(antonova_seo_limit($context['title'], 60)) . '">' . "\n";
-    echo '<meta property="og:description" content="' . esc_attr(antonova_seo_limit($context['description'], 160)) . '">' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr($meta_title) . '">' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr($meta_description) . '">' . "\n";
     echo '<meta property="og:url" content="' . esc_url($context['url']) . '">' . "\n";
     echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
-    echo '<meta name="twitter:title" content="' . esc_attr(antonova_seo_limit($context['title'], 60)) . '">' . "\n";
-    echo '<meta name="twitter:description" content="' . esc_attr(antonova_seo_limit($context['description'], 160)) . '">' . "\n";
+    echo '<meta name="twitter:title" content="' . esc_attr($meta_title) . '">' . "\n";
+    echo '<meta name="twitter:description" content="' . esc_attr($meta_description) . '">' . "\n";
     if ($image) {
         echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
         echo '<meta name="twitter:image" content="' . esc_url($image) . '">' . "\n";
@@ -1291,6 +1293,20 @@ function antonova_theme_folder_images($relative_directory) {
     return $images;
 }
 
+/** Return the reviewed titles, alt text and lightbox descriptions for homepage works. */
+function antonova_home_work_metadata() {
+    static $metadata = null;
+
+    if (null !== $metadata) {
+        return $metadata;
+    }
+
+    $metadata_file = get_template_directory() . '/inc/homepage-work-metadata.php';
+    $metadata = is_file($metadata_file) ? require $metadata_file : array();
+
+    return is_array($metadata) ? $metadata : array();
+}
+
 /** Return every homepage work from its category folder as one portfolio. */
 function antonova_home_file_based_works() {
     $categories = array(
@@ -1302,16 +1318,32 @@ function antonova_home_file_based_works() {
         'chocolate_desserts' => 'Шоколад и десерты',
     );
 
+    $metadata = antonova_home_work_metadata();
     $works = array();
     foreach ($categories as $category => $folder) {
         $images = antonova_theme_folder_images('assets/homepage-all-works/' . $folder);
         foreach ($images as $image) {
+            $work_metadata = isset($metadata[$image['filename']]) && is_array($metadata[$image['filename']])
+                ? $metadata[$image['filename']]
+                : array();
+
+            if (!empty($work_metadata['title'])) {
+                $image['title'] = $work_metadata['title'];
+            }
+            if (!empty($work_metadata['alt'])) {
+                $image['alt'] = $work_metadata['alt'];
+            }
+            $image['description'] = !empty($work_metadata['description']) ? $work_metadata['description'] : '';
+            $image['order'] = isset($work_metadata['order']) ? (int) $work_metadata['order'] : PHP_INT_MAX;
             $image['category'] = $category;
             $works[] = $image;
         }
     }
 
     usort($works, static function ($left, $right) {
+        if ($left['order'] !== $right['order']) {
+            return $left['order'] <=> $right['order'];
+        }
         return strnatcasecmp($left['filename'], $right['filename']);
     });
 

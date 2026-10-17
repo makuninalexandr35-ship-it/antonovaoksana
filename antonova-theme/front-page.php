@@ -10,9 +10,13 @@
       <div class="hero-shade"></div>
       <div class="hero-content reveal">
         <h1 class="home-hero-title"><span>Торты и авторские</span> <span>десерты на заказ</span> <span>в Москве</span></h1>
-        <p class="lead home-hero-lead"><span>Индивидуальные вкусы, оформление и внимание к каждой детали.</span><span>От идеи и референса до десерта, который станет частью вашего</span><span>праздника.</span></p>
+        <div class="lead home-hero-lead">
+          <p>Готовлю торты и авторские десерты на заказ в Москве: от классических и тематических тортов до шоколада ручной работы и домашних сладостей.</p>
+          <p>Выберите работу из портфолио или пришлите свою идею. Обсудим начинку, размер, оформление и стоимость заказа.</p>
+        </div>
         <div class="actions">
           <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать в MAX</a>
+          <a class="button button-ghost" href="tel:<?php echo esc_attr(antonova_content('antonova_phone_tel', '+79647281844')); ?>">Позвонить</a>
         </div>
         <ul class="hero-facts" aria-label="Краткая информация">
           <li><span class="fact-icon">♨</span><span><b>Торты</b><?php echo esc_html($price_cards[0]['price'] ?? 'от 3000 ₽/кг'); ?></span></li>
@@ -24,16 +28,34 @@
 
     <section id="products" class="section products reveal">
       <div class="section-heading split-heading">
-        <div><p class="eyebrow">Что можно заказать</p><h2>Десерты для праздника, подарка<br>или просто особенного дня</h2><p>Выберите готовое направление или расскажите свою идею.<br>Оформление и детали обсудим индивидуально.</p></div>
+        <div>
+          <p class="eyebrow">Что можно заказать</p>
+          <h2>Какие торты и десерты можно заказать</h2>
+          <p>Я готовлю торты, шоколад ручной работы, шоколадные конфеты, домашние пирожные, орешки с начинкой, фрукты в шоколадной глазури и зефир.</p>
+          <p>Выберите интересующую категорию, чтобы посмотреть фотографии выполненных работ и узнать ориентировочную стоимость.</p>
+        </div>
       </div>
       <div class="product-grid">
-        <?php foreach (antonova_get_products() as $product) : ?>
+        <?php
+        $antonova_product_links = array(
+            home_url('/#cake-types'),
+            home_url('/handmade-chocolate/'),
+            home_url('/#price-item-2'),
+            home_url('/#price-item-3'),
+            home_url('/#price-item-4'),
+            home_url('/#price-item-5'),
+            home_url('/#price-item-6'),
+        );
+        ?>
+        <?php foreach (antonova_get_products() as $product_index => $product) : ?>
           <?php $product_srcset = antonova_responsive_image_srcset($product['image']); ?>
           <article>
-            <img src="<?php echo esc_url($product['image']); ?>"<?php if ($product_srcset) : ?> srcset="<?php echo esc_attr($product_srcset); ?>"<?php endif; ?> alt="<?php echo esc_attr(str_replace("\n", " ", $product['name'])); ?>" loading="lazy" decoding="async" sizes="(max-width: 700px) 170px, (max-width: 1100px) 25vw, 14vw">
-            <div>
-              <h3><?php echo nl2br(esc_html($product['name'])); ?></h3>
-            </div>
+            <a class="product-card-link" href="<?php echo esc_url($antonova_product_links[$product_index] ?? home_url('/#price')); ?>">
+              <img src="<?php echo esc_url($product['image']); ?>"<?php if ($product_srcset) : ?> srcset="<?php echo esc_attr($product_srcset); ?>"<?php endif; ?> alt="<?php echo esc_attr(str_replace("\n", " ", $product['name'])); ?>" loading="lazy" decoding="async" sizes="(max-width: 700px) 170px, (max-width: 1100px) 25vw, 14vw">
+              <div>
+                <h3><?php echo nl2br(esc_html($product['name'])); ?></h3>
+              </div>
+            </a>
           </article>
         <?php endforeach; ?>
       </div>
@@ -64,7 +86,32 @@
       </section>
     </section>
 
-    <section class="custom-cake reveal" aria-labelledby="custom-cake-title">
+    <section id="price" class="price-section reveal">
+      <p class="eyebrow">Стоимость продукции</p>
+      <div class="product-price-grid">
+        <?php foreach ($price_cards as $i => $card) : ?>
+          <?php $price = $card['price']; $price_parts = array(); $has_price_parts = preg_match('/^(от\s*)?([\d\s]+)(.*)$/u', $price, $price_parts); ?>
+          <article id="price-item-<?php echo esc_attr($i); ?>" class="product-price-card">
+            <div class="product-price-card-title">
+              <span class="product-price-icon"><?php echo antonova_product_price_icon($i); ?></span>
+              <h3><?php echo nl2br(esc_html($card['name'])); ?></h3>
+            </div>
+            <p class="product-price-value">
+              <?php if ($has_price_parts) : ?>
+                <span class="product-price-prefix"><?php echo esc_html(trim($price_parts[1] ?? '')); ?></span>
+                <strong><?php echo esc_html(trim($price_parts[2])); ?></strong>
+                <span class="product-price-unit"><?php echo esc_html(trim($price_parts[3])); ?></span>
+              <?php else : ?>
+                <strong><?php echo esc_html($price); ?></strong>
+              <?php endif; ?>
+            </p>
+          </article>
+        <?php endforeach; ?>
+      </div>
+      <a class="button button-light price-order-button" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Рассчитать заказ</a>
+    </section>
+
+    <section id="cake-types" class="custom-cake reveal" aria-labelledby="custom-cake-title">
       <?php $classic_card_image = antonova_home_category_cover('Классические торты', antonova_theme_asset('assets/optimized/c6097e4cd88b-2268.webp')); ?>
       <?php $thematic_card_image = antonova_home_category_cover('Тематические торты', antonova_theme_asset('assets/works/' . rawurlencode('ezgif.com-jpg-to-webp-converter (15).webp'))); ?>
       <div class="custom-copy">
@@ -143,9 +190,9 @@
         <div class="work-grid" data-work-grid>
           <?php foreach ($theme_works as $work) : ?>
             <article class="work-card" data-work-card data-categories="<?php echo esc_attr($work['category']); ?>">
-              <a href="<?php echo esc_url($work['image']); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work['image']); ?>" data-work-title="<?php echo esc_attr($work['title']); ?>" aria-label="Увеличить: <?php echo esc_attr($work['title']); ?>">
-                <img src="<?php echo esc_url($work['image']); ?>" width="<?php echo esc_attr($work['width']); ?>" height="<?php echo esc_attr($work['height']); ?>" alt="<?php echo esc_attr($work['alt']); ?>" loading="lazy" decoding="async" sizes="(max-width: 700px) calc(50vw - 23px), (max-width: 900px) 25vw, 16vw">
-                <span class="work-card-caption"><b><?php echo esc_html($work['title']); ?></b><span>Увеличить фото →</span></span>
+              <a href="<?php echo esc_url($work['image']); ?>" data-work-lightbox data-work-image="<?php echo esc_url($work['image']); ?>" data-work-title="<?php echo esc_attr($work['title']); ?>" data-work-description="<?php echo esc_attr($work['description']); ?>" aria-label="Увеличить: <?php echo esc_attr($work['title']); ?>">
+                <span class="work-card-media"><img src="<?php echo esc_url($work['image']); ?>" width="<?php echo esc_attr($work['width']); ?>" height="<?php echo esc_attr($work['height']); ?>" alt="<?php echo esc_attr($work['alt']); ?>" loading="lazy" decoding="async" sizes="(max-width: 700px) calc(50vw - 23px), (max-width: 900px) 25vw, 16vw"></span>
+                <span class="work-card-title"><?php echo esc_html($work['title']); ?></span>
               </a>
             </article>
           <?php endforeach; ?>
@@ -173,38 +220,25 @@
           <div class="work-lightbox-zoom" data-work-lightbox-zoom hidden aria-hidden="true"></div>
           <button class="work-lightbox-arrow work-lightbox-next" type="button" data-work-lightbox-next aria-label="Следующая фотография">→</button>
         </div>
-        <p data-work-lightbox-title></p>
+        <div class="work-lightbox-copy">
+          <p data-work-lightbox-title></p>
+          <p data-work-lightbox-description></p>
+        </div>
       </div>
     </div>
 
-    <section id="price" class="price-section reveal">
-      <p class="eyebrow">Стоимость продукции</p>
-      <div class="product-price-grid">
-        <?php foreach ($price_cards as $i => $card) : ?>
-          <?php $price = $card['price']; $price_parts = array(); $has_price_parts = preg_match('/^(от\s*)?([\d\s]+)(.*)$/u', $price, $price_parts); ?>
-          <article class="product-price-card">
-            <div class="product-price-card-title">
-              <span class="product-price-icon"><?php echo antonova_product_price_icon($i); ?></span>
-              <h3><?php echo nl2br(esc_html($card['name'])); ?></h3>
-            </div>
-            <p class="product-price-value">
-              <?php if ($has_price_parts) : ?>
-                <span class="product-price-prefix"><?php echo esc_html(trim($price_parts[1] ?? '')); ?></span>
-                <strong><?php echo esc_html(trim($price_parts[2])); ?></strong>
-                <span class="product-price-unit"><?php echo esc_html(trim($price_parts[3])); ?></span>
-              <?php else : ?>
-                <strong><?php echo esc_html($price); ?></strong>
-              <?php endif; ?>
-            </p>
-          </article>
-        <?php endforeach; ?>
-      </div>
-      <a class="button button-light price-order-button" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Рассчитать заказ</a>
-    </section>
-
     <section id="order" class="section order reveal">
-      <p class="eyebrow">Как заказать</p><h2>Четыре шага до вашего десерта</h2>
-      <ol class="steps"><li><span>01</span><b>Напишите в MAX</b><p>Расскажите, что хотите заказать и к какой дате.</p></li><li><span>02</span><b>Обсудим детали</b><p>Количество гостей, вес, начинку и оформление.</p></li><li><span>03</span><b>Согласуем стоимость</b><p>Рассчитаем декор и при необходимости доставку.</p></li><li><span>04</span><b>Получите заказ</b><p>Самовывозом или удобной курьерской доставкой.</p></li></ol>
+      <p class="eyebrow">Как заказать</p><h2>Как заказать торт или десерт</h2>
+      <ol class="steps">
+        <li><span>01</span><b>Выберите десерт и дату</b><p>Напишите мне в MAX, какой торт или десерт вы хотите заказать и к какой дате.</p></li>
+        <li><span>02</span><b>Обсудим детали</b><p>Если нужен торт, уточним количество гостей, вес, начинку и оформление. Для других десертов обсудим виды изделий, необходимое количество и упаковку.</p></li>
+        <li><span>03</span><b>Согласуем стоимость</b><p>После обсуждения деталей я рассчитаю стоимость заказа. При необходимости отдельно согласуем декоративное оформление и доставку.</p></li>
+        <li><span>04</span><b>Получите готовый заказ</b><p>Вы можете забрать готовый заказ самостоятельно или согласовать курьерскую доставку.</p></li>
+      </ol>
+      <div class="order-delivery">
+        <p><b>Самовывоз — район Коптево, Москва. Курьерская доставка — по Москве и Московской области, стоимость рассчитывается индивидуально.</b></p>
+        <p>Точное место и время получения заказа согласовываются при оформлении.</p>
+      </div>
     </section>
 
     <?php $about_image = antonova_optimized_media_url(antonova_content('antonova_about_image', '')); ?>
@@ -216,14 +250,9 @@
       <div class="about-copy">
         <p class="eyebrow">Кондитер — по любви</p>
         <h2>Оксана Антонова</h2>
-        <p>Меня зовут Оксана Антонова, и уже 3 года я создаю десерты, которыми с удовольствием радую не только родных и близких, но и своих заказчиков.</p>
-        <p>А началось всё совершенно неожиданно — <b>со свадьбы моего крестника.</b></p>
-        <p>Я искала торт к этому важному дню, выбирала варианты… а в какой-то момент решила: <b>почему бы не попробовать сделать его самой?</b> Так появился мой первый торт. Результат настолько меня вдохновил, что я захотела узнать о кондитерском искусстве больше — и постепенно этот удивительный мир стал важной частью моей жизни.</p>
-        <p>Сегодня я продолжаю учиться, пробовать и осваивать разные направления. Я пока не хочу ограничивать себя чем-то одним — мне интересно открывать новые техники, идеи и возможности.</p>
-        <p><b>Классические рецепты? Могу, умею, практикую.</b> Но особенно мне нравится создавать что-то необычное и интересное — десерты, которые хочется сначала рассматривать, а уже потом пробовать.</p>
-        <p>Наверное, именно поэтому кондитерское дело так меня увлекает: здесь всегда есть место для нового, для творчества и для того самого приятного момента, когда идея постепенно превращается в готовый десерт.</p>
-        <p>Я продолжаю развиваться, экспериментировать и с удовольствием создавать сладости для ваших особенных моментов. <span class="about-heart" aria-label="сердце">♥</span></p>
-        <p class="about-closing"><b>Буду рада создать что-нибудь вкусное и для вас.</b></p>
+        <p>Меня зовут Оксана Антонова. Моё увлечение кондитерским делом началось со свадьбы крестника. Я искала торт для его праздника, а потом решила попробовать приготовить его сама. Это был мой первый свадебный торт, после которого мне захотелось продолжить заниматься кондитерским делом.</p>
+        <p>Сегодня я создаю торты и авторские десерты на заказ. Мне нравится работать с разными вариантами оформления: от классического кремового декора до тематических тортов и шоколадных композиций.</p>
+        <p>В работе я учитываю пожелания заказчика — какой вкус выбрать, каким должен быть размер и какие детали хочется видеть в оформлении. Если у вас есть собственная идея или фотография понравившейся работы, присылайте её, и мы обсудим заказ.</p>
       </div>
       <?php if ($about_image) : ?>
         <figure class="about-photo"><img src="<?php echo esc_url($about_image); ?>" alt="Оксана Антонова" loading="lazy"></figure>
@@ -238,7 +267,15 @@
     </section>
 
     <section class="telegram-cta reveal">
-      <p class="eyebrow">Готовы оформить заказ?</p><h2>Расскажите, какой<br>десерт вы хотите</h2><p>Напишите напрямую в MAX. Чтобы быстрее рассчитать заказ, укажите дату, количество гостей, желаемый вес и начинку. Если есть идея оформления — прикрепите фотографию.</p><a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать в MAX</a><a class="phone" href="tel:<?php echo esc_attr(antonova_content('antonova_phone_tel', '+79647281844')); ?>"><?php echo esc_html(antonova_content('antonova_phone_display', '+7 964 728-18-44')); ?></a>
+      <p class="eyebrow">Готовы оформить заказ?</p>
+      <h2>Расскажите, какой<br>десерт вы хотите</h2>
+      <div class="telegram-cta-copy">
+        <p>Напишите мне в MAX, какой торт или десерт хотите заказать и к какой дате.</p>
+        <p>Если нужен торт, укажите примерное количество гостей и желаемую начинку. Для шоколада и других десертов сообщите, какие изделия и в каком количестве необходимы.</p>
+        <p>Если у вас есть фотография или эскиз оформления, приложите его к сообщению. Мы обсудим детали и рассчитаем стоимость заказа.</p>
+      </div>
+      <a class="button button-light" href="<?php echo esc_url(antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo')); ?>" target="_blank" rel="noopener noreferrer"><img class="max-icon" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/max-logo.svg" alt="" aria-hidden="true">Заказать в MAX</a>
+      <a class="phone" href="tel:<?php echo esc_attr(antonova_content('antonova_phone_tel', '+79647281844')); ?>"><?php echo esc_html(antonova_content('antonova_phone_display', '+7 964 728-18-44')); ?></a>
     </section>
 
     <section id="faq" class="section faq reveal">

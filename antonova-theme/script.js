@@ -179,6 +179,7 @@ const workLightbox = document.querySelector('[data-work-lightbox-dialog]');
 if (workLightbox) {
   const image = workLightbox.querySelector('[data-work-lightbox-image]');
   const title = workLightbox.querySelector('[data-work-lightbox-title]');
+  const description = workLightbox.querySelector('[data-work-lightbox-description]');
   const viewer = workLightbox.querySelector('[data-work-lightbox-viewer]');
   const source = workLightbox.querySelector('[data-work-lightbox-source]');
   const lens = workLightbox.querySelector('[data-work-lightbox-lens]');
@@ -201,6 +202,7 @@ if (workLightbox) {
     image.src = item.dataset.workImage;
     image.alt = item.dataset.workTitle;
     title.textContent = item.dataset.workTitle;
+    if (description) description.textContent = item.dataset.workDescription || '';
     resetZoom();
   };
 
