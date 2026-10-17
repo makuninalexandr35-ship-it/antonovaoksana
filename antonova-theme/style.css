@@ -305,7 +305,7 @@ footer .footer-identity{justify-items:center;align-items:center;text-align:cente
 .section-heading h1{font:clamp(36px,4vw,58px)/1.14 var(--serif);letter-spacing:-.035em;margin:0}.postcard-cakes-links{display:block}.postcard-cakes-links p{max-width:760px;margin:12px auto 0;text-align:center}.postcard-cakes-links .landing-page-links-actions{margin-top:22px}@media(max-width:700px){.section-heading h1{font-size:36px}.section-heading h1 br{display:none}.postcard-cakes-hero .home-hero-title{font-size:clamp(31px,9vw,38px);line-height:1.04}.postcard-cakes-hero .home-hero-title>span{white-space:normal}}
 
 /* Final homepage and footer alignment refinements. */
-.works-heading{display:block}.works-heading .works-intro{margin-left:auto;margin-right:auto;text-align:center}
+.works-heading{display:block}.section-heading.works-heading p.works-intro{margin:16px auto 0;text-align:center}
 @media(min-width:901px){.custom-cake-card-copy-thematic{width:100%;max-width:none!important;padding-left:0!important;padding-right:0!important;text-wrap:wrap!important}.custom-cake-card-copy-thematic>span{display:block;white-space:nowrap}}
 @media(max-width:900px){.custom-cake-card-copy-thematic>span{display:inline;white-space:normal}.custom-cake-card-copy-thematic>span:not(:last-child)::after{content:' '}}
 @media(min-width:1250px){footer .footer-identity{justify-items:start;align-items:start;text-align:left}footer .footer-phone{justify-self:start}}
