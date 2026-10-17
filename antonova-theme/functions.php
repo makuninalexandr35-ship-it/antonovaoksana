@@ -1924,7 +1924,19 @@ function antonova_homepage_product_image_files() {
 }
 
 function antonova_homepage_product_image($filename) {
-    return antonova_theme_asset('assets/homepage-products/' . rawurlencode($filename));
+    static $urls = array();
+    if (isset($urls[$filename])) {
+        return $urls[$filename];
+    }
+
+    $url = antonova_theme_asset('assets/homepage-products/' . rawurlencode($filename));
+    $file = trailingslashit(get_template_directory()) . 'assets/homepage-products/' . $filename;
+    if (is_file($file)) {
+        $url = add_query_arg('v', substr(hash_file('sha256', $file), 0, 12), $url);
+    }
+
+    $urls[$filename] = $url;
+    return $url;
 }
 
 function antonova_default_products() {
