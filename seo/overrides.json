@@ -50,7 +50,8 @@
     },
     "sitemap": {
       "https://antonovaoksana.ru/?work_category=birthday_cakes": "listed",
-      "https://antonovaoksana.ru/?work_category=cake_cards": "listed"
+      "https://antonovaoksana.ru/?work_category=cake_cards": "listed",
+      "https://antonovaoksana.ru/?work_category=chocolate_desserts": "listed"
     },
     "title": "Авторские торты и десерты на заказ в Москве | Оксана Антонова"
   },
@@ -101,7 +102,7 @@
         "Sitemap: https://antonovaoksana.ru/wp-sitemap.xml": null
       },
       "sitemap": {
-        "https://antonovaoksana.ru/?work_category=cake_cards": null
+        "https://antonovaoksana.ru/?work_category=chocolate_desserts": null
       },
       "title": "Торты на заказ в Москве — авторские десерты | Оксана Антонова"
     },
