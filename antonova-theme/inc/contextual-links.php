@@ -11,6 +11,13 @@ if (!defined('ABSPATH')) {
 }
 
 function antonova_contextual_link_rules() {
+    // This commercial landing has an exact, approved link map in its template.
+    // Keep its copy untouched and avoid turning words inside paragraphs into
+    // additional links or button-shaped elements.
+    if (is_page('postcard-cakes')) {
+        return array();
+    }
+
     $space = '(?:\s|&nbsp;|&#160;|\x{00A0})+';
 
     $rules = array(
