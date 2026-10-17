@@ -1911,15 +1911,33 @@ function antonova_migrate_home_hero_h1_v3() {
 }
 add_action('init', 'antonova_migrate_home_hero_h1_v3', 20);
 
-function antonova_default_products() {
+function antonova_homepage_product_image_files() {
     return array(
-        array('name' => 'Торты', 'price' => 'от 3000 ₽/кг', 'image' => antonova_theme_asset('assets/optimized/38a4229c5821-960.webp')),
-        array('name' => 'Шоколад ручной работы', 'price' => 'от 2000 ₽', 'image' => antonova_theme_asset('assets/optimized/7cff2bb5e784-960.webp')),
-        array('name' => 'Шоколадные конфеты ручной работы', 'price' => 'от 150 ₽', 'image' => antonova_theme_asset('assets/optimized/4127335644ff-720.webp')),
-        array('name' => 'Ассорти домашних пирожных', 'price' => 'от 200 ₽', 'image' => antonova_theme_asset('assets/optimized/f96267f0396d-1086.webp')),
-        array('name' => 'Печенье орешки с начинкой', 'price' => 'от 100 ₽', 'image' => antonova_theme_asset('assets/optimized/f015a856bc41-1600.webp')),
-        array('name' => 'Свежие фрукты в шоколадной глазури', 'price' => 'от 1500 ₽', 'image' => antonova_theme_asset('assets/optimized/981461dca556-1183.webp')),
-        array('name' => 'Зефир', 'price' => 'от 150 ₽', 'image' => antonova_theme_asset('assets/optimized/a73d6dbb6d7f-720.webp')),
+        '01 Торты.webp',
+        '02 Шоколад ручной работы.webp',
+        '03 Шоколадные конфеты ручной работы.webp',
+        '04 Ассорти домашних пирожных.webp',
+        '05 Печенье орешки с начинкой.webp',
+        '06 Свежие фрукты в шоколадной глазури.webp',
+        '07 Зефир.webp',
+    );
+}
+
+function antonova_homepage_product_image($filename) {
+    return antonova_theme_asset('assets/homepage-products/' . rawurlencode($filename));
+}
+
+function antonova_default_products() {
+    $images = antonova_homepage_product_image_files();
+
+    return array(
+        array('name' => 'Торты', 'price' => 'от 3000 ₽/кг', 'image' => antonova_homepage_product_image($images[0])),
+        array('name' => 'Шоколад ручной работы', 'price' => 'от 2000 ₽', 'image' => antonova_homepage_product_image($images[1])),
+        array('name' => 'Шоколадные конфеты ручной работы', 'price' => 'от 150 ₽', 'image' => antonova_homepage_product_image($images[2])),
+        array('name' => 'Ассорти домашних пирожных', 'price' => 'от 200 ₽', 'image' => antonova_homepage_product_image($images[3])),
+        array('name' => 'Печенье орешки с начинкой', 'price' => 'от 100 ₽', 'image' => antonova_homepage_product_image($images[4])),
+        array('name' => 'Свежие фрукты в шоколадной глазури', 'price' => 'от 1500 ₽', 'image' => antonova_homepage_product_image($images[5])),
+        array('name' => 'Зефир', 'price' => 'от 150 ₽', 'image' => antonova_homepage_product_image($images[6])),
     );
 }
 
@@ -2045,7 +2063,13 @@ function antonova_merge_rows($saved, $defaults) {
 }
 
 function antonova_get_products() {
-    return antonova_merge_rows(get_option('antonova_products', array()), antonova_default_products());
+    $products = antonova_merge_rows(get_option('antonova_products', array()), antonova_default_products());
+    foreach (antonova_homepage_product_image_files() as $index => $filename) {
+        if (isset($products[$index])) {
+            $products[$index]['image'] = antonova_homepage_product_image($filename);
+        }
+    }
+    return $products;
 }
 function antonova_get_product_prices() {
     return antonova_merge_rows(get_option('antonova_product_prices', array()), antonova_default_product_prices());

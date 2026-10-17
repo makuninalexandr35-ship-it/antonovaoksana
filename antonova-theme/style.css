@@ -308,4 +308,4 @@ footer .footer-identity{justify-items:center;align-items:center;text-align:cente
 .works-heading{display:block}.section-heading.works-heading p.works-intro{margin:16px auto 0;text-align:center}
 @media(min-width:901px){.custom-cake-card-copy-thematic{width:100%;max-width:none!important;padding-left:0!important;padding-right:0!important;text-wrap:wrap!important}.custom-cake-card-copy-thematic>span{display:block;white-space:nowrap}}
 @media(max-width:900px){.custom-cake-card-copy-thematic>span{display:inline;white-space:normal}.custom-cake-card-copy-thematic>span:not(:last-child)::after{content:' '}}
-@media(min-width:1250px){footer .footer-identity{justify-items:start;align-items:start;text-align:left}footer .footer-phone{justify-self:start}}
+@media(min-width:1250px){footer .footer-identity{width:230px;justify-self:start;justify-items:center;align-items:start;text-align:center}footer .footer-phone{justify-self:center}}
