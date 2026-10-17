@@ -87,7 +87,7 @@ get_header();
         <nav class="page-breadcrumbs" aria-label="Хлебные крошки"><a href="<?php echo esc_url(home_url('/')); ?>">Главная</a><span aria-hidden="true">→</span><span aria-current="page">Торты-открытки</span></nav>
         <div class="page-content postcard-page-copy">
             <section class="postcard-copy-section" aria-labelledby="postcard-portfolio-title">
-                <h2 id="postcard-portfolio-title">Фото тортов-открыток — мои работы</h2>
+                <h2 id="postcard-portfolio-title">Фото тортов-открыток</h2>
                 <p>В моём портфолио представлены торты-открытки с цветочными изображениями и новогодним сюжетом. Выберите понравившееся оформление или предложите собственную картинку.</p>
                 <?php echo antonova_landing_thumbnail_gallery_html('postcard'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             </section>
@@ -95,7 +95,7 @@ get_header();
             <aside class="landing-page-links postcard-other-links" aria-labelledby="postcard-other-title">
                 <h2 id="postcard-other-title">Другие направления</h2>
                 <p>Помимо тортов-открыток, я готовлю праздничные торты и шоколад ручной работы. Посмотрите другие направления моего ассортимента.</p>
-                <div class="landing-page-links-actions"><a href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">Торты на день рождения</a><a href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">Свадебные торты</a><a href="<?php echo esc_url(home_url('/handmade-chocolate/')); ?>">Шоколад ручной работы</a></div>
+                <div class="landing-page-links-actions"><a href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">Торты на день рождения</a><a href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">Свадебные торты</a><a href="<?php echo esc_url(home_url('/handmade-chocolate/')); ?>">Шоколад ручной работы</a><a href="<?php echo esc_url(home_url('/?work_category=classic_cakes#works')); ?>">Классические торты</a><a href="<?php echo esc_url(home_url('/?work_category=thematic_cakes#works')); ?>">Тематические торты</a></div>
             </aside>
 
             <section class="postcard-copy-section postcard-price-section" aria-labelledby="postcard-price-title">
