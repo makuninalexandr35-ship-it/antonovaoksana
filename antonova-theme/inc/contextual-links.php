@@ -81,6 +81,7 @@ function antonova_add_contextual_links($html) {
     $skip_tags = array('a', 'button', 'nav', 'summary', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'label', 'option', 'select', 'textarea', 'title', 'code', 'pre');
     $eligible_depth = 0;
     $skip_depth = 0;
+    $skip_context_paragraph = false;
     $rules = antonova_contextual_link_rules();
 
     foreach ($tokens as $index => $token) {
@@ -93,6 +94,14 @@ function antonova_add_contextual_links($html) {
                 $name = strtolower($tag[2]);
                 $closing = $tag[1] === '/';
 
+                if ($name === 'p') {
+                    if ($closing) {
+                        $skip_context_paragraph = false;
+                    } elseif (preg_match('~\sdata-no-contextual-links(?:\s|=|/?>)~i', $token)) {
+                        $skip_context_paragraph = true;
+                    }
+                }
+
                 if (in_array($name, $eligible_tags, true)) {
                     $eligible_depth = $closing ? max(0, $eligible_depth - 1) : $eligible_depth + 1;
                 }
@@ -103,7 +112,7 @@ function antonova_add_contextual_links($html) {
             continue;
         }
 
-        if ($eligible_depth < 1 || $skip_depth > 0) {
+        if ($eligible_depth < 1 || $skip_depth > 0 || $skip_context_paragraph) {
             continue;
         }
 
