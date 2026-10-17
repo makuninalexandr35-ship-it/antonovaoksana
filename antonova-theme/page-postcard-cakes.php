@@ -8,12 +8,6 @@ if (!defined('ABSPATH')) { exit; }
 
 $max_url = antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo');
 $phone_tel = antonova_content('antonova_phone_tel', '+79647281844');
-$postcard_gallery = antonova_landing_gallery_data('postcard');
-$hero_image = array();
-foreach ($postcard_gallery['items'] as $gallery_item) {
-    if ('Торт-открытка с розовыми георгинами.webp' === $gallery_item['file']) { $hero_image = $gallery_item; break; }
-}
-if (empty($hero_image) && !empty($postcard_gallery['items'])) { $hero_image = $postcard_gallery['items'][0]; }
 
 if (!function_exists('antonova_postcard_accordion_html')) {
     function antonova_postcard_accordion_html($id, $title, $paragraphs) {
@@ -65,9 +59,7 @@ get_header();
 ?>
 <main>
     <section class="chocolate-hero postcard-detail-hero">
-        <?php if (!empty($hero_image)) : ?>
-            <img class="chocolate-hero-image postcard-detail-hero-image" src="<?php echo esc_url($hero_image['src']); ?>" alt="<?php echo esc_attr($hero_image['alt']); ?>"<?php if (!empty($hero_image['width']) && !empty($hero_image['height'])) : ?> width="<?php echo esc_attr($hero_image['width']); ?>" height="<?php echo esc_attr($hero_image['height']); ?>"<?php endif; ?> decoding="async" fetchpriority="high" loading="eager">
-        <?php endif; ?>
+        <img class="chocolate-hero-image postcard-detail-hero-image" src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero1.webp" width="1680" height="945" alt="Торт-открытка с цветочным изображением в белой коробке" decoding="async" fetchpriority="high" loading="eager">
         <div class="chocolate-hero-copy postcard-detail-hero-copy">
             <p class="eyebrow">Торты-открытки</p>
             <h1 class="mobile-hero-title">Торты-открытки на заказ в Москве</h1>
