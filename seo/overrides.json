@@ -48,6 +48,9 @@
       "telephone": "+79647281844",
       "url": "https://antonovaoksana.ru/"
     },
+    "sitemap": {
+      "https://antonovaoksana.ru/?work_category=birthday_cakes": "listed"
+    },
     "title": "Авторские торты и десерты на заказ в Москве | Оксана Антонова"
   },
   "/birthday-cakes/": {
@@ -95,6 +98,9 @@
       "meta_description": "Торты и авторские десерты на заказ в Москве от Оксаны Антоновой. Классические и тематические торты, шоколад и домашние сладости. Фото, цены, самовывоз в Коптево и доставка по Москве и области.",
       "robots": {
         "Sitemap: https://antonovaoksana.ru/wp-sitemap.xml": null
+      },
+      "sitemap": {
+        "https://antonovaoksana.ru/?work_category=birthday_cakes": null
       },
       "title": "Торты на заказ в Москве — авторские десерты | Оксана Антонова"
     },
