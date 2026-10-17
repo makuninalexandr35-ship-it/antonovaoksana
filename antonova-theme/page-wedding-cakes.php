@@ -30,7 +30,7 @@ while (have_posts()) : the_post();
         <nav class="page-breadcrumbs" aria-label="Хлебные крошки"><a href="<?php echo esc_url(home_url('/')); ?>">Главная</a><span aria-hidden="true">→</span><span>Свадебные торты</span></nav>
         <div class="page-content wedding-page-copy">
             <section class="wedding-copy-section" aria-labelledby="wedding-portfolio-title">
-                <h2 id="wedding-portfolio-title">Свадебные торты на заказ — фотографии моих работ</h2>
+                <h2 id="wedding-portfolio-title">Свадебные торты на заказ</h2>
                 <p>В моём портфолио есть одноярусные и трёхъярусные свадебные торты с цветами, лебедями, кольцами и кружевным декором. Посмотрите фотографии выполненных работ и выберите оформление, которое подойдёт к стилю вашей свадьбы.</p>
                 <div class="wedding-tier-grid" aria-label="Примеры одноярусных и трёхъярусных свадебных тортов">
                     <section class="wedding-tier-column" aria-labelledby="one-tier-gallery-title"><h3 id="one-tier-gallery-title">Одноярусные свадебные торты</h3><?php get_template_part('template-parts/landing-thumbnail-gallery', null, array('gallery' => $one_tier_gallery)); ?></section>
