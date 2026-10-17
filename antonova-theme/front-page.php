@@ -81,7 +81,7 @@
           <article class="custom-cake-card">
             <div class="custom-cake-card-image"><img src="<?php echo esc_url($thematic_card_image['image']); ?>" width="<?php echo esc_attr($thematic_card_image['width']); ?>" height="<?php echo esc_attr($thematic_card_image['height']); ?>" decoding="async" loading="lazy" sizes="(max-width: 700px) calc(100vw - 60px), 480px" alt="Тематический торт в виде корабля"></div>
             <h3>Тематические торты</h3>
-            <p>Торты по увлечениям и интересам: спорт, путешествия, любимые персонажи, необычные формы и праздничные сюжеты. Оформление можно обсудить по вашей идее.</p>
+            <p class="custom-cake-card-copy-thematic"><span>Торты по увлечениям и интересам: спорт, путешествия,</span><span>любимые персонажи, необычные формы и праздничные сюжеты.</span><span>Оформление можно обсудить по вашей идее.</span></p>
             <a class="custom-cake-card-action" href="<?php echo esc_url(home_url('/?work_category=thematic_cakes#works')); ?>" data-work-category-link="thematic_cakes">Посмотреть тематические торты</a>
           </article>
         </div>
