@@ -1065,6 +1065,47 @@ function antonova_yoast_schema_webpage($data) {
 }
 add_filter('wpseo_schema_webpage', 'antonova_yoast_schema_webpage', 20);
 
+/**
+ * Keep Yoast breadcrumb Schema complete and consistent on every public page.
+ *
+ * Google may infer the current URL when the final ListItem has no `item`, but
+ * supplying the canonical absolute URL prevents validators from reporting a
+ * missing field and keeps every breadcrumb node explicit.
+ */
+function antonova_yoast_schema_breadcrumb($data) {
+    if (empty($data['itemListElement']) || !is_array($data['itemListElement'])) {
+        return $data;
+    }
+
+    $context = antonova_seo_context();
+    $canonical_url = isset($context['url']) ? esc_url_raw($context['url']) : '';
+    $last_index = count($data['itemListElement']) - 1;
+
+    foreach ($data['itemListElement'] as $index => &$list_item) {
+        if (!is_array($list_item)) {
+            continue;
+        }
+
+        // Schema positions are always one-based and must not contain gaps.
+        $list_item['position'] = $index + 1;
+
+        if (!empty($list_item['item'])) {
+            $list_item['item'] = esc_url_raw($list_item['item']);
+            continue;
+        }
+
+        if (0 === $index) {
+            $list_item['item'] = esc_url_raw(home_url('/'));
+        } elseif ($index === $last_index && $canonical_url) {
+            $list_item['item'] = $canonical_url;
+        }
+    }
+    unset($list_item);
+
+    return $data;
+}
+add_filter('wpseo_schema_breadcrumb', 'antonova_yoast_schema_breadcrumb', 20);
+
 function antonova_yoast_schema_website($data) {
     $data['name'] = 'Oksana Antonova';
     $data['description'] = 'Авторские торты на заказ в Москве для свадеб, дней рождения и других праздников.';
@@ -1196,23 +1237,14 @@ function antonova_postcard_cakes_faq() {
     ));
 }
 
-/** Render server-side breadcrumb and future FAQ schema for /postcard-cakes/. */
+/** Render server-side FAQ schema for /postcard-cakes/. */
 function antonova_render_postcard_cakes_schema() {
     if (!is_page('postcard-cakes')) {
         return;
     }
 
     $url = home_url('/postcard-cakes/');
-    $graph = array(
-        array(
-            '@type' => 'BreadcrumbList',
-            '@id' => $url . '#breadcrumb',
-            'itemListElement' => array(
-                array('@type' => 'ListItem', 'position' => 1, 'name' => 'Главная', 'item' => home_url('/')),
-                array('@type' => 'ListItem', 'position' => 2, 'name' => 'Торты-открытки', 'item' => $url),
-            ),
-        ),
-    );
+    $graph = array();
 
     $main_entity = array();
     foreach (antonova_postcard_cakes_faq() as $item) {
