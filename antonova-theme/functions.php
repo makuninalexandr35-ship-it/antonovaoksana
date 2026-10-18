@@ -48,19 +48,28 @@ function antonova_theme_assets() {
     $style_version = file_exists($style_path) ? $theme_version . '-' . (string) filemtime($style_path) : $theme_version;
     $script_version = file_exists($script_path) ? (string) filemtime($script_path) : $theme_version;
 
-    wp_enqueue_style(
-        'antonova-local-fonts',
-        get_template_directory_uri() . '/assets/fonts/fonts.css',
-        array(),
-        $theme_version
-    );
+    // ADR-174 of the AI SEO Agent: the styles and the font faces go into the page head (no two blocking files before the first paint);
+    // when they cannot be read, the files are linked as before.
+    $inline_css = function_exists('antonova_speed_inline_css') ? antonova_speed_inline_css() : false;
+    if (is_string($inline_css)) {
+        wp_register_style('antonova-style', false, array(), $style_version);
+        wp_enqueue_style('antonova-style');
+        wp_add_inline_style('antonova-style', $inline_css);
+    } else {
+        wp_enqueue_style(
+            'antonova-local-fonts',
+            get_template_directory_uri() . '/assets/fonts/fonts.css',
+            array(),
+            $theme_version
+        );
 
-    wp_enqueue_style(
-        'antonova-style',
-        get_stylesheet_uri(),
-        array('antonova-local-fonts'),
-        $style_version
-    );
+        wp_enqueue_style(
+            'antonova-style',
+            get_stylesheet_uri(),
+            array('antonova-local-fonts'),
+            $style_version
+        );
+    }
 
     wp_enqueue_script(
         'antonova-script',
@@ -2641,6 +2650,9 @@ if (file_exists(get_template_directory() . '/inc/contextual-links.php')) {
 }
 
 // SEO overrides of the AI SEO Agent: the site is changed only through code (seo/overrides.json in the repository, ADR-086).
+if (file_exists(get_template_directory() . '/inc/speed.php')) {
+    require_once get_template_directory() . '/inc/speed.php';
+}
 if (file_exists(get_template_directory() . '/inc/seo-agent-overrides.php')) {
     require_once get_template_directory() . '/inc/seo-agent-overrides.php';
 }

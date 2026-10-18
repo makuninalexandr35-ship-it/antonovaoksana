@@ -389,7 +389,8 @@ document.querySelectorAll('[data-thumbnail-gallery]').forEach((gallery) => {
     const caption = open ? open.dataset.thumbnailCaption : '';
     const description = open ? open.dataset.thumbnailDescription : '';
     const panelCaption = panel.querySelector('figcaption');
-    dialogImage.src = image.currentSrc || image.src;
+    // the enlarged photo is the original (src), not the smaller copy the page loaded for the phone (ADR-174)
+    dialogImage.src = image.getAttribute('src') || image.currentSrc || image.src;
     dialogImage.alt = image.alt;
     if (dialogCaption) {
       if (!gallery.hasAttribute('data-thumbnail-dialog-details')) {

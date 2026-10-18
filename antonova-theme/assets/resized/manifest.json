@@ -1,0 +1,1680 @@
+{
+"assets/#U0412#U0430#U043d#U0438#U043b#U044c #U043a#U043b#U0443#U0431#U043d#U0438#U043a#U0430.png": {
+"h": "6f64bd02acd6250f",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U0413#U0440#U0443#U0448#U0430 #U0434#U043e#U0440 #U0431#U043b#U044e.png": {
+"h": "2ceb462c1cad0fcf",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U0415#U043b#U043e#U0447#U043a#U0430.jpg": {
+"h": "f8b988d06f49ca48",
+"v": [
+480
+],
+"w": 960
+},
+"assets/#U041b#U043e#U0433#U043e#U0442#U0438#U043f.png": {
+"h": "e2757eba4837aeba",
+"v": [
+480,
+960,
+1440
+],
+"w": 5120
+},
+"assets/#U041c#U0430#U0440#U0441.png": {
+"h": "874e1543de01dced",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U041d#U0430#U043f#U043e#U043b#U0435#U043e#U043d.png": {
+"h": "32fe967f5f525005",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U041e#U043a#U0441#U0430#U043d#U0430 #U0410#U043d#U0442#U043e#U043d#U043e#U0432#U0430.jpg": {
+"h": "37e3d03cbfc93b45",
+"v": [
+480
+],
+"w": 720
+},
+"assets/#U041e#U0440#U0435#U0448#U043a#U0438.jpg": {
+"h": "9a7a4508610f9cd1",
+"v": [
+480,
+960,
+1440
+],
+"w": 1920
+},
+"assets/#U0421#U0435#U0440#U0442#U0438#U0444#U0438#U043a#U0430#U0442.jpg": {
+"h": "1953c31c6dfd2a35",
+"v": [
+480
+],
+"w": 892
+},
+"assets/#U0421-#U0434#U043d#U0435#U043c-#U0440#U043e#U0436#U0434#U0435#U043d#U0438#U044f.jpg": {
+"h": "62dcd497be41e628",
+"v": [
+480,
+960,
+1440
+],
+"w": 3024
+},
+"assets/#U0422#U0435#U043d#U043d#U0438#U0441.jpg": {
+"h": "ee313a9e23b590df",
+"v": [
+480,
+960,
+1440
+],
+"w": 2268
+},
+"assets/#U0422#U043e#U043f#U043e#U0440.jpg": {
+"h": "ed197a89cfbb6bae",
+"v": [
+480,
+960,
+1440
+],
+"w": 2268
+},
+"assets/#U0422#U043e#U0440#U0442 #U043b#U044e#U0431#U043b#U044e.png": {
+"h": "5d25c3a11e4d15ab",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U0422#U043e#U0440#U0442 123.JPG": {
+"h": "3d114056edf2cbce",
+"v": [
+480
+],
+"w": 720
+},
+"assets/#U0422#U043e#U0440#U0442 50 #U043b#U0435#U0442.png": {
+"h": "2f7bb08727af4ad9",
+"v": [
+480,
+960
+],
+"w": 1149
+},
+"assets/#U0422#U043e#U0440#U0442-#U0437#U0430#U0441#U0442#U0430#U0432#U043a#U0430.jpg": {
+"h": "446a464a747c2069",
+"v": [
+480,
+960,
+1440
+],
+"w": 2268
+},
+"assets/#U0422#U0440#U0435#U0445#U044d#U0442#U0430#U0436#U043d#U044b#U0439.jpg": {
+"h": "afbf6f097fdf38fb",
+"v": [
+480,
+960,
+1440
+],
+"w": 2268
+},
+"assets/#U0424#U0440#U0443#U043a#U0442#U044b #U0432 #U0448#U043e#U043a#U043e#U043b#U0430#U0434#U0435.png": {
+"h": "da62705a31401d6f",
+"v": [
+480,
+960
+],
+"w": 1183
+},
+"assets/#U0427#U0435#U0440#U043d#U0438#U0447#U043d#U044b#U0439-50-#U043b#U0435#U0442.jpg": {
+"h": "d4ac0f1dc3fa6881",
+"v": [
+480,
+960,
+1440
+],
+"w": 3024
+},
+"assets/#U0428#U043e#U043a#U043e#U043b#U0430#U0434#U043d#U044b#U0439 #U0441 #U0432#U0438#U0448#U043d#U0435#U0432#U044b#U043c #U043a#U043e#U043d#U0444#U0438.png": {
+"h": "d7b029000514f48e",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U0428#U043e#U043a#U043e#U043b#U0430#U0434#U043d#U044b#U0439 #U0441 #U0434#U0443#U0431#U0430#U0439#U0441#U043a#U043e#U0439 #U043d#U0430#U0447#U0438#U043d#U043a#U043e#U0439.png": {
+"h": "d2f81acf637df5ed",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U0428#U043f#U0438#U043d#U0430#U0442#U043d#U044b#U0439 #U0441 #U043b#U0438#U043c#U043e#U043d#U043d#U044b#U043c #U043a#U0443#U0440#U0434#U043e#U043c.png": {
+"h": "eb79a16dac2cdb20",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U0434#U0435#U0434 #U043c#U043e#U0440#U043e#U0437.jpg": {
+"h": "e48c521f6eff4f87",
+"v": [
+480
+],
+"w": 720
+},
+"assets/#U043a#U0435#U043a#U0441#U044b.png": {
+"h": "67c0576fdc351028",
+"v": [
+480,
+960
+],
+"w": 1086
+},
+"assets/#U043c#U0435#U0434#U043e#U0432#U0438#U043a #U0430#U0432#U0442#U043e#U0440#U0441#U043a#U0438#U0439.png": {
+"h": "df37a5ef6671bade",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U043f#U0435#U043d#U0435#U043a.jpg": {
+"h": "13c4a09e4a4b2c29",
+"v": [
+480
+],
+"w": 720
+},
+"assets/#U043f#U0438#U0440#U043e#U0436#U0435#U043d#U044b#U0435.png": {
+"h": "ada8368c0463a67f",
+"v": [
+480,
+960
+],
+"w": 1086
+},
+"assets/#U0440#U0430#U0444#U0430#U044d#U043b#U043b#U043e.png": {
+"h": "a453c76042c0e133",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/#U0442#U043e#U0440#U0442 50 #U043b#U0435#U0442.jpg": {
+"h": "455475693ac76f73",
+"v": [
+480
+],
+"w": 960
+},
+"assets/2026-09-20_00-53-20.png": {
+"h": "f6ade53fe1e79f61",
+"v": [
+480,
+960,
+1440
+],
+"w": 1920
+},
+"assets/81eff6ad-1b45-4eac-aeb0-b7ce3cb04592.png": {
+"h": "e13616cbb4a89546",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/Sertifikat.jpg": {
+"h": "4c01875acd2cbc4f",
+"v": [
+480
+],
+"w": 892
+},
+"assets/cake-for-loved-ones.jpg": {
+"h": "0a69f9f06b676a8e",
+"v": [
+480,
+960,
+1440
+],
+"w": 1920
+},
+"assets/dessert-mix.jpg": {
+"h": "d64389d6588bf8f8",
+"v": [
+480
+],
+"w": 960
+},
+"assets/eclairs.jpg": {
+"h": "2556e30e9a3f5f84",
+"v": [
+480
+],
+"w": 720
+},
+"assets/gift-set.jpg": {
+"h": "ae8c2013cab24330",
+"v": [
+480
+],
+"w": 720
+},
+"assets/hero-cake.jpg": {
+"h": "0c10f217eb76291e",
+"v": [
+480
+],
+"w": 960
+},
+"assets/hero/Hero1.webp": {
+"h": "752505e852fd8914",
+"v": [
+480,
+960,
+1440
+],
+"w": 1672
+},
+"assets/hero/Hero2.webp": {
+"h": "06d7bf4e9e609e51",
+"v": [
+480,
+960,
+1440
+],
+"w": 1672
+},
+"assets/hero/Hero3.webp": {
+"h": "bf2a8be95762562a",
+"v": [
+480,
+960,
+1440
+],
+"w": 1672
+},
+"assets/hero/Hero4.webp": {
+"h": "eef5a015cf461bad",
+"v": [
+480,
+960,
+1440
+],
+"w": 1672
+},
+"assets/hero/Hero5-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "7174438b4ae9d7cd",
+"v": [
+480,
+960,
+1440
+],
+"w": 1672
+},
+"assets/hero/Дизайн без названия (74).webp": {
+"h": "0dc104e49492715d",
+"v": [
+480,
+960,
+1440
+],
+"w": 1920
+},
+"assets/hero/Дизайн без названия (76).webp": {
+"h": "31cd66521632887c",
+"v": [
+480,
+960
+],
+"w": 1080
+},
+"assets/homepage-all-works/Классические торты/Белый торт с малиной и кремовым декором.webp": {
+"h": "9d313fae39c0c0ef",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Классические торты/Жёлтый торт с лимонным декором.webp": {
+"h": "cf677505a4e1e955",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Классические торты/Красный торт с объёмным рельефным декором.webp": {
+"h": "7ecba49cd2d7f909",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Классические торты/Круглый торт с крошковой обсыпкой и фирменной лентой.webp": {
+"h": "007891193f0a1b22",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Классические торты/Розовый торт с кремовыми рюшами.webp": {
+"h": "80035c27aa2c05da",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Классические торты/Торт с голубикой и золотистыми свечами.webp": {
+"h": "b9aee8e2f263f860",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Классические торты/Торт с шоколадными подтёками и голубикой.webp": {
+"h": "e546a986c1fecded",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Классические торты/Торт с ягодами, инжиром и крошковой обсыпкой.webp": {
+"h": "7cd8f8c30829e443",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Классические торты/Торт со сладостями, печеньем и шоколадом.webp": {
+"h": "ac1225f789699623",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Классические торты/Чёрный торт с золотистым геометрическим узором.webp": {
+"h": "ee6bd2926cb7f4fd",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Свадебные торты/Белый свадебный торт с кольцами.webp": {
+"h": "dfa2e5aac1b0fbd8",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Свадебные торты/Белый свадебный торт с лебедями.webp": {
+"h": "06bf574f7bc65c4b",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Свадебные торты/Розовый трёхъярусный свадебный торт с цветами.webp": {
+"h": "771b3bf65263b989",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Свадебные торты/Трёхъярусный свадебный торт с кружевом.webp": {
+"h": "15542b709e9999e5",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Белый двухъярусный торт с золотистым декором.webp": {
+"h": "79db0f787945b173",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Белый торт на крещение с ангелом.webp": {
+"h": "888aa6028cb0913d",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Праздничный торт на 23 Февраля.webp": {
+"h": "5060e5a14dc5a455",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Прямоугольный торт с грушами и виноградом.webp": {
+"h": "72e4c27bbe3f8ab6",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Прямоугольный торт с клубникой, голубикой и абрикосами.webp": {
+"h": "dfe4af931664d6a0",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Тематический торт для рыбака с фотографией.webp": {
+"h": "f9531d882c15b5f1",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Торт в виде пня с декоративным топором.webp": {
+"h": "5c45ca266dbfd556",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Торт в форме корабля с якорем.webp": {
+"h": "bd5bf942aa475b24",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Торт в форме тыквы с осенним декором.webp": {
+"h": "f8ce85bde58d05fb",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Торт для любителя настольного тенниса.webp": {
+"h": "fae49050798e40d1",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Торт с ежевикой и надписью «Для любимых».webp": {
+"h": "2c853b7ed8bc0489",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Торт-карусель в красно-белом оформлении.webp": {
+"h": "58a932828be24d93",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Футбольный торт с мячами.webp": {
+"h": "cbbc309517b0cf61",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Тематические торты/Яркий разноцветный торт с ягодами.webp": {
+"h": "7a73d9db87bc6dbf",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Детский торт на 12 лет с мишкой.webp": {
+"h": "a68370806d2c92c7",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Детский торт с конструктором.webp": {
+"h": "db70ebe5a366c998",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Зелёный двухъярусный торт Happy Birthday.webp": {
+"h": "fd61fd7927f4a920",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Праздничный торт с мишкой и цветным декором.webp": {
+"h": "ddd45c25271be4d5",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Прямоугольный торт на 50 лет с ежевикой.webp": {
+"h": "27a71f0715518e77",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Светло-зелёный торт на 50 лет с прозрачным декором.webp": {
+"h": "777a24826424ae9c",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Серебристый двухъярусный торт на 50 лет.webp": {
+"h": "e043042d5b94ae86",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Тематический торт для Никиты с картами и фишками.webp": {
+"h": "4dc64d9237eb216b",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Торт на 19 лет с шуточной надписью.webp": {
+"h": "7b82831e5589d051",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Торт на 30 лет с белыми розами.webp": {
+"h": "5c634aea5b7aa6a7",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Торт на 51 год с ягодами.webp": {
+"h": "36757ac74212cc78",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты на день рождения/Торт с клубникой, Карлсоном и шуточными надписями.webp": {
+"h": "623a8eeb8734206d",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты-открытки/Новогодний торт-открытка с Дедом Морозом.webp": {
+"h": "c46f65329a0509bb",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты-открытки/Торт-открытка с букетом розовых цветов.webp": {
+"h": "6ff1627fbd10f171",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты-открытки/Торт-открытка с розовыми георгинами.webp": {
+"h": "94667deda7d0dc8a",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты-открытки/Торт-открытка с розовыми цветами и сиренью.webp": {
+"h": "1527302c4147f7b6",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты-открытки/Торт-открытка с сиреневыми цветами (2).webp": {
+"h": "50280d2c7cffbf29",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты-открытки/Торт-открытка с сиреневыми цветами.webp": {
+"h": "ba946eed0373e7ef",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Торты-открытки/Торт-открытка с сиренью.webp": {
+"h": "2aaa39bdbf35de67",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Ассорти домашних десертов в розовых оттенках.webp": {
+"h": "7eea45f032bcf29d",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Ассорти шоколадных конфет с цветным декором.webp": {
+"h": "952d4c1cb728034e",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Два шоколадных кольца ко Дню учителя.webp": {
+"h": "c4220bf308076a48",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Капкейки с ягодами и цветным кремом.webp": {
+"h": "c0dfa8bd7bfa210d",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Мини-десерты в форме пончиков с розовым покрытием.webp": {
+"h": "47ae1e3d9895e097",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Мини-пирожные с кремом и малиной.webp": {
+"h": "a84e04ccde3c58f3",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Новогодние шоколадные плитки с зимними сюжетами.webp": {
+"h": "4603c109729883f8",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Новогодний набор разноцветных орешков с начинкой.webp": {
+"h": "4917a73c2f385218",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Новогодняя шоколадная ёлка в коробке.webp": {
+"h": "fdce870bdf12ba6a",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Подарочное ассорти фруктов в шоколадной глазури.webp": {
+"h": "93a265f8b73671ce",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Подарочные орешки с начинкой под прозрачным колпаком.webp": {
+"h": "144cdcf460837ddc",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Подарочные шоколадные наборы с золотистым декором.webp": {
+"h": "d4afe6d96124946d",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Подарочные шоколадные плитки с золотистым декором.webp": {
+"h": "81c1eacc9b0780df",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Подарочный шоколадный набор в красной коробке.webp": {
+"h": "fa92cff32709b552",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Разноцветные орешки с начинкой.webp": {
+"h": "80a439dd2168d253",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Розовые пирожные макарон с ягодным декором.webp": {
+"h": "da512d198d569d1f",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Розовый зефир в форме завитков.webp": {
+"h": "d304bb9410894a49",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Фигурная шоколадная ёлка с новогодним декором.webp": {
+"h": "6eda0fd8f857ab65",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Чизкейк с ягодным покрытием в разрезе.webp": {
+"h": "9cb4ee1c1e867328",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Шахматная композиция.webp": {
+"h": "98b9a04be0e66f7f",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Шоколадная плитка с объёмным золотистым рельефом.webp": {
+"h": "1ed0745a2ffb602e",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Шоколадные кольца в подарок ко Дню учителя.webp": {
+"h": "93f2e09bf6e8f7e5",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Шоколадные плитки с золотистыми звёздами.webp": {
+"h": "3a0bbe5a36a77e4a",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Шоколадные плитки с павлином и цветами.webp": {
+"h": "aedf4f979c08bd1e",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Шоколадные плитки со звёздами и фруктовым декором.webp": {
+"h": "83d45db1ba7df6c4",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Шоколадный десерт с тягучей прослойкой.webp": {
+"h": "8529d251a2dd66ce",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Шоколадный набор «Любимый папа» с фигурками рук.webp": {
+"h": "14a4962f090dfb34",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-all-works/Шоколад и десерты/Шоколадный набор ко Дню учителя.webp": {
+"h": "281f4bf41a108b6e",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-category-covers/Классические торты/Дизайн без названия (71).webp": {
+"h": "b7d9b13e5dd268d9",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-category-covers/Тематические торты/Дизайн без названия (72).webp": {
+"h": "90c75c973a5d4f96",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-products/01 Торты.webp": {
+"h": "4c464242e64a6aab",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-products/02 Шоколад ручной работы.webp": {
+"h": "a7d41f664757d3c7",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-products/03 Шоколадные конфеты ручной работы.webp": {
+"h": "d6ebbbda482d95a1",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-products/04 Ассорти домашних пирожных.webp": {
+"h": "08f2ca90604ae224",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-products/05 Печенье орешки с начинкой.webp": {
+"h": "d48b6afd91b7950f",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-products/06 Свежие фрукты в шоколадной глазури.webp": {
+"h": "c3db1945da4db65b",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/homepage-products/07 Зефир.webp": {
+"h": "11ded935e5315b8b",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Детский торт на 12 лет с мишкой.webp": {
+"h": "160b8d66c3196c94",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Детский торт с конструктором.webp": {
+"h": "01b1ebd3eadd8f75",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Зелёный двухъярусный торт Happy Birthday.webp": {
+"h": "273e478253c6de73",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Праздничный торт с мишкой и цветным декором.webp": {
+"h": "a01b6e9537014253",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Прямоугольный торт на 50 лет с ежевикой.webp": {
+"h": "982aac67de11f9fd",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Светло-зелёный торт на 50 лет с прозрачным декором.webp": {
+"h": "72c170a51afcdd07",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Серебристый двухъярусный торт на 50 лет.webp": {
+"h": "c875fab3e6cc5d1e",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Тематический торт для Никиты с картами и фишками.webp": {
+"h": "6cb0905b29ef0b62",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Торт на 19 лет с шуточной надписью.webp": {
+"h": "87b1c296b4b86769",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Торт на 30 лет с белыми розами.webp": {
+"h": "db994ae651011dcd",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Торт на 51 год с ягодами.webp": {
+"h": "cadbd5b8a1ba3cf3",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/birthday/Торт с клубникой, Карлсоном и шуточными надписями.webp": {
+"h": "510bc8be438aa300",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Два шоколадных кольца ко Дню учителя.webp": {
+"h": "1abb87c33cc6f7d1",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Новогодние шоколадные плитки с зимними сюжетами.webp": {
+"h": "b18684b8a54d9875",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Новогодняя шоколадная ёлка в коробке.webp": {
+"h": "39f2a85e2ba70341",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Подарочные шоколадные наборы с золотистым декором.webp": {
+"h": "e5e37034ff328d34",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Подарочные шоколадные плитки с золотистым декором.webp": {
+"h": "0ff0f3f121c1b21a",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Подарочный шоколадный набор в красной коробке.webp": {
+"h": "0d43453962002d42",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Фигурная шоколадная ёлка с новогодним декором.webp": {
+"h": "624ea5a13ef1c29e",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Шахматная композиция.webp": {
+"h": "4f429b250efe4a76",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Шоколадная плитка с объёмным золотистым рельефом.webp": {
+"h": "1fb86263788e1ba5",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Шоколадные кольца в подарок ко Дню учителя.webp": {
+"h": "afd6afe4dedbc971",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Шоколадные плитки с золотистыми звёздами.webp": {
+"h": "0409965fdd415093",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Шоколадные плитки с павлином и цветами.webp": {
+"h": "e66c5a737fff8eb5",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Шоколадные плитки со звёздами и фруктовым декором.webp": {
+"h": "84052da11c9da08e",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Шоколадный десерт с тягучей прослойкой.webp": {
+"h": "ee2f396cc1f7c226",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Шоколадный набор «Любимый папа» с фигурками рук.webp": {
+"h": "8e79af632268a782",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/chocolate/Шоколадный набор ко Дню учителя.webp": {
+"h": "ac64dae8981a2dff",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/wedding/Белый свадебный торт с кольцами.webp": {
+"h": "7f8740599e92eecc",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/wedding/Белый свадебный торт с лебедями.webp": {
+"h": "2dc97a70d9a4d24f",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/wedding/Розовый трёхъярусный свадебный торт с цветами.webp": {
+"h": "ed5616b35696e915",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/landing-galleries/wedding/Трёхъярусный свадебный торт с кружевом.webp": {
+"h": "c5e427d107f2cc81",
+"v": [
+480,
+960
+],
+"w": 1200
+},
+"assets/logo-aov.png": {
+"h": "c479d1e6b1b3e89b",
+"v": [
+480,
+960,
+1440
+],
+"w": 2172
+},
+"assets/logo-aov2.png": {
+"h": "044618267ffed109",
+"v": [
+480,
+960,
+1440
+],
+"w": 2172
+},
+"assets/og-cake.jpg": {
+"h": "50d985770cf1016c",
+"v": [
+480
+],
+"w": 675
+},
+"assets/personalized-sweets.jpg": {
+"h": "6add81dcaea58fd3",
+"v": [
+480
+],
+"w": 720
+},
+"assets/printed-dessert-1.jpg": {
+"h": "970b2974ec956a4e",
+"v": [
+480
+],
+"w": 720
+},
+"assets/printed-dessert-2.jpg": {
+"h": "cb58296a4553f8b8",
+"v": [
+480
+],
+"w": 720
+},
+"assets/pumpkin-cake.jpg": {
+"h": "96bc6043bf1d39b7",
+"v": [
+480,
+960,
+1440
+],
+"w": 1920
+},
+"assets/red-cake.jpg": {
+"h": "e2b269ceb439f940",
+"v": [
+480,
+960,
+1440
+],
+"w": 3023
+},
+"assets/themed-cake.jpg": {
+"h": "eeeb236d56ed9bc3",
+"v": [
+480
+],
+"w": 720
+},
+"assets/ui-version-1.png": {
+"h": "a10cca788b3c02fa",
+"v": [
+480
+],
+"w": 1024
+},
+"assets/works/1-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "cf1bdb5ab3ad5c62",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/12-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "46ea610448c20460",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/123-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "5b2b80dc52fbab13",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/19-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "d71efaad3eb8a172",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/2-ezgif.com-jpg-to-webp-converter (1).webp": {
+"h": "0065e17b71536f5c",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/2-ezgif.com-jpg-to-webp-converter (2).webp": {
+"h": "a01ed3dca95cadad",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/2-ezgif.com-jpg-to-webp-converter (3).webp": {
+"h": "1d24408e49af2463",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/2-ezgif.com-jpg-to-webp-converter (4).webp": {
+"h": "6935c1e9820b0c9c",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/2-ezgif.com-jpg-to-webp-converter (5).webp": {
+"h": "e43705b7e28eeb3a",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/2-ezgif.com-jpg-to-webp-converter (6).webp": {
+"h": "67210b9b0c30f314",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/2-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "c83b4c915fc43eca",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/233-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "724f9c72210d8b63",
+"v": [
+480,
+960,
+1440
+],
+"w": 3024
+},
+"assets/works/3-ezgif.com-jpg-to-webp-converter (1).webp": {
+"h": "604f15ae7e610ab9",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/3-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "ced94af248d594b2",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/30-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "f25f6230a2c9d919",
+"v": [
+480,
+960
+],
+"w": 1122
+},
+"assets/works/4-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "8fc7437cf4d344f1",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/5-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "d948942745bcfed0",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/51-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "014bd81190fbf9a0",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (1).webp": {
+"h": "3bece04d854fb60c",
+"v": [
+480,
+960,
+1440
+],
+"w": 3024
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (10).webp": {
+"h": "3e742d5a2a28f0b7",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (11).webp": {
+"h": "6266bcde55dc6453",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (12).webp": {
+"h": "76e8064ef0927047",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (13).webp": {
+"h": "74b84fe0a29068af",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (14).webp": {
+"h": "7e328cd0bc664640",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (15).webp": {
+"h": "a0cef10440619d14",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (16).webp": {
+"h": "45464e1625520345",
+"v": [
+480
+],
+"w": 1024
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (17).webp": {
+"h": "7141b2240917f5f7",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (18).webp": {
+"h": "eefa10e8679d469f",
+"v": [
+480
+],
+"w": 1024
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (19).webp": {
+"h": "9c1674eea3e0a86d",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (2).webp": {
+"h": "c2eb45c5ad29de13",
+"v": [
+480,
+960,
+1440
+],
+"w": 3024
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (20).webp": {
+"h": "5505e4b833a95cd7",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (21).webp": {
+"h": "9dfdc950816b74ec",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (22).webp": {
+"h": "2877afdb2b793f72",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (3).webp": {
+"h": "1c2d6cbde6914b1a",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (4).webp": {
+"h": "04d846d67f8f7529",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (5).webp": {
+"h": "0624b0fd621c25b9",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (6).webp": {
+"h": "55d1de6063b5f7a5",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (7).webp": {
+"h": "f0d714abd6dbbf0b",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (8).webp": {
+"h": "a763402796ae0dbe",
+"v": [
+480
+],
+"w": 720
+},
+"assets/works/ezgif.com-jpg-to-webp-converter (9).webp": {
+"h": "648b001886c96df0",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/ezgif.com-jpg-to-webp-converter.webp": {
+"h": "55e7f130d1f3ac6b",
+"v": [
+480
+],
+"w": 960
+},
+"assets/works/svadebniy-ezgif.com-jpg-to-webp-converter.webp": {
+"h": "fae7aa0046f2edcd",
+"v": [
+480
+],
+"w": 1024
+},
+"assets/works/Набор тортов с цветами.webp": {
+"h": "abcec5e12c21e58e",
+"v": [
+480,
+960
+],
+"w": 1086
+},
+"assets/works/Торт с цветами.webp": {
+"h": "c2117bb9b975d0e8",
+"v": [
+480
+],
+"w": 960
+}
+}

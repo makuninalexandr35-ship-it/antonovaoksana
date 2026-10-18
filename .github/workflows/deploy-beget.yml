@@ -41,7 +41,7 @@ jobs:
           set -euo pipefail
           bundle_dir="$RUNNER_TEMP/antonova-theme-deploy"
           rm -rf "$bundle_dir"
-          mkdir -p "$bundle_dir/assets/optimized" "$bundle_dir/assets/fonts" "$bundle_dir/assets/hero" "$bundle_dir/assets/works" "$bundle_dir/assets/homepage-all-works" "$bundle_dir/assets/homepage-category-covers" "$bundle_dir/assets/homepage-products" "$bundle_dir/assets/landing-galleries" "$bundle_dir/assets/videos/handmade-chocolate"
+          mkdir -p "$bundle_dir/assets/optimized" "$bundle_dir/assets/resized" "$bundle_dir/assets/fonts" "$bundle_dir/assets/hero" "$bundle_dir/assets/works" "$bundle_dir/assets/homepage-all-works" "$bundle_dir/assets/homepage-category-covers" "$bundle_dir/assets/homepage-products" "$bundle_dir/assets/landing-galleries" "$bundle_dir/assets/videos/handmade-chocolate"
           mkdir -p "$bundle_dir/inc" "$bundle_dir/seo" "$bundle_dir/template-parts"
 
           install -m 644 \
@@ -78,6 +78,10 @@ jobs:
             antonova-theme/assets/red-cake.jpg \
             "$bundle_dir/assets/"
           install -m 644 antonova-theme/assets/optimized/*.webp "$bundle_dir/assets/optimized/"
+          # ADR-174: resized copies of the theme photos and their manifest (the srcset of every photo)
+          python3 -c 'import json; json.load(open("antonova-theme/assets/resized/manifest.json", encoding="utf-8"))'
+          install -m 644 antonova-theme/assets/resized/*.webp antonova-theme/assets/resized/manifest.json "$bundle_dir/assets/resized/"
+          install -m 644 antonova-theme/inc/speed.php "$bundle_dir/inc/speed.php"
           install -m 644 antonova-theme/assets/fonts/* "$bundle_dir/assets/fonts/"
           find antonova-theme/assets/hero -maxdepth 1 -type f -print0 |
             xargs -0 -r install -m 644 -t "$bundle_dir/assets/hero"
