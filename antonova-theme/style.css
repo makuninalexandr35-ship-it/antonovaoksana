@@ -348,6 +348,9 @@ footer .footer-identity{justify-items:center;align-items:center;text-align:cente
     visibility:hidden;
     pointer-events:none;
   }
+  .landing-thumbnail-gallery .landing-thumbnail-gallery-caption{grid-column:1/-1}
+  .landing-thumbnail-gallery.is-enhanced .landing-thumbnail-gallery-panel{grid-template-columns:minmax(0,1fr)}
+  .landing-thumbnail-gallery.is-enhanced .landing-thumbnail-gallery-caption{grid-column:1}
   .landing-thumbnail-gallery .landing-thumbnail-gallery-choice:checked+.landing-thumbnail-gallery-panel,
   .landing-thumbnail-gallery.is-enhanced .landing-thumbnail-gallery-panel.is-active{
     visibility:visible;
