@@ -587,7 +587,11 @@ function antonova_seo_sitemap_wanted($want) {
     $host = strtolower((string) wp_parse_url(home_url('/'), PHP_URL_HOST));
     foreach ($entry['sitemap'] as $url => $value) {
         $parts = wp_parse_url((string) $url);
-        if ($value === $want && is_array($parts) && isset($parts['scheme'], $parts['host']) && $parts['scheme'] === 'https' && strtolower($parts['host']) === $host && !preg_match('/[\s"<>]/', (string) $url)) {
+        // A sitemap should only advertise canonical page URLs. Filter-state
+        // query strings (for example ?work_category=...) canonicalize to the
+        // page itself and must not be added as separate sitemap entries.
+        $can_be_listed = $want !== 'listed' || empty($parts['query']);
+        if ($value === $want && $can_be_listed && is_array($parts) && isset($parts['scheme'], $parts['host']) && $parts['scheme'] === 'https' && strtolower($parts['host']) === $host && !preg_match('/[\s"<>]/', (string) $url)) {
             $out[antonova_seo_url_key($url)] = $url;
         }
     }
