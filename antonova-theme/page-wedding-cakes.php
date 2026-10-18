@@ -6,9 +6,9 @@ while (have_posts()) : the_post();
     $wedding_gallery = antonova_landing_gallery_data('wedding');
     $wedding_items = array();
     foreach ($wedding_gallery['items'] as $item) { $wedding_items[$item['file']] = $item; }
-    $one_tier_gallery = array('id' => 'wedding-one-tier-gallery', 'label' => 'Одноярусные свадебные торты', 'items' => isset($wedding_items['wedding-rings.webp']) ? array($wedding_items['wedding-rings.webp']) : array(), 'show_details' => true, 'show_thumbnails' => false, 'class' => 'wedding-tier-gallery');
+    $one_tier_gallery = array('id' => 'wedding-one-tier-gallery', 'label' => 'Одноярусные свадебные торты', 'items' => isset($wedding_items['Белый свадебный торт с кольцами.webp']) ? array($wedding_items['Белый свадебный торт с кольцами.webp']) : array(), 'show_details' => true, 'show_thumbnails' => false, 'class' => 'wedding-tier-gallery');
     $multi_tier_items = array();
-    foreach (array('wedding-swans.webp', 'wedding-pink-flowers.webp', 'wedding-lace.jpg') as $filename) { if (isset($wedding_items[$filename])) { $multi_tier_items[] = $wedding_items[$filename]; } }
+    foreach (array('Белый свадебный торт с лебедями.webp', 'Розовый трёхъярусный свадебный торт с цветами.webp', 'Трёхъярусный свадебный торт с кружевом.webp') as $filename) { if (isset($wedding_items[$filename])) { $multi_tier_items[] = $wedding_items[$filename]; } }
     $multi_tier_gallery = array('id' => 'wedding-multi-tier-gallery', 'label' => 'Трёхъярусные свадебные торты', 'items' => $multi_tier_items, 'show_details' => true, 'show_thumbnails' => false, 'class' => 'wedding-tier-gallery');
     $max_url = antonova_content('antonova_max_url', 'https://max.ru/u/f9LHodD0cOJCnOckQGqCXk8bnyb-OeJWCbBh9WJDCGh-HjAEgUn4_vPfQGo');
     $phone_tel = antonova_content('antonova_phone_tel', '+79647281844');

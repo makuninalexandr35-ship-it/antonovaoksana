@@ -108,7 +108,7 @@ jobs:
           test "$(find "$bundle_dir/assets/homepage-all-works" -type f | wc -l)" -ge 75
           test "$(find "$bundle_dir/assets/homepage-products" -type f | wc -l)" -eq 7
           test -s "$bundle_dir/template-parts/landing-thumbnail-gallery.php"
-          test -s "$bundle_dir/assets/landing-galleries/wedding/wedding-swans.webp"
+          test -s "$bundle_dir/assets/landing-galleries/wedding/Белый свадебный торт с лебедями.webp"
 
           # Public images must stay below 500 KiB. Source originals outside the
           # deploy bundle are not served; this checks every raster image that
