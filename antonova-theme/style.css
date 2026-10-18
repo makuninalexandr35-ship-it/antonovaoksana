@@ -335,3 +335,22 @@ footer .footer-identity{justify-items:center;align-items:center;text-align:cente
   .custom-cake-card p{height:auto;min-height:0}
   .custom-cake-card-action{position:static;width:100%;margin:20px auto 0}
 }
+
+/* Keep every internal mobile carousel as tall as its longest slide. Hidden
+   panels still reserve space, so one-line captions cannot move the arrows or
+   the content below. The homepage uses a different gallery and is untouched. */
+@media(max-width:700px){
+  .landing-thumbnail-gallery-panels{grid-template-columns:minmax(0,1fr)}
+  .landing-thumbnail-gallery .landing-thumbnail-gallery-panel,
+  .landing-thumbnail-gallery.is-enhanced .landing-thumbnail-gallery-panel{
+    display:grid;
+    grid-area:1/1;
+    visibility:hidden;
+    pointer-events:none;
+  }
+  .landing-thumbnail-gallery .landing-thumbnail-gallery-choice:checked+.landing-thumbnail-gallery-panel,
+  .landing-thumbnail-gallery.is-enhanced .landing-thumbnail-gallery-panel.is-active{
+    visibility:visible;
+    pointer-events:auto;
+  }
+}
