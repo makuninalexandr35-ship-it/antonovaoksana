@@ -27,6 +27,11 @@ function antonova_send_security_headers() {
     header('X-Frame-Options: SAMEORIGIN');
     header('Referrer-Policy: strict-origin-when-cross-origin');
     header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
+
+    // ADR-173 of the AI SEO Agent: strict HTTPS once the owner approved it in the agent's bot (no subdomains: they may have no certificate)
+    if (function_exists('antonova_seo_site_setting') && antonova_seo_site_setting('hsts') && strpos(home_url('/'), 'https://') === 0) {
+        header('Strict-Transport-Security: max-age=31536000');
+    }
 }
 add_action('send_headers', 'antonova_send_security_headers', 999);
 

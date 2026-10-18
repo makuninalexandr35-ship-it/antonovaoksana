@@ -17,6 +17,7 @@
     "SITEMAP_ENTRY_FIX": true,
     "ROBOTS_SITEMAP_FIX": true,
     "ROBOTS_DISALLOW_REMOVE": true,
-    "PAGE_NOINDEX": true
+    "PAGE_NOINDEX": true,
+    "SITE_SETTING_UPDATE": true
   }
 }

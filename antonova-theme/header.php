@@ -28,7 +28,7 @@ foreach (array_keys($antonova_category_pages) as $antonova_category_slug) {
 <html <?php language_attributes(); ?>>
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="<?php echo (function_exists('antonova_seo_site_setting') && antonova_seo_site_setting('viewport_zoom')) ? 'width=device-width, initial-scale=1' : 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'; ?>">
   <meta name="theme-color" content="#3b101d">
   <script>document.documentElement.classList.add('js');</script>
   <link rel="icon" type="image/svg+xml" href="<?php echo esc_url(get_template_directory_uri()); ?>/assets/favicon.svg">
