@@ -25,6 +25,20 @@ function antonova_seo_file($name) {
     return is_array($data) ? $data : null;
 }
 
+/**
+ * ADR-173 of the AI SEO Agent: site-wide settings the owner approved with a button in the agent's bot. The home entry "/" of overrides.json may carry
+ * "site": {"viewport_zoom": true, "hsts": true}. Only these names and only the value true switch something on; removing the entry restores the theme's
+ * own behaviour (the page cannot be zoomed, no Strict-Transport-Security header).
+ */
+function antonova_seo_site_setting($name) {
+    static $site = null;
+    if ($site === null) {
+        $all = antonova_seo_file('overrides.json');
+        $site = (is_array($all) && isset($all['/']['site']) && is_array($all['/']['site'])) ? $all['/']['site'] : array();
+    }
+    return in_array($name, array('viewport_zoom', 'hsts'), true) && isset($site[$name]) && $site[$name] === true;
+}
+
 function antonova_seo_path_key($url) {
     $path = wp_parse_url($url, PHP_URL_PATH);
     $path = is_string($path) ? $path : '/';
