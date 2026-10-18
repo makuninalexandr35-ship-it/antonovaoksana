@@ -68,7 +68,7 @@
             <span class="popular-direction-card-arrow" aria-hidden="true">↗</span>
           </a>
           <a class="popular-direction-card" href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">
-            <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/hero/Hero5-ezgif.com-jpg-to-webp-converter.webp" width="1680" height="945" alt="Свадебный торт на заказ" loading="lazy">
+            <img src="<?php echo esc_url(antonova_theme_asset_versioned('assets/homepage-all-works/' . rawurlencode('Свадебные торты') . '/' . rawurlencode('Трёхъярусный свадебный торт с кружевом.webp'))); ?>" width="1200" height="1600" alt="Белый свадебный торт с кружевным декором" loading="lazy">
             <span class="popular-direction-card-label">Свадебные торты на заказ</span>
             <span class="popular-direction-card-arrow" aria-hidden="true">↗</span>
           </a>

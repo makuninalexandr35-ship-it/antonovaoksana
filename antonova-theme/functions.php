@@ -1277,6 +1277,15 @@ function antonova_theme_asset($path) {
     return trailingslashit(get_template_directory_uri()) . ltrim($path, '/');
 }
 
+/** Add a file-based version so replaced portfolio photos bypass browser caches. */
+function antonova_theme_asset_versioned($path) {
+    $relative_path = ltrim((string) $path, '/');
+    $local_path = trailingslashit(get_template_directory()) . rawurldecode($relative_path);
+    $url = antonova_theme_asset($relative_path);
+
+    return is_file($local_path) ? add_query_arg('v', (string) filemtime($local_path), $url) : $url;
+}
+
 /**
  * Read image files directly from a theme folder. The homepage portfolio is
  * deliberately code-driven and does not depend on Media Library records or
@@ -1311,7 +1320,7 @@ function antonova_theme_folder_images($relative_directory) {
         $title = trim(pathinfo($filename, PATHINFO_FILENAME));
 
         $images[] = array(
-            'image' => antonova_theme_asset($encoded_file),
+            'image' => antonova_theme_asset_versioned($encoded_file),
             'title' => '' !== $title ? $title : 'Авторская работа',
             'alt' => '' !== $title ? $title : 'Авторская работа',
             'filename' => $filename,
@@ -1825,7 +1834,7 @@ function antonova_landing_gallery_data($gallery_key) {
 
     foreach ($gallery['items'] as $index => $item) {
         $encoded_directory = implode('/', array_map('rawurlencode', explode('/', $asset_directory)));
-        $gallery['items'][$index]['src'] = antonova_theme_asset(
+        $gallery['items'][$index]['src'] = antonova_theme_asset_versioned(
             $encoded_directory . '/' . rawurlencode($item['file'])
         );
         $image_path = $gallery_dir . DIRECTORY_SEPARATOR . $item['file'];
