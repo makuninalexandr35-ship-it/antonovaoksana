@@ -159,6 +159,7 @@
       <div class="section-heading works-heading"><p class="eyebrow">Мои работы</p><h2 id="works-heading" class="works-title" tabindex="-1">Фото тортов и авторских десертов</h2><p class="works-intro">Здесь представлены мои заказы: классические и тематические торты, <a href="<?php echo esc_url(home_url('/wedding-cakes/')); ?>">свадебные торты</a>, <a href="<?php echo esc_url(home_url('/handmade-chocolate/')); ?>">шоколад ручной работы</a>, <a href="<?php echo esc_url(home_url('/birthday-cakes/')); ?>">торты на день рождения</a> и другие десерты.</p></div>
       <?php $theme_works = antonova_home_file_based_works(); ?>
       <?php if (!empty($theme_works)) : ?>
+        <?php echo antonova_portfolio_image_schema_html($theme_works, home_url('/'), 'antonova-home-gallery-image-schema', 1); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         <?php
         $antonova_requested_work_category = isset($_GET['work_category']) ? sanitize_key(wp_unslash($_GET['work_category'])) : '';
         $antonova_work_filter_names = array('classic_cakes', 'thematic_cakes', 'wedding_cakes', 'birthday_cakes', 'cake_cards', 'chocolate_desserts');
