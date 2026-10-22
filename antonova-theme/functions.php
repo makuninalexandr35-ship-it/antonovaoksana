@@ -1313,10 +1313,7 @@ function antonova_schema_current_page_images() {
             'Торт с малиной на бордовом фоне',
             'Главная фотография страницы домашней кондитерской Оксаны Антоновой.'
         );
-        $home_works = isset($GLOBALS['antonova_schema_home_visible_works']) && is_array($GLOBALS['antonova_schema_home_visible_works'])
-            ? $GLOBALS['antonova_schema_home_visible_works']
-            : antonova_home_file_based_works();
-        $images = array_merge($images, $home_works);
+        $images = array_merge($images, antonova_home_file_based_works());
     }
 
     $landing_pages = array(
@@ -1379,22 +1376,16 @@ function antonova_schema_current_page_images() {
     }));
 }
 
-/** Render one server-side JSON-LD graph of the visible portfolio images. */
-function antonova_render_portfolio_image_schema() {
-    if (is_admin() || is_404()) {
-        return;
-    }
-
-    $context = antonova_seo_context();
-    $page_url = isset($context['url']) ? esc_url_raw($context['url']) : '';
-    if ('' === $page_url) {
-        return;
+/** Build a JSON-LD script for an already server-rendered collection of images. */
+function antonova_portfolio_image_schema_html($images, $page_url, $script_id, $position_offset = 0) {
+    if (empty($images) || !is_array($images) || '' === $page_url || '' === $script_id) {
+        return '';
     }
 
     $nodes = array();
     $seen_urls = array();
-    foreach (antonova_schema_current_page_images() as $image) {
-        $source_url = esc_url_raw($image['src']);
+    foreach ($images as $image) {
+        $source_url = esc_url_raw($image['src'] ?? $image['image'] ?? '');
         if ('' === $source_url) {
             continue;
         }
@@ -1414,7 +1405,7 @@ function antonova_render_portfolio_image_schema() {
 
         $node = array(
             '@type' => 'ImageObject',
-            '@id' => $page_url . '#portfolio-image-' . (count($nodes) + 1),
+            '@id' => $page_url . '#portfolio-image-' . ($position_offset + count($nodes) + 1),
             'contentUrl' => $source_url,
             'url' => $source_url,
             'name' => $name,
@@ -1439,14 +1430,33 @@ function antonova_render_portfolio_image_schema() {
     }
 
     if (empty($nodes)) {
-        return;
+        return '';
     }
 
     $schema = array(
         '@context' => 'https://schema.org',
         '@graph' => $nodes,
     );
-    echo '<script type="application/ld+json" id="antonova-portfolio-image-schema">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . '</script>' . "\n";
+    return '<script type="application/ld+json" id="' . esc_attr($script_id) . '">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . '</script>' . "\n";
+}
+
+/** Render one server-side JSON-LD graph of the visible portfolio images. */
+function antonova_render_portfolio_image_schema() {
+    if (is_admin() || is_404()) {
+        return;
+    }
+
+    $context = antonova_seo_context();
+    $page_url = isset($context['url']) ? esc_url_raw($context['url']) : '';
+    if ('' === $page_url) {
+        return;
+    }
+
+    echo antonova_portfolio_image_schema_html(
+        antonova_schema_current_page_images(),
+        $page_url,
+        'antonova-portfolio-image-schema'
+    );
 }
 // Footer output runs after the homepage portfolio is assembled, while still
 // remaining in the original server HTML that search engines and no-JS users get.
