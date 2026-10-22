@@ -1313,7 +1313,10 @@ function antonova_schema_current_page_images() {
             'Торт с малиной на бордовом фоне',
             'Главная фотография страницы домашней кондитерской Оксаны Антоновой.'
         );
-        $images = array_merge($images, antonova_home_file_based_works());
+        $home_works = isset($GLOBALS['antonova_schema_home_visible_works']) && is_array($GLOBALS['antonova_schema_home_visible_works'])
+            ? $GLOBALS['antonova_schema_home_visible_works']
+            : antonova_home_file_based_works();
+        $images = array_merge($images, $home_works);
     }
 
     $landing_pages = array(
@@ -1445,7 +1448,9 @@ function antonova_render_portfolio_image_schema() {
     );
     echo '<script type="application/ld+json" id="antonova-portfolio-image-schema">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . '</script>' . "\n";
 }
-add_action('wp_head', 'antonova_render_portfolio_image_schema', 33);
+// Footer output runs after the homepage portfolio is assembled, while still
+// remaining in the original server HTML that search engines and no-JS users get.
+add_action('wp_footer', 'antonova_render_portfolio_image_schema', 5);
 
 function antonova_enable_core_sitemap($enabled) {
     return true;
