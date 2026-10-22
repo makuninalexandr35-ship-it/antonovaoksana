@@ -1278,6 +1278,175 @@ function antonova_render_postcard_cakes_schema() {
 }
 add_action('wp_head', 'antonova_render_postcard_cakes_schema', 32);
 
+/**
+ * Build an image record for a theme asset that is visibly used on a landing
+ * page. Keeping the source here lets the ImageObject data stay in sync with
+ * the server-rendered HTML for both JavaScript and no-JavaScript visitors.
+ */
+function antonova_schema_theme_image($relative_path, $name, $alt, $description = '') {
+    $relative_path = ltrim((string) $relative_path, '/');
+    if ('' === $relative_path) {
+        return array();
+    }
+
+    $local_path = trailingslashit(get_template_directory()) . rawurldecode($relative_path);
+    $dimensions = is_file($local_path) ? wp_getimagesize($local_path) : false;
+
+    return array(
+        'src' => antonova_theme_asset_versioned($relative_path),
+        'caption' => $name,
+        'alt' => $alt,
+        'description' => $description,
+        'width' => !empty($dimensions[0]) ? (int) $dimensions[0] : 0,
+        'height' => !empty($dimensions[1]) ? (int) $dimensions[1] : 0,
+    );
+}
+
+/** Return all portfolio and hero images visibly present on the current page. */
+function antonova_schema_current_page_images() {
+    $images = array();
+
+    if (is_front_page()) {
+        $images[] = antonova_schema_theme_image(
+            'assets/hero/' . rawurlencode('Дизайн без названия (74).webp'),
+            'Торты и авторские десерты на заказ в Москве',
+            'Торт с малиной на бордовом фоне',
+            'Главная фотография страницы домашней кондитерской Оксаны Антоновой.'
+        );
+        $images = array_merge($images, antonova_home_file_based_works());
+    }
+
+    $landing_pages = array(
+        'wedding-cakes' => array(
+            'gallery' => 'wedding',
+            'hero' => array('assets/hero/Hero5-ezgif.com-jpg-to-webp-converter.webp', 'Свадебные торты на заказ в Москве', 'Многоярусный свадебный торт с лиловыми цветами'),
+        ),
+        'birthday-cakes' => array(
+            'gallery' => 'birthday',
+            'hero' => array('assets/hero/Hero4.webp', 'Торты на день рождения на заказ в Москве', 'Торт с ежевикой на праздничном столе'),
+        ),
+        'handmade-chocolate' => array(
+            'gallery' => 'chocolate',
+            'hero' => array('assets/hero/Hero3.webp', 'Шоколад ручной работы на заказ в Москве', 'Подарочный набор шоколада ручной работы'),
+        ),
+        'postcard-cakes' => array(
+            'gallery' => 'postcard',
+            'hero' => array('assets/hero/Hero1.webp', 'Торты-открытки на заказ в Москве', 'Торт-открытка с цветочным изображением в белой коробке'),
+        ),
+    );
+
+    foreach ($landing_pages as $slug => $page) {
+        if (!is_page($slug)) {
+            continue;
+        }
+
+        $images[] = antonova_schema_theme_image(
+            $page['hero'][0],
+            $page['hero'][1],
+            $page['hero'][2],
+            $page['hero'][2]
+        );
+        $gallery = antonova_landing_gallery_data($page['gallery']);
+        if (!empty($gallery['items']) && is_array($gallery['items'])) {
+            $images = array_merge($images, $gallery['items']);
+        }
+        break;
+    }
+
+    if (is_singular('antonova_work')) {
+        $work_id = get_queried_object_id();
+        $image_url = $work_id ? antonova_work_image_url($work_id, 'full') : '';
+        if ($image_url) {
+            $attachment_id = get_post_thumbnail_id($work_id);
+            $dimensions = $attachment_id ? wp_get_attachment_image_src($attachment_id, 'full') : false;
+            $title = get_the_title($work_id);
+            $images[] = array(
+                'src' => $image_url,
+                'caption' => $title,
+                'alt' => $title ?: 'Авторская работа',
+                'description' => wp_strip_all_tags(get_post_field('post_content', $work_id)),
+                'width' => !empty($dimensions[1]) ? (int) $dimensions[1] : 0,
+                'height' => !empty($dimensions[2]) ? (int) $dimensions[2] : 0,
+            );
+        }
+    }
+
+    return array_values(array_filter($images, static function ($image) {
+        return is_array($image) && !empty($image['src']) && !empty($image['caption'] ?? $image['title'] ?? $image['alt']);
+    }));
+}
+
+/** Render one server-side JSON-LD graph of the visible portfolio images. */
+function antonova_render_portfolio_image_schema() {
+    if (is_admin() || is_404()) {
+        return;
+    }
+
+    $context = antonova_seo_context();
+    $page_url = isset($context['url']) ? esc_url_raw($context['url']) : '';
+    if ('' === $page_url) {
+        return;
+    }
+
+    $nodes = array();
+    $seen_urls = array();
+    foreach (antonova_schema_current_page_images() as $image) {
+        $source_url = esc_url_raw($image['src']);
+        if ('' === $source_url) {
+            continue;
+        }
+
+        $source_key = remove_query_arg('v', $source_url);
+        if (isset($seen_urls[$source_key])) {
+            continue;
+        }
+        $seen_urls[$source_key] = true;
+
+        $name = sanitize_text_field($image['caption'] ?? $image['title'] ?? $image['alt']);
+        $alt = sanitize_text_field($image['alt'] ?? $name);
+        $description = sanitize_textarea_field($image['description'] ?? $alt);
+        if ('' === $name) {
+            continue;
+        }
+
+        $node = array(
+            '@type' => 'ImageObject',
+            '@id' => $page_url . '#portfolio-image-' . (count($nodes) + 1),
+            'contentUrl' => $source_url,
+            'url' => $source_url,
+            'name' => $name,
+            'caption' => $alt,
+            'inLanguage' => 'ru-RU',
+            'isPartOf' => array(
+                '@id' => $page_url . '#webpage',
+            ),
+        );
+
+        if ('' !== $description) {
+            $node['description'] = $description;
+        }
+        if (!empty($image['width'])) {
+            $node['width'] = (int) $image['width'];
+        }
+        if (!empty($image['height'])) {
+            $node['height'] = (int) $image['height'];
+        }
+
+        $nodes[] = $node;
+    }
+
+    if (empty($nodes)) {
+        return;
+    }
+
+    $schema = array(
+        '@context' => 'https://schema.org',
+        '@graph' => $nodes,
+    );
+    echo '<script type="application/ld+json" id="antonova-portfolio-image-schema">' . wp_json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) . '</script>' . "\n";
+}
+add_action('wp_head', 'antonova_render_portfolio_image_schema', 33);
+
 function antonova_enable_core_sitemap($enabled) {
     return true;
 }
