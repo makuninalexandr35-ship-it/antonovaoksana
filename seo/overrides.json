@@ -21,6 +21,13 @@
         }
       ],
       "description": "Торты на заказ в Москве",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "bestRating": "5",
+        "worstRating": "1",
+        "reviewCount": "2"
+      },
       "hasMap": "https://yandex.ru/profile/134953366795",
       "image": "https://antonovaoksana.ru/wp-content/themes/antonova-theme/assets/og-cake.jpg",
       "name": "Oksana Antonova",
